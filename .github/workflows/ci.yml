@@ -34,7 +34,7 @@ jobs:
         run: npm run typecheck
 
       - name: Expo Dependency Compatibility Check 
-        run: npx expo doctor
+        run: npx expo-doctor
 
   export:
     runs-on: ubuntu-latest
