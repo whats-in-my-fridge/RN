@@ -80,7 +80,9 @@ export default function HomeScreen() {
             className="flex-row items-center justify-between rounded-3xl bg-white p-4 shadow-sm ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-800"
           >
             <View className="flex-1 pr-3">
-              <Text className="text-base font-bold text-zinc-900 dark:text-white">{item.title}</Text>
+              <Text className="text-base font-bold text-zinc-900 dark:text-white">
+                {item.title}
+              </Text>
               <Text className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">{item.meta}</Text>
             </View>
             <View className="h-10 w-10 items-center justify-center rounded-2xl bg-zinc-100 dark:bg-zinc-800">
