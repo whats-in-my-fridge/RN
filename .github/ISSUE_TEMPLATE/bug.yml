@@ -1,0 +1,43 @@
+name: "🐛 버그 리포트"
+description: "오류/크래시/잘못된 동작을 보고합니다."
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        어떤 버그인지, 어떤 상황에서 발생하는지, 어떻게 해결할지(추정 포함)만 적어주세요.
+
+  - type: textarea
+    id: bug
+    attributes:
+      label: 버그 내용(무엇이)
+      description: 버그를 간단히 설명해주세요.
+      placeholder: "예) 아이템 추가 버튼을 누르면 앱이 종료됨"
+    validations:
+      required: true
+
+  - type: textarea
+    id: when
+    attributes:
+      label: 발생 상황(언제/어떤 조건에서)
+      description: 어떤 화면/상태에서 발생하나요?
+      placeholder: |
+        - 화면: (예: 홈)
+        - 조건: (예: 네트워크 OFF, 로그인 전)
+        - 재현: (예: 버튼 2번 탭하면 발생)
+    validations:
+      required: true
+
+  - type: textarea
+    id: fix
+    attributes:
+      label: 해결 방법(어떻게 고칠지)
+      description: 원인 추정/해결 방향/PR 계획 등을 적어주세요.
+      placeholder: |
+        - 원인 추정:
+        - 해결 방향:
+        - 확인할 것(로그/재현/테스트):
+    validations:
+      required: true
+

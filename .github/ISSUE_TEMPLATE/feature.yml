@@ -1,0 +1,42 @@
+name: "✨ 기능 요청"
+description: "새 기능 요청"
+title: "[Feature] "
+labels: ["feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        만들 기능을 간단히 정의해 주세요. (무엇을/어떻게/완료 기준)
+
+  - type: textarea
+    id: what
+    attributes:
+      label: 만들 기능(무엇을)
+      description: 구현하려는 기능을 한 문단으로 적어주세요.
+      placeholder: "예) 냉장고 아이템 검색 기능(이름/카테고리/유통기한)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: how
+    attributes:
+      label: 동작/UX(어떻게)
+      description: 화면/플로우 관점에서 어떻게 동작하면 좋을지 적어주세요.
+      placeholder: |
+        - 상단 검색창에서 키워드 입력
+        - 필터 칩으로 카테고리 선택
+        - 결과 리스트가 즉시 갱신
+    validations:
+      required: true
+
+  - type: textarea
+    id: done
+    attributes:
+      label: 완료 기준(Definition of Done)
+      placeholder: |
+        - [ ] 검색어 입력 시 결과가 갱신된다
+        - [ ] 빈 결과/로딩/에러 상태가 있다
+        - [ ] iOS/Android에서 동작 확인
+    validations:
+      required: false
+
