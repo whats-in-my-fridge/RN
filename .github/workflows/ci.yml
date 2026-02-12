@@ -73,7 +73,7 @@ jobs:
   export:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    needs: [biome, typecheck, lint, expo_doctor]
+    needs: [biome, typecheck, expo_doctor]
 
     strategy:
       fail-fast: false
