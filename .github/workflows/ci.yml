@@ -88,7 +88,7 @@ jobs:
         run: npm ci
 
       - name: Expo Doctor (dependency compatibility)
-        run: npx expo doctor
+        run: npx expo-doctor
 
   export:
     runs-on: ubuntu-latest
