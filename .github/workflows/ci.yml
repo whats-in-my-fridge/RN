@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  quality:
+  biome:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -27,19 +27,73 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Biome Check 
+      - name: Biome Check
         run: npm run biome-check
+
+  typecheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Type Check
         run: npm run typecheck
 
-      - name: Expo Dependency Compatibility Check 
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: ESLint (Expo)
+        run: npm run lint
+
+  expo_doctor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Expo Doctor (dependency compatibility)
         run: npx expo-doctor
 
   export:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    needs: quality
+    needs: [biome, typecheck, lint, expo_doctor]
 
     strategy:
       fail-fast: false
