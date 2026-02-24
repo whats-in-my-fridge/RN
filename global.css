@@ -2,3 +2,94 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ──────────────────────────────────────────────────────────────────────────
+ * Global Font Family – Pretendard as default
+ * ────────────────────────────────────────────────────────────────────────── */
+@layer base {
+  body,
+  html {
+    @apply font-sans;
+  }
+}
+
+/*
+ * CSS Custom Properties – Design Token Reference (Web Only)
+ *
+ * These variables are ONLY available on the web platform.
+ * Native (iOS/Android) uses static values compiled from tailwind.config.js.
+ *
+ * Usage in web-specific custom CSS:
+ *   background: var(--color-surface-card);
+ *   border-radius: var(--radius-card);
+ *
+ * DO NOT reference var() in tailwind.config.js — this breaks native builds.
+ */
+@layer base {
+  :root {
+    /* ── Layer 2: Brand ─────────────────────────────────────────────────── */
+    --color-primary:   #605856;
+    --color-secondary: #968D8A;
+
+    /* ── Layer 2: Surfaces ──────────────────────────────────────────────── */
+    --color-surface-app:     #FDFBF8;
+    --color-surface-card:    #FFFFFF;
+    --color-surface-section: #F3F1EF;
+
+    /* ── Layer 2: Content (Text) ────────────────────────────────────────── */
+    --color-content-primary:   #2C2C2C;
+    --color-content-secondary: #968D8A;
+    --color-content-dark:      #3D3432;
+
+    /* ── Layer 2: Stroke (Border) ───────────────────────────────────────── */
+    --color-stroke-default: #E8E5E3;
+    --color-stroke-light:   #F0EBE9;
+
+    /* ── Layer 2: Status – Fresh / Green ────────────────────────────────── */
+    --color-status-fresh:        #4A9B6F;
+    --color-status-fresh-light:  #3DA05C;
+    --color-status-fresh-bg:     #EDF7F2;
+    --color-status-fresh-border: #B8DEC8;
+
+    /* ── Layer 2: Status – Expiring / Red ───────────────────────────────── */
+    --color-status-expiring:        #E05C5C;
+    --color-status-expiring-bg:     #FDF3F3;
+    --color-status-expiring-border: #EDD0D0;
+
+    /* ── Layer 2: Status – Soon / Orange ────────────────────────────────── */
+    --color-status-soon:        #E07048;
+    --color-status-soon-bg:     #FEF0EC;
+    --color-status-soon-border: #F8D5C8;
+
+    /* ── Layer 2: Status – Warn / Amber ─────────────────────────────────── */
+    --color-status-warn:        #C68642;
+    --color-status-warn-bg:     #FDF8F0;
+    --color-status-warn-border: #EDD9BC;
+
+    /* ── Layer 2: Tag ───────────────────────────────────────────────────── */
+    --color-tag-bg:     #EBF0ED;
+    --color-tag-text:   #5B7A63;
+    --color-tag-border: #C5D9C8;
+
+    /* ── Layer 2: UI Affordances ────────────────────────────────────────── */
+    --color-heart-active:   #E05C5C;
+    --color-heart-inactive: #C8C0BC;
+    --color-tab-inactive:   #C0B8B5;
+
+    /* ── Layer 2: Radius Scale ──────────────────────────────────────────── */
+    --radius-sm:   12px;
+    --radius-md:   14px;
+    --radius-lg:   16px;
+    --radius-xl:   18px;
+    --radius-2xl:  20px;
+    --radius-full: 9999px;
+
+    /* ── Layer 3: Component Aliases ─────────────────────────────────────── */
+    --radius-badge:  var(--radius-sm);
+    --radius-input:  var(--radius-md);
+    --radius-card:   var(--radius-lg);
+    --radius-button: var(--radius-lg);
+    --radius-list:   var(--radius-xl);
+    --radius-hero:   var(--radius-2xl);
+    --radius-tag:    var(--radius-full);
+  }
+}
