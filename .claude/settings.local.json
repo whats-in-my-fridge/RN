@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run biome-check:*)",
+      "Bash(npm run biome-fix:*)",
+      "Bash(echo:*)",
+      "Bash(npm run typecheck:*)"
+    ]
+  }
+}
