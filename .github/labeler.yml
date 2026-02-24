@@ -44,6 +44,10 @@ labels:
     include:
       - '(?i)chore'
     exclude: []
+  'add':
+    include:
+      - '(?i)add'
+    exclude: []
   'del':
     include:
       - '(?i)del'
