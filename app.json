@@ -28,6 +28,18 @@
     "plugins": [
       "expo-router",
       [
+        "expo-font",
+        {
+          "fonts": [
+            "./src/shared/assets/fonts/Pretendard-Regular.otf",
+            "./src/shared/assets/fonts/Pretendard-Medium.otf",
+            "./src/shared/assets/fonts/Pretendard-SemiBold.otf",
+            "./src/shared/assets/fonts/Pretendard-Bold.otf",
+            "./src/shared/assets/fonts/Pretendard-ExtraBold.otf"
+          ]
+        }
+      ],
+      [
         "expo-splash-screen",
         {
           "image": "./src/shared/assets/images/splash-icon.png",

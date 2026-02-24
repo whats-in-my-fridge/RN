@@ -1,0 +1,30 @@
+# Claude Code가 읽지 않아도 되는 파일/디렉터리
+
+# 패키지 의존성 (매우 크고 읽을 필요 없음)
+node_modules/
+
+# Expo 빌드 산출물
+.expo/
+dist/
+web-build/
+
+# lock 파일 (내용 전체를 Claude가 읽을 필요 없음)
+package-lock.json
+
+# 정적 에셋 (바이너리 파일)
+src/shared/assets/images/
+src/shared/assets/fonts/
+
+# 빌드 캐시 / 타입 캐시
+*.tsbuildinfo
+.metro-health-check*
+
+# 에디터 설정
+.vscode/
+.git/
+
+# 환경변수 (보안)
+.env*
+
+# OS 아티팩트
+.DS_Store
