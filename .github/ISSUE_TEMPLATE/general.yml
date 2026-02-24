@@ -1,0 +1,25 @@
+name: "일반 이슈"
+description: "기능 추가 외 이슈 (질문, 리팩토링, 문서화 등)"
+title: "[task/#이슈번호] "
+labels: ["task"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: 요약
+      description: 한 문장으로 무엇에 관한 이슈인지 적어 주세요.
+      placeholder: "예) API 응답 타입 정의 통일"
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: 상세 내용
+      description: 배경, 현재 상황, 제안 등 필요한 정보를 적어 주세요.
+      placeholder: |
+        - 배경/동기
+        - 현재 상황
+        - 제안/원하는 방향
+    validations:
+      required: false
