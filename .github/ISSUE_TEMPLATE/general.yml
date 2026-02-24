@@ -1,7 +1,6 @@
-name: "일반 이슈"
+name: "범용 템플릿"
 description: "기능 추가 외 이슈 (질문, 리팩토링, 문서화 등)"
-title: "[task/#이슈번호] "
-labels: ["task"]
+title: "[라벨이름/#이슈번호] "
 body:
   - type: textarea
     id: summary

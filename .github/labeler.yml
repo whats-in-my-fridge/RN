@@ -27,18 +27,13 @@ comments:
 #    - 'exclude' patterns will ignore this label if any of these patterns match
 #    - 'branches' is an optional array of branch names (or patterns) to limit labeling according to PR target branch
 labels:
-  'bug':
+  'fix':
     include:
-      - '(?i)bug'
       - '(?i)fix'
     exclude: []
-  'feature':
+  'feat':
     include:
       - '(?i)feat'
-    exclude: []
-  'mod':
-    include:
-      - '(?i)mod'
     exclude: []
   'chore':
     include:
@@ -52,18 +47,6 @@ labels:
     include:
       - '(?i)del'
     exclude: []
-  'merge':
-    include:
-      - '(?i)merge'
-    exclude: []
-  'move':
-    include:
-      - '(?i)move'
-    exclude: []
-  'rename':
-    include:
-      - '(?i)rename'
-    exclude: []
   'refactor':
     include:
       - '(?i)refactor'
@@ -71,8 +54,4 @@ labels:
   'docs':
     include:
       - '(?i)docs'
-    exclude: []
-  'deploy':
-    include:
-      - '(?i)deploy'
     exclude: []
