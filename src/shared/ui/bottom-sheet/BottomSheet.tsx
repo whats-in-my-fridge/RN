@@ -1,5 +1,7 @@
 import { BottomSheetHandle, BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
-import { bottomSheetStyles, maxDynamicContentSize } from "./BottomSheet.styles";
+import { useWindowDimensions } from "react-native";
+
+import { BOTTOM_SHEET_MAX_HEIGHT_RATIO, bottomSheetStyles } from "./BottomSheet.styles";
 import { BottomSheetBackdropCloseable } from "./BottomSheetBackdrop";
 import { useBottomSheetModal } from "./useBottomSheetModal";
 
@@ -10,11 +12,9 @@ export interface BottomSheetProps {
 }
 
 export function BottomSheet({ isOpen, onClose, children }: BottomSheetProps) {
+  const { height } = useWindowDimensions();
   const { modalRef, handleDismiss } = useBottomSheetModal(isOpen, onClose);
-
-  if (!isOpen) {
-    return null;
-  }
+  const maxDynamicContentSize = height * BOTTOM_SHEET_MAX_HEIGHT_RATIO;
 
   return (
     <BottomSheetModal

@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
 import { semanticColors, semanticRadius, semanticSpacing } from "@/shared/config/tokens";
 
@@ -21,6 +21,3 @@ export const bottomSheetStyles = StyleSheet.create({
 });
 
 export const BOTTOM_SHEET_MAX_HEIGHT_RATIO = 0.9;
-
-export const maxDynamicContentSize =
-  Dimensions.get("window").height * BOTTOM_SHEET_MAX_HEIGHT_RATIO;

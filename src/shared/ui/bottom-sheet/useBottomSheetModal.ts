@@ -7,6 +7,8 @@ export function useBottomSheetModal(isOpen: boolean, onClose: () => void) {
   useEffect(() => {
     if (isOpen) {
       modalRef.current?.present();
+    } else {
+      modalRef.current?.dismiss();
     }
   }, [isOpen]);
 
