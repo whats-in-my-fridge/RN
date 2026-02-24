@@ -17,9 +17,7 @@ export default function HomeScreen() {
         onPress={() =>
           openBottomSheet(
             <BottomSheetView style={{ paddingHorizontal: 20, paddingVertical: 24 }}>
-              <Text className="text-xl font-extrabold text-content-primary">
-                바텀시트
-              </Text>
+              <Text className="text-xl font-extrabold text-content-primary">바텀시트</Text>
               <Text className="mt-2 text-sm text-content-secondary">
                 바깥 영역 탭 또는 아래로 스와이프하면 닫힙니다
               </Text>
