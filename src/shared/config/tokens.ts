@@ -110,19 +110,19 @@ export type SemanticRadiusKey = keyof typeof semanticRadius;
 
 export const semanticSpacing = {
   // ── 화면 레이아웃 ─────────────────────────────────────────────────────────
-  screen: primitiveSpacing["4"],   // 16px — 화면 좌우 가장자리 여백 (px-screen)
-  section: primitiveSpacing["6"],  // 24px — 섹션 간 상하 여백 (mt-section)
+  screen: primitiveSpacing["4"], // 16px — 화면 좌우 가장자리 여백 (px-screen)
+  section: primitiveSpacing["6"], // 24px — 섹션 간 상하 여백 (mt-section)
 
   // ── 컴포넌트 ──────────────────────────────────────────────────────────────
-  card: primitiveSpacing["3"],     // 12px — 카드 내부 패딩 (p-card)
-  item: primitiveSpacing["2"],     // 8px  — 리스트 아이템 간 간격 (gap-item)
+  card: primitiveSpacing["3"], // 12px — 카드 내부 패딩 (p-card)
+  item: primitiveSpacing["2"], // 8px  — 리스트 아이템 간 간격 (gap-item)
 
   // ── 제네릭 스케일 ─────────────────────────────────────────────────────────
-  xs: primitiveSpacing["1"],       // 4px
-  sm: primitiveSpacing["2"],       // 8px
-  md: primitiveSpacing["4"],       // 16px
-  lg: primitiveSpacing["6"],       // 24px
-  xl: primitiveSpacing["8"],       // 32px
+  xs: primitiveSpacing["1"], // 4px
+  sm: primitiveSpacing["2"], // 8px
+  md: primitiveSpacing["4"], // 16px
+  lg: primitiveSpacing["6"], // 24px
+  xl: primitiveSpacing["8"], // 32px
 } as const;
 
 export type SemanticSpacingKey = keyof typeof semanticSpacing;
