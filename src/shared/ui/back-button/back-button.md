@@ -1,6 +1,6 @@
 # BackButton
 
-레시피 세부 화면 등 스택 네비게이션 화면에서 이전 화면으로 돌아갈 때 사용하는 공용 버튼 컴포넌트.
+레시피 세부 화면, 스캔화면 등에서 이전 화면으로 돌아갈 때 사용하는 공용 버튼 컴포넌트.
 
 ## 위치
 
@@ -34,7 +34,7 @@ import { BackButton } from "@/shared/ui/back-button";
 // 밝은 버튼
 <BackButton onPress={() => router.back()} />
 
-// 어두운 버튼튼
+// 어두운 버튼 -> 스캔 페이지 등에 사용할듯 함
 <BackButton variant="dark" onPress={() => router.back()} />
 ```
 
