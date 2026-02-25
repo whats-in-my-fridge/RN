@@ -69,9 +69,7 @@ export default function HomeScreen() {
         className="mb-6 rounded-2xl border border-zinc-200 bg-zinc-100 px-4 py-3 active:opacity-70"
         onPress={() => router.push("/test-back-button" as never)}
       >
-        <Text className="text-center text-sm font-bold text-zinc-700">
-          🔙 뒤로가기 버튼 테스트
-        </Text>
+        <Text className="text-center text-sm font-bold text-zinc-700">🔙 뒤로가기 버튼 테스트</Text>
       </Pressable>
 
       {/* Section: Recent items (placeholder UI) */}

@@ -26,7 +26,9 @@ export default function TestBackButtonScreen() {
       {/* 본문 */}
       <View className="mt-section flex-1 items-center justify-center gap-item">
         <Text className="text-xl text-content-secondary">BackButton 테스트 페이지</Text>
-        <Text className="text-sm text-content-secondary">좌상단 버튼을 누르면 뒤로 돌아갑니다.</Text>
+        <Text className="text-sm text-content-secondary">
+          좌상단 버튼을 누르면 뒤로 돌아갑니다.
+        </Text>
       </View>
     </View>
   );
