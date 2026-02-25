@@ -27,8 +27,8 @@ export function IngredientChipsRow({
 
   return (
     <>
-      {labels.map((label, index) => (
-        <View key={`${label}-${index}`} className={chipContainerClassName}>
+      {labels.map((label) => (
+        <View key={label} className={chipContainerClassName}>
           <Text className="text-sm font-semibold text-content-dark" numberOfLines={1}>
             {label}
           </Text>
