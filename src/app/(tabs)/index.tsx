@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 
 export default function HomeScreen() {
@@ -62,6 +63,16 @@ export default function HomeScreen() {
           <Text className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">레시피</Text>
         </View>
       </View>
+
+      {/* [테스트] BackButton 컴포넌트 확인 */}
+      <Pressable
+        className="mb-6 rounded-2xl border border-zinc-200 bg-zinc-100 px-4 py-3 active:opacity-70"
+        onPress={() => router.push("/test-back-button" as never)}
+      >
+        <Text className="text-center text-sm font-bold text-zinc-700">
+          🔙 뒤로가기 버튼 테스트
+        </Text>
+      </Pressable>
 
       {/* Section: Recent items (placeholder UI) */}
       <View className="mb-3 flex-row items-end justify-between">
