@@ -5,6 +5,7 @@ import "react-native-reanimated";
 
 import "../../global.css";
 
+import { BottomSheetProvider } from "@/app/_providers";
 import { useColorScheme } from "@/shared/lib/hooks/use-color-scheme";
 
 export const unstable_settings = {
@@ -15,11 +16,14 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <BottomSheetProvider>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="test-back-button" options={{ headerShown: false }} />
+        </Stack>
+        <StatusBar style="auto" />
+      </ThemeProvider>
+    </BottomSheetProvider>
   );
 }

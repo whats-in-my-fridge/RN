@@ -22,6 +22,7 @@ const MAPPING = {
   "person.2": "groups",
   heart: "favorite-border",
   "heart.fill": "favorite",
+  "chevron.left": "chevron-left",
 } as IconMapping;
 
 /**
