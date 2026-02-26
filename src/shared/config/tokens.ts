@@ -80,6 +80,10 @@ export const semanticColors = {
   "heart-inactive": primitiveColors["warm-gray-300"],
   "tab-inactive": primitiveColors["warm-gray-250"],
 
+  // ── Overlay (토스트, 모달 배경) ──────────────────────────────────────────
+  "overlay-dark": "rgba(0, 0, 0, 0.6)", // 검정색 60% 투명도 — 토스트 배경색
+  "overlay-darker": "rgba(0, 0, 0, 0.8)", // 검정색 80% 투명도 — 진한 오버레이
+
   // ── Essentials ────────────────────────────────────────────────────────────
   white: primitiveColors["neutral-white"],
   black: "#000000",

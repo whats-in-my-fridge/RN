@@ -14,31 +14,33 @@ interface ToastStore {
   hide: () => void;
 }
 
-let timeoutId: ReturnType<typeof setTimeout> | null = null;
+export const useToastStore = create<ToastStore>((set) => {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
-export const useToastStore = create<ToastStore>((set) => ({
-  toast: null,
+  return {
+    toast: null,
 
-  show: (message, duration = 3000) => {
-    // Clear existing timeout if any
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    }
+    show: (message, duration = 3000) => {
+      // Clear existing timeout if any
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
 
-    set({ toast: { message } });
+      set({ toast: { message } });
 
-    // Auto-hide after duration
-    timeoutId = setTimeout(() => {
+      // Auto-hide after duration
+      timeoutId = setTimeout(() => {
+        set({ toast: null });
+        timeoutId = null;
+      }, duration);
+    },
+
+    hide: () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+      }
       set({ toast: null });
-      timeoutId = null;
-    }, duration);
-  },
-
-  hide: () => {
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-      timeoutId = null;
-    }
-    set({ toast: null });
-  },
-}));
+    },
+  };
+});

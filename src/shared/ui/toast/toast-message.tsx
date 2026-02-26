@@ -42,8 +42,8 @@ export function ToastMessage() {
         bottom: tokens.spacing.lg + tokens.spacing.lg + tokens.spacing.xl + tokens.spacing.md,
         alignSelf: "center",
         width: "66%",
-        // 배경색: 검정색 60% 투명도
-        backgroundColor: `${tokens.color.black}99`,
+        // 배경색: 오버레이 다크 (검정색 60% 투명도)
+        backgroundColor: tokens.color["overlay-dark"],
         // 테두리 반경: 2xl 토큰
         borderRadius: tokens.radius["2xl"],
         // 좌우 패딩: md(16px)
