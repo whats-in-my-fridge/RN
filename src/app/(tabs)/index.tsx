@@ -1,13 +1,12 @@
+import { BottomSheetView } from "@gorhom/bottom-sheet";
 import { router } from "expo-router";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
-import { BottomSheetView } from "@gorhom/bottom-sheet";
-import { Pressable, ScrollView, Text } from "react-native";
 import { useBottomSheetStore } from "@/shared/model/bottom-sheet";
 
 export default function HomeScreen() {
   const openBottomSheet = useBottomSheetStore((s) => s.open);
 
-return (
+  return (
     <ScrollView
       className="flex-1 bg-surface-app"
       contentContainerClassName="flex-1 items-center justify-center px-screen"
@@ -119,7 +118,6 @@ return (
       >
         <Text className="text-base text-center font-bold text-white">바텀시트 열기</Text>
       </Pressable>
-
     </ScrollView>
   );
 }
