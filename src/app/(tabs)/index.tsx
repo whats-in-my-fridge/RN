@@ -1,5 +1,122 @@
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 
+import type { RecipeCardData } from "@/entities/recipe";
+import { BannerFoodCard, DefaultFoodCard } from "@/entities/recipe";
+import { RecipeLikedButton } from "@/features/recipe-liked-button";
+
+interface SummaryStat {
+  label: string;
+  value: string;
+  unit: string;
+}
+
+interface RecentItem {
+  title: string;
+  meta: string;
+}
+
+interface RecommendedCard {
+  variant: "banner" | "default";
+  recipe: RecipeCardData;
+  onPressMessage: string;
+}
+
+const SUMMARY_STATS: SummaryStat[] = [
+  { label: "냉장고", value: "12", unit: "아이템" },
+  { label: "임박", value: "3", unit: "유통기한" },
+  { label: "추천", value: "7", unit: "레시피" },
+];
+
+const RECENT_ITEMS: RecentItem[] = [
+  { title: "계란", meta: "유통기한 2일 남음" },
+  { title: "우유", meta: "유통기한 5일 남음" },
+  { title: "양파", meta: "상온 보관" },
+];
+
+const BANNER_RECIPE: RecipeCardData = {
+  recipeId: 501,
+  title: "비빔밥",
+  thumbnail:
+    "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=1400&q=80",
+  matchRate: 98.5,
+  missingIngredients: ["대파", "참기름", "고추장", "콩나물"],
+  cookTime: "25분",
+  difficulty: "중급",
+};
+
+const DEFAULT_RECIPE: RecipeCardData = {
+  recipeId: 502,
+  title: "달걀 볶음밥",
+  thumbnail:
+    "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1400&q=80",
+  matchRate: 93.2,
+  missingIngredients: ["굴소스", "굴소스2", "굴소스3", "굴소스4"],
+  cookTime: "15분",
+  difficulty: "초급",
+};
+
+const RECOMMENDED_CARDS: RecommendedCard[] = [
+  {
+    variant: "banner",
+    recipe: BANNER_RECIPE,
+    onPressMessage: "비빔밥 상세로 이동",
+  },
+  {
+    variant: "default",
+    recipe: DEFAULT_RECIPE,
+    onPressMessage: "달걀 볶음밥 상세로 이동",
+  },
+];
+
+function SectionHeader({ title, actionLabel }: { title: string; actionLabel: string }) {
+  return (
+    <View className="mb-3 flex-row items-end justify-between">
+      <Text className="text-lg font-extrabold text-zinc-900 dark:text-white">{title}</Text>
+      <Text className="text-sm font-semibold text-zinc-500 dark:text-zinc-400">{actionLabel}</Text>
+    </View>
+  );
+}
+
+function SummaryStatCard({ label, value, unit }: SummaryStat) {
+  return (
+    <View className="flex-1 rounded-3xl bg-zinc-100 p-4 dark:bg-zinc-900">
+      <Text className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">{label}</Text>
+      <Text className="mt-1 text-2xl font-extrabold text-zinc-900 dark:text-white">{value}</Text>
+      <Text className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">{unit}</Text>
+    </View>
+  );
+}
+
+function renderRecommendedCard({ variant, recipe, onPressMessage }: RecommendedCard) {
+  const likeButton = (
+    <RecipeLikedButton
+      recipeId={recipe.recipeId}
+      initialLiked={recipe.isLiked}
+      onLikeError={(error) => alert(error.message)}
+    />
+  );
+
+  if (variant === "banner") {
+    return (
+      <BannerFoodCard
+        key={recipe.recipeId}
+        recipe={recipe}
+        onPress={() => alert(onPressMessage)}
+        likeButton={likeButton}
+      />
+    );
+  }
+
+  return (
+    <DefaultFoodCard
+      key={recipe.recipeId}
+      recipe={recipe}
+      onPress={() => alert(onPressMessage)}
+      likeButton={likeButton}
+    />
+  );
+}
+
 export default function HomeScreen() {
   return (
     <ScrollView
@@ -46,35 +163,20 @@ export default function HomeScreen() {
 
       {/* Summary cards */}
       <View className="mb-6 flex-row gap-3">
-        <View className="flex-1 rounded-3xl bg-zinc-100 p-4 dark:bg-zinc-900">
-          <Text className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">냉장고</Text>
-          <Text className="mt-1 text-2xl font-extrabold text-zinc-900 dark:text-white">12</Text>
-          <Text className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">아이템</Text>
-        </View>
-        <View className="flex-1 rounded-3xl bg-zinc-100 p-4 dark:bg-zinc-900">
-          <Text className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">임박</Text>
-          <Text className="mt-1 text-2xl font-extrabold text-zinc-900 dark:text-white">3</Text>
-          <Text className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">유통기한</Text>
-        </View>
-        <View className="flex-1 rounded-3xl bg-zinc-100 p-4 dark:bg-zinc-900">
-          <Text className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">추천</Text>
-          <Text className="mt-1 text-2xl font-extrabold text-zinc-900 dark:text-white">7</Text>
-          <Text className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">레시피</Text>
-        </View>
+        {SUMMARY_STATS.map((stat) => (
+          <SummaryStatCard key={stat.label} {...stat} />
+        ))}
       </View>
+
+      <SectionHeader title="오늘의 추천" actionLabel="새로고침" />
+
+      <View className="mb-7 gap-4">{RECOMMENDED_CARDS.map(renderRecommendedCard)}</View>
 
       {/* Section: Recent items (placeholder UI) */}
-      <View className="mb-3 flex-row items-end justify-between">
-        <Text className="text-lg font-extrabold text-zinc-900 dark:text-white">최근 추가</Text>
-        <Text className="text-sm font-semibold text-zinc-500 dark:text-zinc-400">전체보기</Text>
-      </View>
+      <SectionHeader title="최근 추가" actionLabel="전체보기" />
 
       <View className="gap-3">
-        {[
-          { title: "계란", meta: "유통기한 2일 남음" },
-          { title: "우유", meta: "유통기한 5일 남음" },
-          { title: "양파", meta: "상온 보관" },
-        ].map((item) => (
+        {RECENT_ITEMS.map((item) => (
           <View
             key={item.title}
             className="flex-row items-center justify-between rounded-3xl bg-white p-4 shadow-sm ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-800"

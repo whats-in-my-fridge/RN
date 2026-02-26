@@ -93,12 +93,12 @@ export type SemanticColorKey = keyof typeof semanticColors;
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const semanticRadius = {
-  sm: primitiveRadius["sm"],
-  md: primitiveRadius["md"],
-  lg: primitiveRadius["lg"],
-  xl: primitiveRadius["xl"],
+  sm: primitiveRadius.sm,
+  md: primitiveRadius.md,
+  lg: primitiveRadius.lg,
+  xl: primitiveRadius.xl,
   "2xl": primitiveRadius["2xl"],
-  full: primitiveRadius["full"],
+  full: primitiveRadius.full,
 } as const;
 
 export type SemanticRadiusKey = keyof typeof semanticRadius;
