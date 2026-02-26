@@ -1,13 +1,11 @@
 // src/shared/ui/toast/toast-message.tsx
 // 토스트 메시지 공용 컴포넌트
-// 화면 위에 absolute로 고정되어 레이아웃에 영향을 주지 않습니다.
-// 나타날 때 페이드인, 사라질 때 페이드아웃 애니메이션이 적용됩니다.
-// ⚠️  모든 스타일은 src/shared/config/tokens.ts의 디자인 토큰에서 가져옵니다.
 
 import { useEffect, useRef, useState } from "react";
 import { Animated, Text } from "react-native";
-import { useToastStore, type ToastItem } from "@/shared/model/toast";
 import { tokens } from "@/shared/config/tokens";
+import { type ToastItem, useToastStore } from "@/shared/model/toast";
+
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const { primitiveTypography } = require("@/shared/config/token-primitives.js");
 
@@ -45,7 +43,7 @@ export function ToastMessage() {
         alignSelf: "center",
         width: "66%",
         // 배경색: 검정색 60% 투명도
-        backgroundColor: tokens.color.black + "99",
+        backgroundColor: `${tokens.color.black}99`,
         // 테두리 반경: 2xl 토큰
         borderRadius: tokens.radius["2xl"],
         // 좌우 패딩: md(16px)

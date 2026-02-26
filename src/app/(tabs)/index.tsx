@@ -1,10 +1,10 @@
+import { BottomSheetView } from "@gorhom/bottom-sheet";
+import { router } from "expo-router";
+import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { tokens } from "@/shared/config/tokens";
 import { useBottomSheetStore } from "@/shared/model/bottom-sheet";
 import { useToastStore } from "@/shared/model/toast";
 import { ToastMessage } from "@/shared/ui/toast";
-import { BottomSheetView } from "@gorhom/bottom-sheet";
-import { router } from "expo-router";
-import { Image, Pressable, ScrollView, Text, View } from "react-native";
 
 export default function HomeScreen() {
   const openBottomSheet = useBottomSheetStore((s) => s.open);
@@ -21,9 +21,7 @@ export default function HomeScreen() {
         <View className="mb-5 overflow-hidden rounded-3xl bg-zinc-900 px-5 py-6 dark:bg-zinc-900">
           <View className="flex-row items-center justify-between">
             <View className="flex-1 pr-4">
-              <Text className="text-sm font-medium text-zinc-300">
-                오늘 뭐 먹지?
-              </Text>
+              <Text className="text-sm font-medium text-zinc-300">오늘 뭐 먹지?</Text>
               <Text className="mt-1 text-3xl font-extrabold tracking-tight text-white">
                 What&apos;s in my fridge
               </Text>
@@ -44,18 +42,14 @@ export default function HomeScreen() {
               className="flex-1 rounded-2xl bg-white px-4 py-3 active:opacity-90"
               onPress={() => alert("준비중입니다")}
             >
-              <Text className="text-center text-sm font-bold text-zinc-900">
-                빠른 추가
-              </Text>
+              <Text className="text-center text-sm font-bold text-zinc-900">빠른 추가</Text>
             </Pressable>
 
             <Pressable
               className="flex-1 rounded-2xl bg-zinc-800 px-4 py-3 active:opacity-90"
               onPress={() => alert("준비중입니다")}
             >
-              <Text className="text-center text-sm font-semibold text-white">
-                탐색
-              </Text>
+              <Text className="text-center text-sm font-semibold text-white">탐색</Text>
             </Pressable>
           </View>
         </View>
@@ -63,37 +57,19 @@ export default function HomeScreen() {
         {/* Summary cards */}
         <View className="mb-6 flex-row gap-3">
           <View className="flex-1 rounded-3xl bg-zinc-100 p-4 dark:bg-zinc-900">
-            <Text className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
-              냉장고
-            </Text>
-            <Text className="mt-1 text-2xl font-extrabold text-zinc-900 dark:text-white">
-              12
-            </Text>
-            <Text className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
-              아이템
-            </Text>
+            <Text className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">냉장고</Text>
+            <Text className="mt-1 text-2xl font-extrabold text-zinc-900 dark:text-white">12</Text>
+            <Text className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">아이템</Text>
           </View>
           <View className="flex-1 rounded-3xl bg-zinc-100 p-4 dark:bg-zinc-900">
-            <Text className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
-              임박
-            </Text>
-            <Text className="mt-1 text-2xl font-extrabold text-zinc-900 dark:text-white">
-              3
-            </Text>
-            <Text className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
-              유통기한
-            </Text>
+            <Text className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">임박</Text>
+            <Text className="mt-1 text-2xl font-extrabold text-zinc-900 dark:text-white">3</Text>
+            <Text className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">유통기한</Text>
           </View>
           <View className="flex-1 rounded-3xl bg-zinc-100 p-4 dark:bg-zinc-900">
-            <Text className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">
-              추천
-            </Text>
-            <Text className="mt-1 text-2xl font-extrabold text-zinc-900 dark:text-white">
-              7
-            </Text>
-            <Text className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
-              레시피
-            </Text>
+            <Text className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">추천</Text>
+            <Text className="mt-1 text-2xl font-extrabold text-zinc-900 dark:text-white">7</Text>
+            <Text className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">레시피</Text>
           </View>
         </View>
 
@@ -109,12 +85,8 @@ export default function HomeScreen() {
 
         {/* Section: Recent items (placeholder UI) */}
         <View className="w-full mb-3 flex-row items-end justify-between">
-          <Text className="text-lg font-extrabold text-zinc-900 dark:text-white">
-            최근 추가
-          </Text>
-          <Text className="text-sm font-semibold text-zinc-500 dark:text-zinc-400">
-            전체보기
-          </Text>
+          <Text className="text-lg font-extrabold text-zinc-900 dark:text-white">최근 추가</Text>
+          <Text className="text-sm font-semibold text-zinc-500 dark:text-zinc-400">전체보기</Text>
         </View>
 
         <View className="w-full gap-3 mb-6">
@@ -153,12 +125,8 @@ export default function HomeScreen() {
           className="w-full rounded-button bg-primary px-8 py-4 active:opacity-90 mb-10"
           onPress={() =>
             openBottomSheet(
-              <BottomSheetView
-                style={{ paddingHorizontal: 20, paddingVertical: 24 }}
-              >
-                <Text className="text-xl font-extrabold text-content-primary">
-                  바텀시트
-                </Text>
+              <BottomSheetView style={{ paddingHorizontal: 20, paddingVertical: 24 }}>
+                <Text className="text-xl font-extrabold text-content-primary">바텀시트</Text>
                 <Text className="mt-2 text-sm text-content-secondary">
                   바깥 영역 탭 또는 아래로 스와이프하면 닫힙니다
                 </Text>
@@ -166,9 +134,7 @@ export default function HomeScreen() {
             )
           }
         >
-          <Text className="text-base text-center font-bold text-white">
-            바텀시트 열기
-          </Text>
+          <Text className="text-base text-center font-bold text-white">바텀시트 열기</Text>
         </Pressable>
       </ScrollView>
 
