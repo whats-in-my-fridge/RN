@@ -1,11 +1,16 @@
 import { router } from "expo-router";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
+import { BottomSheetView } from "@gorhom/bottom-sheet";
+import { Pressable, ScrollView, Text } from "react-native";
+import { useBottomSheetStore } from "@/shared/model/bottom-sheet";
 
 export default function HomeScreen() {
-  return (
+  const openBottomSheet = useBottomSheetStore((s) => s.open);
+
+return (
     <ScrollView
-      className="flex-1 bg-white dark:bg-zinc-950"
-      contentContainerClassName="px-5 pt-6 pb-10"
+      className="flex-1 bg-surface-app"
+      contentContainerClassName="flex-1 items-center justify-center px-screen"
       showsVerticalScrollIndicator={false}
     >
       {/* Header */}
@@ -66,19 +71,19 @@ export default function HomeScreen() {
 
       {/* [테스트] BackButton 컴포넌트 확인 */}
       <Pressable
-        className="mb-6 rounded-2xl border border-zinc-200 bg-zinc-100 px-4 py-3 active:opacity-70"
+        className="mb-6 w-full rounded-2xl border border-zinc-200 bg-zinc-100 px-4 py-3 active:opacity-70"
         onPress={() => router.push("/test-back-button" as never)}
       >
         <Text className="text-center text-sm font-bold text-zinc-700">🔙 뒤로가기 버튼 테스트</Text>
       </Pressable>
 
       {/* Section: Recent items (placeholder UI) */}
-      <View className="mb-3 flex-row items-end justify-between">
+      <View className="w-full mb-3 flex-row items-end justify-between">
         <Text className="text-lg font-extrabold text-zinc-900 dark:text-white">최근 추가</Text>
         <Text className="text-sm font-semibold text-zinc-500 dark:text-zinc-400">전체보기</Text>
       </View>
 
-      <View className="gap-3">
+      <View className="w-full gap-3 mb-6">
         {[
           { title: "계란", meta: "유통기한 2일 남음" },
           { title: "우유", meta: "유통기한 5일 남음" },
@@ -92,14 +97,29 @@ export default function HomeScreen() {
               <Text className="text-base font-bold text-zinc-900 dark:text-white">
                 {item.title}
               </Text>
-              <Text className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">{item.meta}</Text>
-            </View>
-            <View className="h-10 w-10 items-center justify-center rounded-2xl bg-zinc-100 dark:bg-zinc-800">
-              <Text className="text-base font-black text-zinc-700 dark:text-zinc-200">+</Text>
+              <Text className="text-sm text-zinc-500">{item.meta}</Text>
             </View>
           </View>
         ))}
       </View>
+
+      {/* develop 브랜치에서 넘어온 바텀시트 테스트 버튼 */}
+      <Pressable
+        className="w-full rounded-button bg-primary px-8 py-4 active:opacity-90 mb-10"
+        onPress={() =>
+          openBottomSheet(
+            <BottomSheetView style={{ paddingHorizontal: 20, paddingVertical: 24 }}>
+              <Text className="text-xl font-extrabold text-content-primary">바텀시트</Text>
+              <Text className="mt-2 text-sm text-content-secondary">
+                바깥 영역 탭 또는 아래로 스와이프하면 닫힙니다
+              </Text>
+            </BottomSheetView>,
+          )
+        }
+      >
+        <Text className="text-base text-center font-bold text-white">바텀시트 열기</Text>
+      </Pressable>
+
     </ScrollView>
   );
 }
