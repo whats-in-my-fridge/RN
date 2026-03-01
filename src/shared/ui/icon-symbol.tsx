@@ -24,6 +24,7 @@ const MAPPING = {
   "heart.fill": "favorite",
   "chevron.left": "chevron-left",
   magnifyingglass: "search",
+  flame: "whatshot",
 } as IconMapping;
 
 /**

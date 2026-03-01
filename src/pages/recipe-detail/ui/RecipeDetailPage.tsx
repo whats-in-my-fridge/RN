@@ -1,5 +1,7 @@
 import { Image, ScrollView, Text, View } from "react-native";
 
+import { IconSymbol } from "@/shared/ui/icon-symbol";
+
 import type { Recipe } from "@/entities/recipe/model/recipe.types";
 
 // ────────────────────────────────────────────────────────
@@ -109,20 +111,8 @@ export function RecipeDetailPage({ recipeId }: RecipeDetailPageProps) {
     );
   }
 
-  const { ownedIngredients, missingIngredients } = recipe.ingredients.reduce<{
-    ownedIngredients: typeof recipe.ingredients;
-    missingIngredients: typeof recipe.ingredients;
-  }>(
-    (acc, ingredient) => {
-      if (ingredient.owned) {
-        acc.ownedIngredients.push(ingredient);
-      } else {
-        acc.missingIngredients.push(ingredient);
-      }
-      return acc;
-    },
-    { ownedIngredients: [], missingIngredients: [] },
-  );
+  const ownedIngredients = recipe.ingredients.filter((ingredient) => ingredient.owned);
+  const missingIngredients = recipe.ingredients.filter((ingredient) => !ingredient.owned);
 
   return (
     <ScrollView className="flex-1 bg-surface-app" showsVerticalScrollIndicator={false}>
@@ -139,9 +129,18 @@ export function RecipeDetailPage({ recipeId }: RecipeDetailPageProps) {
       <View className="px-screen py-6">
         {/* 메타 정보 */}
         <View className="flex-row items-center gap-4">
-          <Text className="text-sm text-content-secondary">⏱ {recipe.cookingTime}분</Text>
-          <Text className="text-sm text-content-secondary">👤 {recipe.servings}인분</Text>
-          <Text className="text-sm text-content-secondary">🔥 {recipe.difficulty}</Text>
+          <View className="flex-row items-center gap-1">
+            <IconSymbol name="clock" size={14} color="#8E8E93" />
+            <Text className="text-sm text-content-secondary">{recipe.cookingTime}분</Text>
+          </View>
+          <View className="flex-row items-center gap-1">
+            <IconSymbol name="person.2" size={14} color="#8E8E93" />
+            <Text className="text-sm text-content-secondary">{recipe.servings}인분</Text>
+          </View>
+          <View className="flex-row items-center gap-1">
+            <IconSymbol name="flame" size={14} color="#8E8E93" />
+            <Text className="text-sm text-content-secondary">{recipe.difficulty}</Text>
+          </View>
         </View>
 
         {/* 설명 */}
@@ -204,7 +203,10 @@ export function RecipeDetailPage({ recipeId }: RecipeDetailPageProps) {
               {/* 스텝 설명 */}
               <View className="flex-1">
                 <Text className="text-sm leading-5 text-content-primary">{s.description}</Text>
-                <Text className="mt-1 text-xs text-content-secondary">⏱ {s.duration}분</Text>
+                <View className="mt-1 flex-row items-center gap-1">
+                  <IconSymbol name="clock" size={12} color="#8E8E93" />
+                  <Text className="text-xs text-content-secondary">{s.duration}분</Text>
+                </View>
                 {s.imageUrl && (
                   <Image
                     source={{ uri: s.imageUrl }}

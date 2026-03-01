@@ -67,7 +67,7 @@ export function SearchPage() {
     });
   }, [searchQuery, selectedCategory]);
 
-  const ownedCount = filteredRecipes.length;
+  const recipeCount = filteredRecipes.length;
 
   return (
     <ScrollView
@@ -92,7 +92,7 @@ export function SearchPage() {
           냉장고 재료로 만들 수 있어요
         </Text>
         <View className="rounded-tag bg-stroke-default px-2 py-0.5">
-          <Text className="text-xs text-content-secondary">{ownedCount}개</Text>
+          <Text className="text-xs text-content-secondary">{recipeCount}개</Text>
         </View>
       </View>
 
