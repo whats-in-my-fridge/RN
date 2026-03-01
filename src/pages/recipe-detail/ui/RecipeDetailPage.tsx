@@ -1,8 +1,6 @@
 import { Image, ScrollView, Text, View } from "react-native";
-
-import { IconSymbol } from "@/shared/ui/icon-symbol";
-
 import type { Recipe } from "@/entities/recipe/model/recipe.types";
+import { IconSymbol } from "@/shared/ui/icon-symbol";
 
 // ────────────────────────────────────────────────────────
 // 더미 데이터 (API 연동 전 UI 확인용)

@@ -5,8 +5,7 @@ import { RecipeLikedButton } from "@/features/recipe-liked-button";
 
 const COLUMN_GAP = 12;
 const SCREEN_PADDING = 16;
-const CARD_WIDTH =
-  (Dimensions.get("window").width - SCREEN_PADDING * 2 - COLUMN_GAP) / 2;
+const CARD_WIDTH = (Dimensions.get("window").width - SCREEN_PADDING * 2 - COLUMN_GAP) / 2;
 
 interface RecipeListProps {
   recipes: RecipeCardData[];
