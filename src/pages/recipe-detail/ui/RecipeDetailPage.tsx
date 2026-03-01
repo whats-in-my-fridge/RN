@@ -109,8 +109,20 @@ export function RecipeDetailPage({ recipeId }: RecipeDetailPageProps) {
     );
   }
 
-  const ownedIngredients = recipe.ingredients.filter((i) => i.owned);
-  const missingIngredients = recipe.ingredients.filter((i) => !i.owned);
+  const { ownedIngredients, missingIngredients } = recipe.ingredients.reduce<{
+    ownedIngredients: typeof recipe.ingredients;
+    missingIngredients: typeof recipe.ingredients;
+  }>(
+    (acc, ingredient) => {
+      if (ingredient.owned) {
+        acc.ownedIngredients.push(ingredient);
+      } else {
+        acc.missingIngredients.push(ingredient);
+      }
+      return acc;
+    },
+    { ownedIngredients: [], missingIngredients: [] },
+  );
 
   return (
     <ScrollView className="flex-1 bg-surface-app" showsVerticalScrollIndicator={false}>
