@@ -1,19 +1,20 @@
 import { Tabs } from "expo-router";
-import { Colors } from "@/shared/config/theme";
-import { useColorScheme } from "@/shared/lib/hooks/use-color-scheme";
+import { semanticColors } from "@/shared/config/tokens";
 import { HapticTab } from "@/shared/ui/haptic-tab";
 import { IconSymbol } from "@/shared/ui/icon-symbol";
 import { ScanTabButton } from "@/shared/ui/tab-bar";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        tabBarInactiveTintColor: Colors[colorScheme ?? "light"].tabIconDefault,
+        tabBarActiveTintColor: semanticColors.primary,
+        tabBarInactiveTintColor: semanticColors["tab-inactive"],
         headerShown: false,
+        tabBarItemStyle: {
+          flex: 1,
+          flexBasis: 0,
+        },
       }}
     >
       {/* 홈 */}
@@ -21,7 +22,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "홈",
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={22} name="house.fill" color={color} />,
           tabBarButton: HapticTab,
         }}
       />
@@ -32,7 +33,7 @@ export default function TabLayout() {
         options={{
           title: "냉장고",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="square.stack.fill" color={color} />
+            <IconSymbol size={22} name="square.stack.fill" color={color} />
           ),
           tabBarButton: HapticTab,
         }}
@@ -47,12 +48,12 @@ export default function TabLayout() {
         }}
       />
 
-      {/* 레시피 */}
+      {/* 레시피 검색 */}
       <Tabs.Screen
-        name="recipe"
+        name="search"
         options={{
           title: "레시피",
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="magnifyingglass" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={22} name="magnifyingglass" color={color} />,
           tabBarButton: HapticTab,
         }}
       />
@@ -62,17 +63,11 @@ export default function TabLayout() {
         name="mypage"
         options={{
           title: "마이페이지",
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={22} name="person.fill" color={color} />,
           tabBarButton: HapticTab,
         }}
       />
-      <Tabs.Screen
-        name="search"
-        options={{
-          title: "레시피",
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="magnifyingglass" color={color} />,
-        }}
-      />
+
     </Tabs>
   );
 }
