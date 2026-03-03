@@ -99,12 +99,7 @@ export function SearchPage() {
       {/* 레시피 리스트 */}
       <RecipeList
         recipes={filteredRecipes}
-        onPressRecipe={(recipe) =>
-          router.push({
-            pathname: "/recipe/[recipeId]",
-            params: { recipeId: String(recipe.recipeId) },
-          })
-        }
+        onPressRecipe={(recipe) => router.push(`/recipe/${recipe.recipeId}`)}
       />
     </ScrollView>
   );
