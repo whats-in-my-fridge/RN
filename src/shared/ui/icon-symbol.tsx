@@ -26,7 +26,8 @@ type IconSymbolName =
   | "person.2"
   | "heart"
   | "heart.fill"
-  | "chevron.left";
+  | "chevron.left"
+  | "flame";
 
 /**
  * Custom SVG icon components for tab bar and design consistency.
@@ -50,6 +51,7 @@ const SVG_ICONS: Record<
   heart: null,
   "heart.fill": null,
   "chevron.left": null,
+  flame: null,
 };
 
 /**
@@ -72,6 +74,7 @@ const MATERIAL_ICONS_MAPPING: Record<IconSymbolName, MaterialIconName> = {
   "camera.fill": "photo-camera",
   magnifyingglass: "search",
   "person.fill": "account-circle",
+  flame: "whatshot",
 };
 
 /**
