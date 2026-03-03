@@ -5,6 +5,7 @@ export interface RecipeCardData {
   recipeId: number;
   title: string;
   thumbnail: string;
+  category: string;
   matchRate: number;
   missingIngredients: string[];
   cookTime: string;
