@@ -1,19 +1,64 @@
-// Fallback for using MaterialIcons on Android and web.
+/**
+ * src/shared/ui/icon-symbol.tsx
+ *
+ * Icon component that uses custom SVG icons (from src/shared/assets/icons/)
+ * for tab bar and other UI elements, with fallback to Material Icons.
+ *
+ * Custom SVG icons are prioritized over Material Icons for consistent design.
+ */
 
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import type { SymbolViewProps, SymbolWeight } from "expo-symbols";
 import type { ComponentProps } from "react";
 import type { OpaqueColorValue, StyleProp, TextStyle } from "react-native";
+import { CameraIcon, FridgeIcon, HomeIcon, PersonIcon, SearchIcon } from "@/shared/assets/icons";
 
-type IconMapping = Record<SymbolViewProps["name"], ComponentProps<typeof MaterialIcons>["name"]>;
-type IconSymbolName = keyof typeof MAPPING;
+type MaterialIconName = ComponentProps<typeof MaterialIcons>["name"];
+type IconSymbolName =
+  | "house.fill"
+  | "square.stack.fill"
+  | "camera.fill"
+  | "magnifyingglass"
+  | "person.fill"
+  | "paperplane.fill"
+  | "chevron.left.forwardslash.chevron.right"
+  | "chevron.right"
+  | "clock"
+  | "person.2"
+  | "heart"
+  | "heart.fill"
+  | "chevron.left";
 
 /**
+ * Custom SVG icon components for tab bar and design consistency.
+ * These take priority over Material Icons.
+ */
+const SVG_ICONS: Record<
+  IconSymbolName,
+  React.ComponentType<{ size?: number; color?: string }> | null
+> = {
+  "house.fill": HomeIcon,
+  "square.stack.fill": FridgeIcon,
+  "camera.fill": CameraIcon,
+  magnifyingglass: SearchIcon,
+  "person.fill": PersonIcon,
+  // Material Icons fallback
+  "paperplane.fill": null,
+  "chevron.left.forwardslash.chevron.right": null,
+  "chevron.right": null,
+  clock: null,
+  "person.2": null,
+  heart: null,
+  "heart.fill": null,
+  "chevron.left": null,
+};
+
+/**
+ * Fallback Material Icons mapping for icons without custom SVG.
  * Add your SF Symbols to Material Icons mappings here.
  * - see Material Icons in the [Icons Directory](https://icons.expo.fyi).
  * - see SF Symbols in the [SF Symbols](https://developer.apple.com/sf-symbols/) app.
  */
-const MAPPING = {
+const MATERIAL_ICONS_MAPPING: Record<IconSymbolName, MaterialIconName> = {
   "house.fill": "home",
   "paperplane.fill": "send",
   "chevron.left.forwardslash.chevron.right": "code",
@@ -23,24 +68,44 @@ const MAPPING = {
   heart: "favorite-border",
   "heart.fill": "favorite",
   "chevron.left": "chevron-left",
-} as IconMapping;
+  "square.stack.fill": "storage",
+  "camera.fill": "photo-camera",
+  magnifyingglass: "search",
+  "person.fill": "account-circle",
+};
 
 /**
- * An icon component that uses native SF Symbols on iOS, and Material Icons on Android and web.
- * This ensures a consistent look across platforms, and optimal resource usage.
- * Icon `name`s are based on SF Symbols and require manual mapping to Material Icons.
+ * An icon component that prioritizes custom SVG icons from src/shared/assets/icons/
+ * and falls back to Material Icons for others.
+ *
+ * This ensures consistent design for critical tab bar icons while maintaining
+ * flexibility for other UI icons.
  */
 export function IconSymbol({
   name,
   size = 24,
   color,
   style,
+  weight,
 }: {
   name: IconSymbolName;
   size?: number;
   color: string | OpaqueColorValue;
   style?: StyleProp<TextStyle>;
-  weight?: SymbolWeight;
+  weight?: string;
 }) {
-  return <MaterialIcons color={color} size={size} name={MAPPING[name]} style={style} />;
+  // Try custom SVG icon first
+  const SvgIcon = SVG_ICONS[name];
+  if (SvgIcon) {
+    return <SvgIcon size={size} color={typeof color === "string" ? color : color.toString()} />;
+  }
+
+  // Fallback to Material Icons
+  const materialIconName = MATERIAL_ICONS_MAPPING[name];
+  if (materialIconName) {
+    return <MaterialIcons color={color} size={size} name={materialIconName} style={style} />;
+  }
+
+  // Icon not found
+  return null;
 }

@@ -1,0 +1,33 @@
+/**
+ * src/shared/assets/icons/PersonIcon.tsx
+ *
+ * Person/User icon component
+ */
+
+import { Path, Svg } from "react-native-svg";
+
+interface PersonIconProps {
+  size?: number;
+  color?: string;
+}
+
+export function PersonIcon({ size = 22, color = "#C0B8B5" }: PersonIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 22 22" fill="none">
+      <Path
+        d="M17.4166 19.25V17.4167C17.4166 16.4442 17.0303 15.5116 16.3427 14.8239C15.6551 14.1363 14.7224 13.75 13.75 13.75H8.24998C7.27752 13.75 6.34489 14.1363 5.65725 14.8239C4.96962 15.5116 4.58331 16.4442 4.58331 17.4167V19.25"
+        stroke={color}
+        strokeWidth="1.83333"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M11 10.0833C13.025 10.0833 14.6666 8.44171 14.6666 6.41667C14.6666 4.39162 13.025 2.75 11 2.75C8.97494 2.75 7.33331 4.39162 7.33331 6.41667C7.33331 8.44171 8.97494 10.0833 11 10.0833Z"
+        stroke={color}
+        strokeWidth="1.83333"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Svg>
+  );
+}
