@@ -1,9 +1,9 @@
+import { Tabs } from "expo-router";
 import { Colors } from "@/shared/config/theme";
 import { useColorScheme } from "@/shared/lib/hooks/use-color-scheme";
 import { HapticTab } from "@/shared/ui/haptic-tab";
 import { IconSymbol } from "@/shared/ui/icon-symbol";
 import { ScanTabButton } from "@/shared/ui/tab-bar";
-import { Tabs } from "expo-router";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -21,9 +21,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "홈",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
           tabBarButton: HapticTab,
         }}
       />
@@ -54,9 +52,7 @@ export default function TabLayout() {
         name="recipe"
         options={{
           title: "레시피",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="magnifyingglass" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="magnifyingglass" color={color} />,
           tabBarButton: HapticTab,
         }}
       />
@@ -66,9 +62,7 @@ export default function TabLayout() {
         name="mypage"
         options={{
           title: "마이페이지",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="person.fill" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />,
           tabBarButton: HapticTab,
         }}
       />

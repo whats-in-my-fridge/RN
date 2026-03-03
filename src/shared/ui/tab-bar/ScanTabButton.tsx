@@ -2,10 +2,11 @@
  * src/shared/ui/tab-bar/ScanTabButton.tsx
  */
 
-import { semanticColors, tokens } from "@/shared/config/tokens";
-import { IconSymbol } from "@/shared/ui/icon-symbol";
 import type { BottomTabBarButtonProps } from "@react-navigation/bottom-tabs";
 import { Pressable, Text, View } from "react-native";
+import { semanticColors, tokens } from "@/shared/config/tokens";
+import { IconSymbol } from "@/shared/ui/icon-symbol";
+
 const elevationOffset = tokens.spacing.xs + tokens.spacing.sm + 15; // 27px (4px + 8px + 15px)
 
 export function ScanTabButton(props: BottomTabBarButtonProps) {
@@ -47,11 +48,7 @@ export function ScanTabButton(props: BottomTabBarButtonProps) {
             elevation: 5,
           }}
         >
-          <IconSymbol
-            size={28}
-            name="camera.fill"
-            color={semanticColors.white}
-          />
+          <IconSymbol size={28} name="camera.fill" color={semanticColors.white} />
         </View>
 
         {/* Label: "스캔" */}
