@@ -5,13 +5,14 @@
  */
 
 import { Path, Svg } from "react-native-svg";
+import { semanticColors } from "@/shared/config/tokens";
 
 interface CameraIconProps {
   size?: number;
   color?: string;
 }
 
-export function CameraIcon({ size = 24, color = "white" }: CameraIconProps) {
+export function CameraIcon({ size = 24, color = semanticColors.white }: CameraIconProps) {
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Path

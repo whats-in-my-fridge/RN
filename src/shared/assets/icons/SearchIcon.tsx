@@ -5,13 +5,14 @@
  */
 
 import { Path, Svg } from "react-native-svg";
+import { semanticColors } from "@/shared/config/tokens";
 
 interface SearchIconProps {
   size?: number;
   color?: string;
 }
 
-export function SearchIcon({ size = 22, color = "#C0B8B5" }: SearchIconProps) {
+export function SearchIcon({ size = 22, color = semanticColors["content-secondary"] }: SearchIconProps) {
   return (
     <Svg width={size} height={size} viewBox="0 0 22 22" fill="none">
       <Path

@@ -5,13 +5,14 @@
  */
 
 import { Path, Svg } from "react-native-svg";
+import { semanticColors } from "@/shared/config/tokens";
 
 interface FridgeIconProps {
   size?: number;
   color?: string;
 }
 
-export function FridgeIcon({ size = 22, color = "#605856" }: FridgeIconProps) {
+export function FridgeIcon({ size = 22, color = semanticColors.primary }: FridgeIconProps) {
   return (
     <Svg width={size} height={size} viewBox="0 0 22 22" fill="none">
       <Path
