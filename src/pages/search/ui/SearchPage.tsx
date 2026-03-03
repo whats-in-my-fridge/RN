@@ -12,7 +12,7 @@ import { RecipeList } from "@/widgets/RecipeList";
 // 더미 데이터 (API 연동 전 UI 확인용)
 // RecipeCardData 타입 기준으로 변환
 // ────────────────────────────────────────────────────────
-const DUMMY_RECIPES: (RecipeCardData & { category: string })[] = [
+const DUMMY_RECIPES: RecipeCardData[] = [
   {
     recipeId: 1,
     title: "김치찌개",

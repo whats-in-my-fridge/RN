@@ -1,5 +1,6 @@
 import { Image, ScrollView, Text, View } from "react-native";
 import type { Recipe } from "@/entities/recipe/model/recipe.types";
+import { tokens } from "@/shared/config/tokens";
 import { IconSymbol } from "@/shared/ui/icon-symbol";
 
 // ────────────────────────────────────────────────────────
@@ -128,15 +129,15 @@ export function RecipeDetailPage({ recipeId }: RecipeDetailPageProps) {
         {/* 메타 정보 */}
         <View className="flex-row items-center gap-4">
           <View className="flex-row items-center gap-1">
-            <IconSymbol name="clock" size={14} color="#8E8E93" />
+            <IconSymbol name="clock" size={14} color={tokens.color["content-secondary"]} />
             <Text className="text-sm text-content-secondary">{recipe.cookingTime}분</Text>
           </View>
           <View className="flex-row items-center gap-1">
-            <IconSymbol name="person.2" size={14} color="#8E8E93" />
+            <IconSymbol name="person.2" size={14} color={tokens.color["content-secondary"]} />
             <Text className="text-sm text-content-secondary">{recipe.servings}인분</Text>
           </View>
           <View className="flex-row items-center gap-1">
-            <IconSymbol name="flame" size={14} color="#8E8E93" />
+            <IconSymbol name="flame" size={14} color={tokens.color["content-secondary"]} />
             <Text className="text-sm text-content-secondary">{recipe.difficulty}</Text>
           </View>
         </View>
@@ -202,7 +203,7 @@ export function RecipeDetailPage({ recipeId }: RecipeDetailPageProps) {
               <View className="flex-1">
                 <Text className="text-sm leading-5 text-content-primary">{s.description}</Text>
                 <View className="mt-1 flex-row items-center gap-1">
-                  <IconSymbol name="clock" size={12} color="#8E8E93" />
+                  <IconSymbol name="clock" size={12} color={tokens.color["content-secondary"]} />
                   <Text className="text-xs text-content-secondary">{s.duration}분</Text>
                 </View>
                 {s.imageUrl && (
