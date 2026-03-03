@@ -66,6 +66,13 @@ export default function TabLayout() {
           tabBarButton: HapticTab,
         }}
       />
+      <Tabs.Screen
+        name="search"
+        options={{
+          title: "레시피",
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="magnifyingglass" color={color} />,
+        }}
+      />
     </Tabs>
   );
 }
