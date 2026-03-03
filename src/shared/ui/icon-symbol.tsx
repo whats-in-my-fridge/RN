@@ -92,7 +92,7 @@ export function IconSymbol({
   size?: number;
   color: string | OpaqueColorValue;
   style?: StyleProp<TextStyle>;
-  weight?: string;
+  _weight?: string;
 }) {
   // Try custom SVG icon first
   const SvgIcon = SVG_ICONS[name];
