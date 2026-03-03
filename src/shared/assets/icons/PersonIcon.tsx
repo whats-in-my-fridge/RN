@@ -12,7 +12,10 @@ interface PersonIconProps {
   color?: string;
 }
 
-export function PersonIcon({ size = 22, color = semanticColors["content-secondary"] }: PersonIconProps) {
+export function PersonIcon({
+  size = 22,
+  color = semanticColors["content-secondary"],
+}: PersonIconProps) {
   return (
     <Svg width={size} height={size} viewBox="0 0 22 22" fill="none">
       <Path

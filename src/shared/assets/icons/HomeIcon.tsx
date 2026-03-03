@@ -12,7 +12,10 @@ interface HomeIconProps {
   color?: string;
 }
 
-export function HomeIcon({ size = 22, color = semanticColors["content-secondary"] }: HomeIconProps) {
+export function HomeIcon({
+  size = 22,
+  color = semanticColors["content-secondary"],
+}: HomeIconProps) {
   return (
     <Svg width={size} height={size} viewBox="0 0 22 22" fill="none">
       <Path

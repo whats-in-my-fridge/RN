@@ -12,7 +12,10 @@ interface SearchIconProps {
   color?: string;
 }
 
-export function SearchIcon({ size = 22, color = semanticColors["content-secondary"] }: SearchIconProps) {
+export function SearchIcon({
+  size = 22,
+  color = semanticColors["content-secondary"],
+}: SearchIconProps) {
   return (
     <Svg width={size} height={size} viewBox="0 0 22 22" fill="none">
       <Path
