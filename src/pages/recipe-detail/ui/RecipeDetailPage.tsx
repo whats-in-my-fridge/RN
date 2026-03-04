@@ -1,7 +1,8 @@
-import { Image, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
+
 import type { Recipe } from "@/entities/recipe/model/recipe.types";
-import { tokens } from "@/shared/config/tokens";
-import { IconSymbol } from "@/shared/ui/icon-symbol";
+import { useRecipeDetail } from "@/entities/recipe/model/useRecipeDetail";
+import { RecipeHero, RecipeIngredients, RecipeMeta, RecipeSteps } from "@/widgets/RecipeDetail";
 
 // ────────────────────────────────────────────────────────
 // 더미 데이터 (API 연동 전 UI 확인용)
@@ -100,7 +101,7 @@ interface RecipeDetailPageProps {
 }
 
 export function RecipeDetailPage({ recipeId }: RecipeDetailPageProps) {
-  const recipe = DUMMY_RECIPES[recipeId];
+  const { recipe, ownedIngredients, missingIngredients } = useRecipeDetail(recipeId, DUMMY_RECIPES);
 
   if (!recipe) {
     return (
@@ -110,113 +111,26 @@ export function RecipeDetailPage({ recipeId }: RecipeDetailPageProps) {
     );
   }
 
-  const ownedIngredients = recipe.ingredients.filter((ingredient) => ingredient.owned);
-  const missingIngredients = recipe.ingredients.filter((ingredient) => !ingredient.owned);
-
   return (
     <ScrollView className="flex-1 bg-surface-app" showsVerticalScrollIndicator={false}>
       {/* 히어로 이미지 */}
-      <View className="relative aspect-[4/3]">
-        <Image source={{ uri: recipe.imageUrl }} className="h-full w-full" resizeMode="cover" />
-        {/* 태그 오버레이 */}
-        <View className="absolute bottom-4 left-4">
-          <Text className="text-xs text-white">{recipe.tags.map((t) => `#${t}`).join("  ")}</Text>
-          <Text className="mt-1 text-2xl font-extrabold text-white">{recipe.title}</Text>
-        </View>
-      </View>
+      <RecipeHero recipe={recipe} />
 
       <View className="px-screen py-6">
-        {/* 메타 정보 */}
-        <View className="flex-row items-center gap-4">
-          <View className="flex-row items-center gap-1">
-            <IconSymbol name="clock" size={14} color={tokens.color["content-secondary"]} />
-            <Text className="text-sm text-content-secondary">{recipe.cookingTime}분</Text>
-          </View>
-          <View className="flex-row items-center gap-1">
-            <IconSymbol name="person.2" size={14} color={tokens.color["content-secondary"]} />
-            <Text className="text-sm text-content-secondary">{recipe.servings}인분</Text>
-          </View>
-          <View className="flex-row items-center gap-1">
-            <IconSymbol name="flame" size={14} color={tokens.color["content-secondary"]} />
-            <Text className="text-sm text-content-secondary">{recipe.difficulty}</Text>
-          </View>
-        </View>
-
-        {/* 설명 */}
-        <Text className="mt-4 text-sm leading-5 text-content-dark">{recipe.description}</Text>
+        {/* 메타 정보 + 설명 */}
+        <RecipeMeta recipe={recipe} />
 
         {/* 구분선 */}
         <View className="my-6 h-px bg-stroke-default" />
 
         {/* 재료 */}
-        <Text className="text-lg font-bold text-content-primary">재료</Text>
-
-        {/* 보유 재료 */}
-        <View className="mt-3">
-          <Text className="text-sm font-semibold text-status-fresh">
-            ✓ 보유 재료 ({ownedIngredients.length})
-          </Text>
-          <View className="mt-2 flex-row flex-wrap gap-2">
-            {ownedIngredients.map((ing) => (
-              <View
-                key={ing.name}
-                className="rounded-tag border border-status-fresh-border bg-status-fresh-bg px-3 py-1"
-              >
-                <Text className="text-xs text-status-fresh">{ing.name}</Text>
-              </View>
-            ))}
-          </View>
-        </View>
-
-        {/* 부족한 재료 */}
-        {missingIngredients.length > 0 && (
-          <View className="mt-4">
-            <Text className="text-sm font-semibold text-status-expiring">
-              ✕ 부족한 재료 ({missingIngredients.length})
-            </Text>
-            <View className="mt-2 flex-row flex-wrap gap-2">
-              {missingIngredients.map((ing) => (
-                <View
-                  key={ing.name}
-                  className="rounded-tag border border-status-expiring-border bg-status-expiring-bg px-3 py-1"
-                >
-                  <Text className="text-xs text-status-expiring">{ing.name}</Text>
-                </View>
-              ))}
-            </View>
-          </View>
-        )}
+        <RecipeIngredients owned={ownedIngredients} missing={missingIngredients} />
 
         {/* 구분선 */}
         <View className="my-6 h-px bg-stroke-default" />
 
         {/* 조리 순서 */}
-        <Text className="text-lg font-bold text-content-primary">조리 순서</Text>
-        <View className="mt-4 gap-6">
-          {recipe.steps.map((s) => (
-            <View key={s.step} className="flex-row gap-3">
-              {/* 스텝 번호 */}
-              <View className="h-8 w-8 items-center justify-center rounded-full bg-primary">
-                <Text className="text-sm font-bold text-white">{s.step}</Text>
-              </View>
-              {/* 스텝 설명 */}
-              <View className="flex-1">
-                <Text className="text-sm leading-5 text-content-primary">{s.description}</Text>
-                <View className="mt-1 flex-row items-center gap-1">
-                  <IconSymbol name="clock" size={12} color={tokens.color["content-secondary"]} />
-                  <Text className="text-xs text-content-secondary">{s.duration}분</Text>
-                </View>
-                {s.imageUrl && (
-                  <Image
-                    source={{ uri: s.imageUrl }}
-                    className="mt-3 aspect-video w-full rounded-card"
-                    resizeMode="cover"
-                  />
-                )}
-              </View>
-            </View>
-          ))}
-        </View>
+        <RecipeSteps steps={recipe.steps} />
       </View>
     </ScrollView>
   );
