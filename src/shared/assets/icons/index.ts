@@ -5,6 +5,7 @@
  */
 
 export { CameraIcon } from "./CameraIcon";
+export { ChatIcon } from "./ChatIcon";
 export { FridgeIcon } from "./FridgeIcon";
 export { HomeIcon } from "./HomeIcon";
 export { PersonIcon } from "./PersonIcon";
