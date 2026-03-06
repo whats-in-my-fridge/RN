@@ -1,9 +1,8 @@
 import { useRouter } from "expo-router";
-import { useMemo, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 
 import type { RecipeCardData } from "@/entities/recipe";
-import type { Category } from "@/shared/ui/CategoryFilter";
+import { useSearchRecipe } from "@/features/search-recipe";
 import { CategoryFilter } from "@/shared/ui/CategoryFilter";
 import { SearchBar } from "@/shared/ui/SearchBar";
 import { RecipeList } from "@/widgets/RecipeList";
@@ -50,22 +49,8 @@ const DUMMY_RECIPES: RecipeCardData[] = [
 
 export function SearchPage() {
   const router = useRouter();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<Category>("전체");
-
-  // 간단한 클라이언트 사이드 필터링
-  const filteredRecipes = useMemo(() => {
-    const lowercasedQuery = searchQuery.toLowerCase();
-
-    return DUMMY_RECIPES.filter((recipe) => {
-      const matchesCategory = selectedCategory === "전체" || recipe.category === selectedCategory;
-      const matchesSearch =
-        searchQuery === "" ||
-        recipe.title.toLowerCase().includes(lowercasedQuery) ||
-        recipe.missingIngredients.some((i) => i.toLowerCase().includes(lowercasedQuery));
-      return matchesCategory && matchesSearch;
-    });
-  }, [searchQuery, selectedCategory]);
+  const { searchQuery, setSearchQuery, selectedCategory, setSelectedCategory, filteredRecipes } =
+    useSearchRecipe(DUMMY_RECIPES);
 
   const recipeCount = filteredRecipes.length;
 
