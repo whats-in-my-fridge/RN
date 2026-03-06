@@ -13,8 +13,8 @@ interface ChatFloatingButtonProps {
 
 export function ChatFloatingButton({ onPress }: ChatFloatingButtonProps) {
   const insets = useSafeAreaInsets();
-  // 하단 안전 영역(insets.bottom) + RN default 탭바 높이(49) +15
-  const bottomOffset = insets.bottom + 49 + 15;
+  // 하단 안전 영역(insets.bottom) + RN default 탭바 높이(49) + 16
+  const bottomOffset = insets.bottom + 49 + tokens.spacing.md;
 
   return (
     <Pressable

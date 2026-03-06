@@ -1,11 +1,12 @@
-import { Dimensions, View } from "react-native";
-
 import { DefaultFoodCard, type RecipeCardData } from "@/entities/recipe";
 import { RecipeLikedButton } from "@/features/recipe-liked-button";
+import { tokens } from "@/shared/config/tokens";
+import { Dimensions, View } from "react-native";
 
-const COLUMN_GAP = 12;
-const SCREEN_PADDING = 16;
-const CARD_WIDTH = (Dimensions.get("window").width - SCREEN_PADDING * 2 - COLUMN_GAP) / 2;
+const COLUMN_GAP = tokens.spacing.card;
+const SCREEN_PADDING = tokens.spacing.screen;
+const CARD_WIDTH =
+  (Dimensions.get("window").width - SCREEN_PADDING * 2 - COLUMN_GAP) / 2;
 
 interface RecipeListProps {
   recipes: RecipeCardData[];
@@ -21,7 +22,10 @@ export function RecipeList({ recipes, onPressRecipe }: RecipeListProps) {
             recipe={recipe}
             onPress={() => onPressRecipe?.(recipe)}
             likeButton={
-              <RecipeLikedButton recipeId={recipe.recipeId} initialLiked={recipe.isLiked} />
+              <RecipeLikedButton
+                recipeId={recipe.recipeId}
+                initialLiked={recipe.isLiked}
+              />
             }
           />
         </View>
