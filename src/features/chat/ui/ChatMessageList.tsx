@@ -4,7 +4,7 @@
 
 import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { useRef } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Pressable, type ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { semanticColors, tokens } from "@/shared/config/tokens";
 import type { ChatMessage } from "../model/store";
@@ -27,10 +27,7 @@ export function ChatMessageList({ messages, onChipPress }: ChatMessageListProps)
       onContentSizeChange={() => scrollRef.current?.scrollToEnd?.({ animated: true })}
     >
       {messages.map((msg) => (
-        <View
-          key={msg.id}
-          style={[styles.row, msg.role === "user" && styles.rowUser]}
-        >
+        <View key={msg.id} style={[styles.row, msg.role === "user" && styles.rowUser]}>
           {msg.role === "assistant" && (
             <View style={styles.avatar}>
               <Text style={styles.avatarIcon}>💬</Text>
@@ -79,9 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     paddingHorizontal: tokens.spacing.md,
     paddingTop: tokens.spacing.sm,
-    // footerComponent(ChatInput)가 절대 위치로 하단을 덮으므로
-    // 마지막 메시지가 가리지 않도록 footer 높이(≈72px)만큼 여백 추가
-    paddingBottom: 72,
+    paddingBottom: tokens.spacing.sm,
     gap: tokens.spacing.sm,
   },
 
@@ -99,7 +94,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 36,
     height: 36,
-    borderRadius: 18,
+    borderRadius: tokens.radius.full,
     backgroundColor: semanticColors["content-primary"],
     alignItems: "center",
     justifyContent: "center",

@@ -30,7 +30,7 @@ export function ChatSheetHeader(_: BottomSheetHandleProps) {
 const styles = StyleSheet.create({
   container: {
     paddingTop: tokens.spacing.sm,
-    backgroundColor: semanticColors["surface-card"],
+    backgroundColor: semanticColors["surface-app"],
     borderTopLeftRadius: tokens.radius["2xl"],
     borderTopRightRadius: tokens.radius["2xl"],
   },
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     width: 36,
     height: 4,
-    borderRadius: 2,
+    borderRadius: tokens.radius.full,
     backgroundColor: semanticColors["stroke-default"],
     marginBottom: tokens.spacing.sm,
   },
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   closeButton: {
     width: 36,
     height: 36,
-    borderRadius: 18,
+    borderRadius: tokens.radius.full,
     backgroundColor: semanticColors["surface-section"],
     alignItems: "center",
     justifyContent: "center",

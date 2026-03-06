@@ -2,17 +2,18 @@
 // 채팅 바텀시트 최상위 조립 컴포넌트.
 //
 // 구조:
-//   handleComponent  → ChatSheetHeader (드래그 핸들 + 고정 헤더, 항상 상단에 표시)
-//   직접 자식        → ChatMessageList / BottomSheetScrollView (메시지 스크롤 영역)
-//   footerComponent  → BottomSheetFooter + ChatInput (항상 sheet 하단 고정, 키보드와 함께 이동)
+//   handleComponent → ChatSheetHeader (드래그 핸들 + 고정 헤더)
+//   직접 자식       → View(flex:1) > View(flex:1, messageArea) + ChatInput
 //
-// 이 구조가 @gorhom/bottom-sheet 에서 chat UI에 권장되는 유일하게 안정적인 패턴이다.
-// BottomSheetView 를 사용하면 콘텐츠 높이 측정 로직이 flex 제약을 깨므로 사용하지 않는다.
+// footerComponent 를 사용하지 않는 이유:
+//   BottomSheetFooter의 bottomInset 을 키보드 상태에 따라 동적으로 바꾸면
+//   키보드 애니메이션 도중 footer가 re-render 되어 레이아웃이 깨진다.
+//   keyboardBehavior="interactive" 가 sheet 전체를 키보드와 함께 올려주므로
+//   ChatInput 을 일반 flex 자식으로 두면 자연스럽게 키보드 위에 위치한다.
 
-import { BottomSheetFooter, BottomSheetModal } from "@gorhom/bottom-sheet";
-import type { BottomSheetFooterProps } from "@gorhom/bottom-sheet";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useCallback, useEffect, useRef } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { semanticColors, semanticRadius } from "@/shared/config/tokens";
 import { useChatStore } from "../model/store";
@@ -42,15 +43,6 @@ export function ChatSheet() {
     [addMessage],
   );
 
-  const renderFooter = useCallback(
-    (props: BottomSheetFooterProps) => (
-      <BottomSheetFooter {...props} bottomInset={0}>
-        <ChatInput onSend={handleSend} />
-      </BottomSheetFooter>
-    ),
-    [handleSend],
-  );
-
   return (
     <BottomSheetModal
       ref={modalRef}
@@ -59,19 +51,29 @@ export function ChatSheet() {
       keyboardBehavior="interactive"
       keyboardBlurBehavior="restore"
       handleComponent={ChatSheetHeader}
-      footerComponent={renderFooter}
       backgroundStyle={styles.background}
       onDismiss={close}
     >
-      <ChatMessageList messages={messages} onChipPress={handleSend} />
+      <View style={styles.content}>
+        <View style={styles.messageArea}>
+          <ChatMessageList messages={messages} onChipPress={handleSend} />
+        </View>
+        <ChatInput onSend={handleSend} />
+      </View>
     </BottomSheetModal>
   );
 }
 
 const styles = StyleSheet.create({
   background: {
-    backgroundColor: semanticColors["surface-card"],
+    backgroundColor: semanticColors["surface-app"],
     borderTopLeftRadius: semanticRadius["2xl"],
     borderTopRightRadius: semanticRadius["2xl"],
+  },
+  content: {
+    flex: 1,
+  },
+  messageArea: {
+    flex: 1,
   },
 });
