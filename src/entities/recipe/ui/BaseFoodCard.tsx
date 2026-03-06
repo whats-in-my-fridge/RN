@@ -69,7 +69,7 @@ export function BaseFoodCard({ recipe, variant, onPress, likeButton }: BaseFoodC
 
   return (
     <Pressable
-      className="overflow-hidden rounded-hero bg-surface-card shadow-sm ring-1 ring-stroke-default"
+      className="overflow-hidden rounded-hero bg-surface-card shadow-sm"
       onPress={onPress}
     >
       <View className={imageHeightClassName} onLayout={handleBannerLayout}>
