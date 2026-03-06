@@ -6,7 +6,7 @@ import "react-native-reanimated";
 import "../../global.css";
 
 import { BottomSheetProvider } from "@/app/_providers";
-import { ChatFloatingButton } from "@/features/chat/ui/ChatFloatingButton";
+import { ChatFloatingButton, ChatSheet, useChatStore } from "@/features/chat";
 import { useColorScheme } from "@/shared/lib/hooks/use-color-scheme";
 export const unstable_settings = {
   anchor: "(tabs)",
@@ -14,6 +14,7 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const openChat = useChatStore((s) => s.open);
 
   return (
     <BottomSheetProvider>
@@ -23,7 +24,8 @@ export default function RootLayout() {
           <Stack.Screen name="test-back-button" options={{ headerShown: false }} />
           <Stack.Screen name="recipe/[recipeId]" options={{ headerShown: false }} />
         </Stack>
-        <ChatFloatingButton />
+        <ChatFloatingButton onPress={openChat} />
+        <ChatSheet />
         <StatusBar style="auto" />
       </ThemeProvider>
     </BottomSheetProvider>
