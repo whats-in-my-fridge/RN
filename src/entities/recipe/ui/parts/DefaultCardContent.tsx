@@ -22,7 +22,7 @@ export function DefaultCardContent({
     const safeLabels = labels ?? [];
     const safeOverflowCount = overflowCount ?? 0;
     return (
-      <View className="absolute bottom-3 left-3 right-3 flex-row items-center gap-2 overflow-hidden">
+      <View className="absolute bottom-1 left-1 right-3 flex-row items-center gap-1 overflow-hidden">
         <IngredientChipsRow
           labels={safeLabels}
           overflowCount={safeOverflowCount}
