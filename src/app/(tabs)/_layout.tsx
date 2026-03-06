@@ -3,7 +3,6 @@ import { semanticColors } from "@/shared/config/tokens";
 import { HapticTab } from "@/shared/ui/haptic-tab";
 import { IconSymbol } from "@/shared/ui/icon-symbol";
 import { ScanTabButton } from "@/shared/ui/tab-bar";
-
 export default function TabLayout() {
   return (
     <Tabs

@@ -1,10 +1,10 @@
 import { Dimensions, View } from "react-native";
-
 import { DefaultFoodCard, type RecipeCardData } from "@/entities/recipe";
 import { RecipeLikedButton } from "@/features/recipe-liked-button";
+import { tokens } from "@/shared/config/tokens";
 
-const COLUMN_GAP = 12;
-const SCREEN_PADDING = 16;
+const COLUMN_GAP = tokens.spacing.card;
+const SCREEN_PADDING = tokens.spacing.screen;
 const CARD_WIDTH = (Dimensions.get("window").width - SCREEN_PADDING * 2 - COLUMN_GAP) / 2;
 
 interface RecipeListProps {
