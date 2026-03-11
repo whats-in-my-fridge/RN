@@ -1,6 +1,5 @@
 // src/features/chat/ui/ChatMessageList.tsx
 // 채팅 메시지 목록 및 초기 퀵 칩을 렌더링하는 컴포넌트.
-// BottomSheetScrollView 를 사용하여 바텀시트 내부에서 스크롤이 올바르게 동작한다.
 
 import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { useRef } from "react";
@@ -70,9 +69,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flexGrow: 1,
-    // 메시지를 항상 하단에 고정 (iMessage/WhatsApp 표준 패턴).
-    // 메시지가 적어도 하단부터 쌓이므로 상단 공백이 생기지 않는다.
-    // 메시지가 영역을 초과하면 flexGrow가 확장을 막고 스크롤이 동작한다.
     justifyContent: "flex-end",
     paddingHorizontal: tokens.spacing.md,
     paddingTop: tokens.spacing.sm,

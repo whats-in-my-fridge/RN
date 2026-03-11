@@ -15,6 +15,7 @@ interface ChatStore {
   open: () => void;
   close: () => void;
   addMessage: (msg: ChatMessage) => void;
+  clearMessages: () => void;
 }
 
 const INITIAL_MESSAGE: ChatMessage = {
@@ -29,4 +30,5 @@ export const useChatStore = create<ChatStore>((set) => ({
   open: () => set({ isOpen: true }),
   close: () => set({ isOpen: false }),
   addMessage: (msg) => set((state) => ({ messages: [...state.messages, msg] })),
+  clearMessages: () => set({ messages: [INITIAL_MESSAGE] }),
 }));

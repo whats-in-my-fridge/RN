@@ -36,7 +36,6 @@ export function ChatInput({ onSend }: ChatInputProps) {
   }
 
   // 키보드 닫힘: insets.bottom으로 nav bar 위에 위치
-  // 키보드 열림: sheet 전체가 키보드와 함께 올라오므로 추가 패딩 불필요
   const paddingBottom = keyboardVisible
     ? tokens.spacing.sm
     : Math.max(tokens.spacing.sm, insets.bottom);

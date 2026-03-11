@@ -1,11 +1,8 @@
 // src/features/chat/ui/ChatSheet.tsx
 // 채팅 바텀시트 최상위 조립 컴포넌트.
-//
-// 구조:
-//   handleComponent → ChatSheetHeader (드래그 핸들 + 고정 헤더)
-//   직접 자식       → View(flex:1) > View(flex:1, messageArea) + ChatInput
 
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import * as Crypto from "expo-crypto";
 import { useCallback, useEffect, useRef } from "react";
 import { StyleSheet, View } from "react-native";
 
@@ -32,7 +29,7 @@ export function ChatSheet() {
 
   const handleSend = useCallback(
     (text: string) => {
-      addMessage({ id: Date.now().toString(), role: "user", text });
+      addMessage({ id: Crypto.randomUUID(), role: "user", text });
     },
     [addMessage],
   );
