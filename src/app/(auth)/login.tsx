@@ -4,7 +4,7 @@
 // TODO: 개발 완료 후 아래 Redirect 제거
 import { Redirect } from "expo-router";
 export default function LoginScreen() {
-  return <Redirect href="/(protected)/(tabs)/home" />;
+  return <Redirect href="/home" />;
 }
 
 // import { Text, View } from "react-native";
