@@ -25,7 +25,11 @@ export function ChatSheetHeader(_: BottomSheetHandleProps) {
               style={styles.clearButton}
               accessibilityLabel="채팅 초기화"
             >
-              <Ionicons name="trash-outline" size={13} color={semanticColors["content-secondary"]} />
+              <Ionicons
+                name="trash-outline"
+                size={13}
+                color={semanticColors["content-secondary"]}
+              />
             </Pressable>
           </View>
           <Text style={styles.subtitle}>냉장고 재료 기반 AI 어시스턴트</Text>
