@@ -4,12 +4,6 @@
 // 구조:
 //   handleComponent → ChatSheetHeader (드래그 핸들 + 고정 헤더)
 //   직접 자식       → View(flex:1) > View(flex:1, messageArea) + ChatInput
-//
-// footerComponent 를 사용하지 않는 이유:
-//   BottomSheetFooter의 bottomInset 을 키보드 상태에 따라 동적으로 바꾸면
-//   키보드 애니메이션 도중 footer가 re-render 되어 레이아웃이 깨진다.
-//   keyboardBehavior="interactive" 가 sheet 전체를 키보드와 함께 올려주므로
-//   ChatInput 을 일반 flex 자식으로 두면 자연스럽게 키보드 위에 위치한다.
 
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useCallback, useEffect, useRef } from "react";
