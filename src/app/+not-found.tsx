@@ -10,7 +10,7 @@ export default function NotFoundScreen() {
       <Stack.Screen options={{ title: "Not Found" }} />
       <View className="flex-1 items-center justify-center bg-surface-app">
         <Text className="text-content-primary text-lg">페이지를 찾을 수 없습니다.</Text>
-        <Link href="/" className="mt-4 text-content-secondary">
+        <Link href="/home" className="mt-4 text-content-secondary">
           홈으로 돌아가기
         </Link>
       </View>
