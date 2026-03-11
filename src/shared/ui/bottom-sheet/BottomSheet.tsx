@@ -1,9 +1,26 @@
-import { BottomSheetHandle, BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
+import type { BottomSheetBackdropProps } from "@gorhom/bottom-sheet";
+import {
+  BottomSheetBackdrop,
+  BottomSheetHandle,
+  BottomSheetModal,
+  BottomSheetView,
+} from "@gorhom/bottom-sheet";
+import { useCallback, useEffect, useRef } from "react";
 import { useWindowDimensions } from "react-native";
 
 import { BOTTOM_SHEET_MAX_HEIGHT_RATIO, bottomSheetStyles } from "./BottomSheet.styles";
-import { BottomSheetBackdropCloseable } from "./BottomSheetBackdrop";
-import { useBottomSheetModal } from "./useBottomSheetModal";
+
+function BottomSheetBackdropCloseable(props: BottomSheetBackdropProps) {
+  return (
+    <BottomSheetBackdrop
+      {...props}
+      appearsOnIndex={0}
+      disappearsOnIndex={-1}
+      pressBehavior="close"
+      opacity={0.5}
+    />
+  );
+}
 
 export interface BottomSheetProps {
   isOpen: boolean;
@@ -13,8 +30,18 @@ export interface BottomSheetProps {
 
 export function BottomSheet({ isOpen, onClose, children }: BottomSheetProps) {
   const { height } = useWindowDimensions();
-  const { modalRef, handleDismiss } = useBottomSheetModal(isOpen, onClose);
+  const modalRef = useRef<BottomSheetModal>(null);
   const maxDynamicContentSize = height * BOTTOM_SHEET_MAX_HEIGHT_RATIO;
+
+  useEffect(() => {
+    if (isOpen) {
+      modalRef.current?.present();
+    } else {
+      modalRef.current?.dismiss();
+    }
+  }, [isOpen]);
+
+  const handleDismiss = useCallback(() => onClose(), [onClose]);
 
   return (
     <BottomSheetModal

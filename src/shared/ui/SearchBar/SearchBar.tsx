@@ -6,12 +6,15 @@ import { IconSymbol } from "@/shared/ui/icon-symbol";
 interface SearchBarProps {
   value: string;
   onChangeText: (text: string) => void;
+  /** 엔터(검색) 키를 눌렀을 때 실행될 콜백 */
+  onSubmit?: () => void;
   placeholder?: string;
 }
 
 export function SearchBar({
   value,
   onChangeText,
+  onSubmit,
   placeholder = "레시피 또는 재료 검색...",
 }: SearchBarProps) {
   return (
@@ -26,6 +29,7 @@ export function SearchBar({
         className="flex-1 text-base text-content-primary"
         value={value}
         onChangeText={onChangeText}
+        onSubmitEditing={onSubmit}
         placeholder={placeholder}
         placeholderTextColor={tokens.color["stroke-default"]}
         returnKeyType="search"
