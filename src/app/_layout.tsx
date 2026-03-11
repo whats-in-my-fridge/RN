@@ -1,4 +1,5 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
@@ -10,6 +11,9 @@ import { BottomSheetProvider } from "@/app/_providers";
 import { ChatFloatingButton, ChatSheet, useChatStore } from "@/features/chat";
 import { semanticColors } from "@/shared/config/tokens";
 import { useColorScheme } from "@/shared/lib/hooks/use-color-scheme";
+
+const queryClient = new QueryClient();
+
 export const unstable_settings = {
   anchor: "(tabs)",
 };
@@ -23,20 +27,22 @@ export default function RootLayout() {
   const isChatOpen = useChatStore((s) => s.isOpen);
 
   return (
-    <BottomSheetProvider>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="test-back-button" options={{ headerShown: false }} />
-          <Stack.Screen name="recipe/[recipeId]" options={{ headerShown: false }} />
-        </Stack>
-        {!isChatOpen && <ChatFloatingButton onPress={openChat} />}
-        <ChatSheet />
-        {/* 채팅창이 열려있을 때 시트 아래 노출 영역을 아이보리로 덮는 오버레이 */}
-        {isChatOpen && <View pointerEvents="none" style={styles.chatBgOverlay} />}
-        <StatusBar style="auto" />
-      </ThemeProvider>
-    </BottomSheetProvider>
+    <QueryClientProvider client={queryClient}>
+      <BottomSheetProvider>
+        <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="test-back-button" options={{ headerShown: false }} />
+            <Stack.Screen name="recipe/[recipeId]" options={{ headerShown: false }} />
+          </Stack>
+          {!isChatOpen && <ChatFloatingButton onPress={openChat} />}
+          <ChatSheet />
+          {/* 채팅창이 열려있을 때 시트 아래 노출 영역을 아이보리로 덮는 오버레이 */}
+          {isChatOpen && <View pointerEvents="none" style={styles.chatBgOverlay} />}
+          <StatusBar style="auto" />
+        </ThemeProvider>
+      </BottomSheetProvider>
+    </QueryClientProvider>
   );
 }
 
