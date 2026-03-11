@@ -7,10 +7,9 @@ import { Pressable, Text, View } from "react-native";
 import { semanticColors, tokens } from "@/shared/config/tokens";
 import { IconSymbol } from "@/shared/ui/icon-symbol";
 
-const elevationOffset = tokens.spacing.xs + tokens.spacing.sm + 15; // 27px (4px + 8px + 15px)
+const elevationOffset = tokens.spacing.xs + tokens.spacing.sm + 15;
 
-export function ScanTabButton(props: BottomTabBarButtonProps) {
-  const { onPress } = props;
+export function ScanTabButton({ onPress }: BottomTabBarButtonProps) {
   return (
     <Pressable
       onPress={onPress}
