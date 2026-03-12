@@ -82,7 +82,7 @@ export function HomePage() {
               borderColor: tokens.color["stroke-default"],
               backgroundColor: tokens.color["surface-card"],
             }}
-            onPress={() => router.push("/(tabs)/search")}
+            onPress={() => router.push("/search" as never)}
           >
             <Text className="text-sm font-semibold text-content-secondary">레시피 더보기 &gt;</Text>
           </Pressable>

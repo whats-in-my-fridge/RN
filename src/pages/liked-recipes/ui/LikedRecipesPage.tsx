@@ -1,11 +1,5 @@
 import { router } from "expo-router";
-import {
-  ActivityIndicator,
-  SafeAreaView,
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
+import { ActivityIndicator, SafeAreaView, ScrollView, Text, View } from "react-native";
 
 import type { RecipeCardData } from "@/entities/recipe";
 import { useScraps } from "@/features/liked-recipes";

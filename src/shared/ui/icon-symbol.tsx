@@ -7,11 +7,11 @@
  * Custom SVG icons are prioritized over Material Icons for consistent design.
  */
 
-import { CameraIcon, FridgeIcon, HomeIcon, PersonIcon, SearchIcon } from "@/shared/assets/icons";
 import { Ionicons } from "@expo/vector-icons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import type { ComponentProps } from "react";
 import type { OpaqueColorValue, StyleProp, TextStyle } from "react-native";
+import { CameraIcon, FridgeIcon, HomeIcon, PersonIcon, SearchIcon } from "@/shared/assets/icons";
 
 type MaterialIconName = ComponentProps<typeof MaterialIcons>["name"];
 type IoniconsName = ComponentProps<typeof Ionicons>["name"];

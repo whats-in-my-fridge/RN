@@ -1,8 +1,9 @@
 import { SymbolView, type SymbolWeight } from "expo-symbols";
 import type { StyleProp, ViewStyle } from "react-native";
+import type { SFSymbol } from "sf-symbols-typescript";
 
 /** IconSymbolName → SF Symbol (iOS). help, settings, logout 등은 SF Symbol 이름이 달라 매핑 필요 */
-const ICON_TO_SF_SYMBOL: Record<string, string> = {
+const ICON_TO_SF_SYMBOL: Record<string, SFSymbol> = {
   help: "questionmark.circle",
   settings: "gearshape",
   logout: "rectangle.portrait.and.arrow.right",
@@ -22,7 +23,7 @@ export function IconSymbol({
   style?: StyleProp<ViewStyle>;
   weight?: SymbolWeight;
 }) {
-  const sfName = ICON_TO_SF_SYMBOL[name] ?? name;
+  const sfName: SFSymbol = (ICON_TO_SF_SYMBOL[name] ?? name) as SFSymbol;
 
   return (
     <SymbolView
