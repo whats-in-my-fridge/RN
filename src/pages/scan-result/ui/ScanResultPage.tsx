@@ -17,16 +17,14 @@ export function ScanResultPage() {
         <View className="px-screen pt-12 pb-8">
           {/* 헤더 */}
           <Text className="text-content-primary text-2xl font-bold mb-2">스캔 완료!</Text>
-          <Text className="text-content-secondary text-sm mb-8">
-            인식된 식재료를 확인해 주세요
-          </Text>
+          <Text className="text-content-secondary text-sm mb-8">인식된 식재료를 확인해 주세요</Text>
 
           {/* 식재료 목록 */}
           {ingredients.length > 0 ? (
             <View className="gap-3">
               {ingredients.map((item, index) => (
                 <View
-                  key={`${item}-${index}`}
+                  key={item}
                   className="bg-surface-card rounded-xl px-4 py-4 flex-row items-center border border-stroke-default"
                 >
                   <View className="w-8 h-8 rounded-full bg-status-fresh-bg items-center justify-center mr-3">

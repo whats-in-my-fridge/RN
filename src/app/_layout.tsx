@@ -27,7 +27,7 @@ export default function RootLayout() {
   const isChatOpen = useChatStore((s) => s.isOpen);
   const segments = useSegments();
   const isInAuth = segments[0] === "(auth)";
-  const isOnScan = segments.includes("scan");
+  const isOnScan = (segments as string[]).includes("scan");
 
   return (
     <QueryClientProvider client={queryClient}>

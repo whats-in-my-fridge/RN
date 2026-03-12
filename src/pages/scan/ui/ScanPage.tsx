@@ -51,9 +51,13 @@ export function ScanPage() {
     );
   }
 
+  if (!capturedUri) {
+    return null;
+  }
+
   return (
     <ScanPreviewView
-      imageUri={capturedUri!}
+      imageUri={capturedUri}
       isSubmitting={mode === "submitting"}
       onSubmit={handleSubmit}
       onReset={handleReset}

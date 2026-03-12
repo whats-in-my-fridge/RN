@@ -3,11 +3,11 @@
 // 카메라 모드 ('camera' | 'preview' | 'submitting') 전환, 촬영, 갤러리 선택, 서버 제출을 담당한다.
 
 import { useMutation } from "@tanstack/react-query";
+import type { CameraView } from "expo-camera";
 import { useCameraPermissions } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
 import { useCallback, useRef, useState } from "react";
 import { postScanImage } from "../api/post-scan-image";
-import type { CameraView } from "expo-camera";
 
 export type ScanMode = "camera" | "preview" | "submitting";
 

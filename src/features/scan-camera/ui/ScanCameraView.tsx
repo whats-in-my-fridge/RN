@@ -10,7 +10,7 @@ import { ActivityIndicator, Pressable, Text, View } from "react-native";
 type CameraPermission = { granted: boolean; canAskAgain: boolean } | null;
 
 type Props = {
-  cameraRef: RefObject<CameraView>;
+  cameraRef: RefObject<CameraView | null>;
   permission: CameraPermission;
   onRequestPermission: () => void;
   onCapture: () => void;
