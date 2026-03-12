@@ -11,10 +11,17 @@ interface SettingsListGroupProps {
 export function SettingsListGroup({ children }: SettingsListGroupProps) {
   const childArray = Children.toArray(children);
 
+  const getKey = (child: React.ReactNode, index: number) => {
+    if (isValidElement(child) && "title" in (child.props as { title?: string })) {
+      return (child.props as { title: string }).title;
+    }
+    return `group-${index}`;
+  };
+
   return (
     <View className="overflow-hidden rounded-list border border-stroke-default bg-surface-card">
       {childArray.map((child, index) => (
-        <Fragment key={index}>
+        <Fragment key={getKey(child, index)}>
           {isValidElement(child) && child.type
             ? cloneElement(child as React.ReactElement<{ grouped?: boolean }>, {
                 grouped: true,
