@@ -7,13 +7,15 @@
  * Custom SVG icons are prioritized over Material Icons for consistent design.
  */
 
+import { CameraIcon, FridgeIcon, HomeIcon, PersonIcon, SearchIcon } from "@/shared/assets/icons";
+import { Ionicons } from "@expo/vector-icons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import type { ComponentProps } from "react";
 import type { OpaqueColorValue, StyleProp, TextStyle } from "react-native";
-import { CameraIcon, FridgeIcon, HomeIcon, PersonIcon, SearchIcon } from "@/shared/assets/icons";
 
 type MaterialIconName = ComponentProps<typeof MaterialIcons>["name"];
-type IconSymbolName =
+type IoniconsName = ComponentProps<typeof Ionicons>["name"];
+export type IconSymbolName =
   | "house.fill"
   | "square.stack.fill"
   | "camera.fill"
@@ -28,7 +30,11 @@ type IconSymbolName =
   | "heart.fill"
   | "chevron.left"
   | "flame"
-  | "bell";
+  | "bell"
+  | "shield"
+  | "settings"
+  | "help"
+  | "logout";
 
 /**
  * Custom SVG icon components for tab bar and design consistency.
@@ -54,6 +60,10 @@ const SVG_ICONS: Record<
   "chevron.left": null,
   flame: null,
   bell: null,
+  shield: null,
+  settings: null,
+  help: null,
+  logout: null,
 };
 
 /**
@@ -78,6 +88,18 @@ const MATERIAL_ICONS_MAPPING: Record<IconSymbolName, MaterialIconName> = {
   "person.fill": "account-circle",
   flame: "whatshot",
   bell: "notifications",
+  shield: "shield",
+  settings: "settings",
+  help: "help-outline",
+  logout: "logout",
+};
+
+/** 설정용 아이콘 - Ionicons 사용 (ChatSheetHeader에서 검증됨) */
+const IONICONS_MAPPING: Partial<Record<IconSymbolName, IoniconsName>> = {
+  shield: "shield-outline",
+  settings: "settings-outline",
+  help: "help-circle-outline",
+  logout: "log-out-outline",
 };
 
 /**
@@ -106,7 +128,13 @@ export function IconSymbol({
     return <SvgIcon size={size} color={typeof color === "string" ? color : color.toString()} />;
   }
 
-  // Fallback to Material Icons
+  // Fallback: Ionicons (설정용 - shield, settings, help, logout)
+  const ioniconsName = IONICONS_MAPPING[name];
+  if (ioniconsName) {
+    return <Ionicons color={color} size={size} name={ioniconsName} style={style} />;
+  }
+
+  // Fallback: Material Icons
   const materialIconName = MATERIAL_ICONS_MAPPING[name];
   if (materialIconName) {
     return <MaterialIcons color={color} size={size} name={materialIconName} style={style} />;
