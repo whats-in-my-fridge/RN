@@ -13,27 +13,21 @@ export function SettingsListGroup({ children }: SettingsListGroupProps) {
 
   return (
     <View className="overflow-hidden rounded-list border border-stroke-default bg-surface-card">
-      {childArray.map((child, index) => {
-        const key =
-          isValidElement(child) && "title" in (child.props as { title?: string })
-            ? (child.props as { title: string }).title
-            : `group-${index}`;
-        return (
-          <Fragment key={key}>
-            {isValidElement(child) && child.type
-              ? cloneElement(child as React.ReactElement<{ grouped?: boolean }>, {
-                  grouped: true,
-                })
-              : child}
-            {index < childArray.length - 1 && (
-              <View
-                className="mx-card h-px"
-                style={{ backgroundColor: tokens.color["stroke-default"] }}
-              />
-            )}
-          </Fragment>
-        );
-      })}
+      {childArray.map((child, index) => (
+        <Fragment key={index}>
+          {isValidElement(child) && child.type
+            ? cloneElement(child as React.ReactElement<{ grouped?: boolean }>, {
+                grouped: true,
+              })
+            : child}
+          {index < childArray.length - 1 && (
+            <View
+              className="mx-card h-px"
+              style={{ backgroundColor: tokens.color["stroke-default"] }}
+            />
+          )}
+        </Fragment>
+      ))}
     </View>
   );
 }
