@@ -1,8 +1,5 @@
-/**
- * src/app/(tabs)/scan.tsx
- *
- * 스캔 탭 화면
- */
+// src/app/(protected)/(tabs)/scan.tsx
+// 스캔 탭 화면.
 
 import { Text, View } from "react-native";
 
