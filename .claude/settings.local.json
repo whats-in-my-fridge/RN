@@ -4,7 +4,10 @@
       "Bash(npm run biome-check:*)",
       "Bash(npm run biome-fix:*)",
       "Bash(echo:*)",
-      "Bash(npm run typecheck:*)"
+      "Bash(npm run typecheck:*)",
+      "Bash(cat /c/Users/uesr/Desktop/My-App/whats_in_my_fridge/src/app/\\\\\\(protected\\\\\\)/\\\\\\(tabs\\\\\\)/scan.tsx)",
+      "Bash(cd /c/Users/uesr/Desktop/My-App/whats_in_my_fridge && npx expo install expo-camera expo-image-picker 2>&1)",
+      "Bash(cd /c/Users/uesr/Desktop/My-App/whats_in_my_fridge && find node_modules/expo-modules-core -name \"*.d.ts\" | xargs grep -l \"PermissionResponse\" 2>/dev/null | head -3)"
     ]
   }
 }
