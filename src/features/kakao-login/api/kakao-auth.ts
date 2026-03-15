@@ -2,7 +2,7 @@
 import { login, logout } from "@react-native-seoul/kakao-login";
 import type { User } from "@/entities/user";
 
-const API_BASE = process.env.EXPO_PUBLIC_API_URL || "http://localhost:3000";
+const API_BASE = process.env.EXPO_PUBLIC_API_URL || "http://13.209.189.41:8080";
 
 export interface KakaoLoginResponse {
   user: User;
@@ -26,14 +26,17 @@ export async function kakaoLogin(): Promise<KakaoLoginResponse> {
     }
 
     // 2. Exchange with backend
-    const response = await fetch(`${API_BASE}/auth/kakao`, {
+    const endpoint = `${API_BASE}/auth/login/kakao`;
+
+    const response = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ accessToken: result.accessToken }),
     });
 
     if (!response.ok) {
-      throw new Error(`Backend auth failed: ${response.statusText}`);
+      const errorText = await response.text().catch(() => "Unable to parse error body");
+      throw new Error(`Backend auth failed: ${response.statusText} - ${errorText}`);
     }
 
     const data: KakaoLoginResponse = await response.json();
@@ -50,7 +53,7 @@ export async function kakaoLogin(): Promise<KakaoLoginResponse> {
 export async function kakaoLogout(): Promise<void> {
   try {
     await logout();
-  } catch (error) {
-    console.error("Kakao logout error:", error);
+  } catch {
+    // Ignore logout errors
   }
 }

@@ -109,38 +109,50 @@
   "hotPaths": [
     {
       "path": "src\\features\\kakao-login\\ui\\KakaoLoginButton.tsx",
-      "accessCount": 26,
-      "lastAccessed": 1773553969824,
+      "accessCount": 27,
+      "lastAccessed": 1773554190917,
       "type": "file"
     },
     {
       "path": "src\\pages\\login\\ui\\LoginPage.tsx",
-      "accessCount": 18,
-      "lastAccessed": 1773553434441,
-      "type": "file"
-    },
-    {
-      "path": "src\\features\\kakao-login\\model\\use-kakao-login.ts",
-      "accessCount": 13,
-      "lastAccessed": 1773547661063,
+      "accessCount": 19,
+      "lastAccessed": 1773554197587,
       "type": "file"
     },
     {
       "path": "app.json",
-      "accessCount": 8,
-      "lastAccessed": 1773550669498,
+      "accessCount": 16,
+      "lastAccessed": 1773556024961,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\kakao-login\\model\\use-kakao-login.ts",
+      "accessCount": 14,
+      "lastAccessed": 1773554190351,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\kakao-login\\api\\kakao-auth.ts",
+      "accessCount": 14,
+      "lastAccessed": 1773555045425,
       "type": "file"
     },
     {
       "path": "src\\app\\_layout.tsx",
-      "accessCount": 7,
-      "lastAccessed": 1773547528286,
+      "accessCount": 8,
+      "lastAccessed": 1773554183695,
       "type": "file"
     },
     {
       "path": "src\\app\\(auth)\\login.tsx",
-      "accessCount": 7,
-      "lastAccessed": 1773553273986,
+      "accessCount": 8,
+      "lastAccessed": 1773554184070,
+      "type": "file"
+    },
+    {
+      "path": "src\\app\\(protected)\\_layout.tsx",
+      "accessCount": 6,
+      "lastAccessed": 1773554184842,
       "type": "file"
     },
     {
@@ -150,21 +162,21 @@
       "type": "file"
     },
     {
-      "path": "src\\app\\(protected)\\_layout.tsx",
-      "accessCount": 5,
-      "lastAccessed": 1773547538511,
-      "type": "file"
-    },
-    {
       "path": "src\\features\\kakao-login\\ui\\KakaoSymbol.tsx",
       "accessCount": 5,
       "lastAccessed": 1773553382165,
       "type": "file"
     },
     {
-      "path": "src\\features\\kakao-login\\api\\kakao-auth.ts",
+      "path": "src\\features\\kakao-login\\model\\store.ts",
       "accessCount": 4,
-      "lastAccessed": 1773548577966,
+      "lastAccessed": 1773554189138,
+      "type": "file"
+    },
+    {
+      "path": "src\\entities\\user\\model\\user.types.ts",
+      "accessCount": 4,
+      "lastAccessed": 1773554913136,
       "type": "file"
     },
     {
@@ -180,9 +192,15 @@
       "type": "file"
     },
     {
-      "path": "src\\features\\kakao-login\\model\\store.ts",
+      "path": "src\\features\\kakao-login\\index.ts",
       "accessCount": 3,
-      "lastAccessed": 1773548578052,
+      "lastAccessed": 1773554190492,
+      "type": "file"
+    },
+    {
+      "path": "src\\entities\\user\\index.ts",
+      "accessCount": 3,
+      "lastAccessed": 1773554911207,
       "type": "file"
     },
     {
@@ -252,21 +270,15 @@
       "type": "file"
     },
     {
-      "path": "src\\features\\kakao-login\\index.ts",
-      "accessCount": 2,
-      "lastAccessed": 1773508732022,
-      "type": "file"
-    },
-    {
       "path": "src\\pages\\search\\ui\\SearchPage.tsx",
       "accessCount": 2,
       "lastAccessed": 1773547000521,
       "type": "file"
     },
     {
-      "path": "src\\entities\\user\\model\\user.types.ts",
+      "path": "src\\pages\\login\\index.ts",
       "accessCount": 2,
-      "lastAccessed": 1773548596977,
+      "lastAccessed": 1773554197931,
       "type": "file"
     },
     {
@@ -381,18 +393,6 @@
       "path": "src\\app\\(protected)\\(modals)\\chat.tsx",
       "accessCount": 1,
       "lastAccessed": 1773507199161,
-      "type": "file"
-    },
-    {
-      "path": "src\\entities\\user\\index.ts",
-      "accessCount": 1,
-      "lastAccessed": 1773507568261,
-      "type": "file"
-    },
-    {
-      "path": "src\\pages\\login\\index.ts",
-      "accessCount": 1,
-      "lastAccessed": 1773507587993,
       "type": "file"
     },
     {

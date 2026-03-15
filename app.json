@@ -13,7 +13,10 @@
       "bundleIdentifier": "com.docook.whatsinmyfridge",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
-        "LSApplicationQueriesSchemes": ["kakaotalk", "kakaokompassauth", "kakaolink"]
+        "LSApplicationQueriesSchemes": ["kakaotalk", "kakaokompassauth", "kakaolink"],
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        }
       }
     },
     "android": {
@@ -25,7 +28,8 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.chun4582.whats_in_my_fridge"
+      "package": "com.chun4582.whats_in_my_fridge",
+      "usesCleartextTraffic": true
     },
     "web": {
       "output": "static",

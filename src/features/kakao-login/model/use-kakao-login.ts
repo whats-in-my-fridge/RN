@@ -24,7 +24,6 @@ export function useKakaoLogin() {
       // Navigate to home
       router.replace("/(protected)/(tabs)/home");
     } catch (error) {
-      console.error("Login failed:", error);
       clearAuth();
       throw error;
     } finally {
@@ -38,8 +37,8 @@ export function useKakaoLogin() {
       await SecureStore.deleteItemAsync("auth_token");
       clearAuth();
       router.replace("/(auth)/login");
-    } catch (error) {
-      console.error("Logout failed:", error);
+    } catch {
+      // Ignore logout errors
     }
   }, [router, clearAuth]);
 
