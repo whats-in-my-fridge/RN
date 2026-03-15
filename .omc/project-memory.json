@@ -1,0 +1,412 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1773504397985,
+  "projectRoot": "C:\\Users\\uesr\\Desktop\\My-App\\whats_in_my_fridge",
+  "techStack": {
+    "languages": [
+      {
+        "name": "JavaScript/TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "package.json"
+        ]
+      },
+      {
+        "name": "TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "tsconfig.json"
+        ]
+      }
+    ],
+    "frameworks": [
+      {
+        "name": "react",
+        "version": "19.1.0",
+        "category": "frontend"
+      },
+      {
+        "name": "react-dom",
+        "version": "19.1.0",
+        "category": "frontend"
+      }
+    ],
+    "packageManager": "npm",
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": "npm run lint",
+    "devCommand": "npm run start",
+    "scripts": {
+      "start": "expo start",
+      "android": "expo start --android",
+      "ios": "expo start --ios",
+      "web": "expo start --web",
+      "lint": "expo lint",
+      "typecheck": "tsc -p tsconfig.json --noEmit",
+      "biome-check": "biome check src",
+      "biome-fix": "biome check src --write",
+      "biome-format": "biome format src --write"
+    }
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": "feature-based"
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "src"
+    ],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "RN.wiki": {
+      "path": "RN.wiki",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1773504397923,
+      "keyFiles": []
+    },
+    "src": {
+      "path": "src",
+      "purpose": "Source code",
+      "fileCount": 1,
+      "lastAccessed": 1773504397925,
+      "keyFiles": [
+        "README.md"
+      ]
+    },
+    "src\\app": {
+      "path": "src\\app",
+      "purpose": "Application code",
+      "fileCount": 3,
+      "lastAccessed": 1773504397943,
+      "keyFiles": [
+        "+not-found.tsx",
+        "README.md",
+        "_layout.tsx"
+      ]
+    },
+    "src\\pages": {
+      "path": "src\\pages",
+      "purpose": "Page components",
+      "fileCount": 1,
+      "lastAccessed": 1773504397944,
+      "keyFiles": [
+        "README.md"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "src\\features\\kakao-login\\ui\\KakaoLoginButton.tsx",
+      "accessCount": 26,
+      "lastAccessed": 1773553969824,
+      "type": "file"
+    },
+    {
+      "path": "src\\pages\\login\\ui\\LoginPage.tsx",
+      "accessCount": 18,
+      "lastAccessed": 1773553434441,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\kakao-login\\model\\use-kakao-login.ts",
+      "accessCount": 13,
+      "lastAccessed": 1773547661063,
+      "type": "file"
+    },
+    {
+      "path": "app.json",
+      "accessCount": 8,
+      "lastAccessed": 1773550669498,
+      "type": "file"
+    },
+    {
+      "path": "src\\app\\_layout.tsx",
+      "accessCount": 7,
+      "lastAccessed": 1773547528286,
+      "type": "file"
+    },
+    {
+      "path": "src\\app\\(auth)\\login.tsx",
+      "accessCount": 7,
+      "lastAccessed": 1773553273986,
+      "type": "file"
+    },
+    {
+      "path": "src\\pages\\home\\ui\\HomePage.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1773546752227,
+      "type": "file"
+    },
+    {
+      "path": "src\\app\\(protected)\\_layout.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1773547538511,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\kakao-login\\ui\\KakaoSymbol.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1773553382165,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\kakao-login\\api\\kakao-auth.ts",
+      "accessCount": 4,
+      "lastAccessed": 1773548577966,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\settings.local.json",
+      "accessCount": 3,
+      "lastAccessed": 1773507020397,
+      "type": "file"
+    },
+    {
+      "path": "package.json",
+      "accessCount": 3,
+      "lastAccessed": 1773548577559,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\kakao-login\\model\\store.ts",
+      "accessCount": 3,
+      "lastAccessed": 1773548578052,
+      "type": "file"
+    },
+    {
+      "path": "src\\app\\(auth)\\_layout.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1773507164298,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\chat\\model\\store.ts",
+      "accessCount": 2,
+      "lastAccessed": 1773507174128,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\home-feed\\api\\get-recommended-recipes.ts",
+      "accessCount": 2,
+      "lastAccessed": 1773507174302,
+      "type": "file"
+    },
+    {
+      "path": "src\\shared\\model\\bottom-sheet\\store.ts",
+      "accessCount": 2,
+      "lastAccessed": 1773507174963,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\recipe-liked-button\\api\\post-recipe-liked.ts",
+      "accessCount": 2,
+      "lastAccessed": 1773507175065,
+      "type": "file"
+    },
+    {
+      "path": "src\\shared\\model\\toast\\store.ts",
+      "accessCount": 2,
+      "lastAccessed": 1773507175255,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\home-feed\\index.ts",
+      "accessCount": 2,
+      "lastAccessed": 1773507186515,
+      "type": "file"
+    },
+    {
+      "path": "src\\entities\\recipe\\index.ts",
+      "accessCount": 2,
+      "lastAccessed": 1773507186703,
+      "type": "file"
+    },
+    {
+      "path": "src\\entities\\recipe\\model\\recipe.types.ts",
+      "accessCount": 2,
+      "lastAccessed": 1773507186929,
+      "type": "file"
+    },
+    {
+      "path": "src\\app\\(protected)\\(tabs)\\home.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1773507187145,
+      "type": "file"
+    },
+    {
+      "path": "CLAUDE.md",
+      "accessCount": 2,
+      "lastAccessed": 1773508014040,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\kakao-login\\index.ts",
+      "accessCount": 2,
+      "lastAccessed": 1773508732022,
+      "type": "file"
+    },
+    {
+      "path": "src\\pages\\search\\ui\\SearchPage.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1773547000521,
+      "type": "file"
+    },
+    {
+      "path": "src\\entities\\user\\model\\user.types.ts",
+      "accessCount": 2,
+      "lastAccessed": 1773548596977,
+      "type": "file"
+    },
+    {
+      "path": "src\\app\\(protected)\\(tabs)\\_layout.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1773507155681,
+      "type": "file"
+    },
+    {
+      "path": "src\\app\\(protected)\\(tabs)\\mypage.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1773507162463,
+      "type": "file"
+    },
+    {
+      "path": "src\\app\\(protected)\\onboarding.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1773507163274,
+      "type": "file"
+    },
+    {
+      "path": "src\\app\\_providers\\index.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773507163823,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\home-feed\\api\\get-best-recipe.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773507165040,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\home-feed\\model\\use-best-recipe.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773507171824,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\home-feed\\model\\use-recommended-recipes.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773507173439,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\search-recipe\\hooks\\useSearchRecipe.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773507173697,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\recipe-liked-button\\ui\\RecipeLikedButton.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1773507184100,
+      "type": "file"
+    },
+    {
+      "path": "src\\shared\\ui\\SearchBar\\SearchBar.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1773507184240,
+      "type": "file"
+    },
+    {
+      "path": "src\\shared\\ui\\CategoryFilter\\CategoryFilter.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1773507184610,
+      "type": "file"
+    },
+    {
+      "path": "src\\shared\\config\\tokens.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773507185650,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\recipe-liked-button\\index.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773507185974,
+      "type": "file"
+    },
+    {
+      "path": "tsconfig.json",
+      "accessCount": 1,
+      "lastAccessed": 1773507194954,
+      "type": "file"
+    },
+    {
+      "path": "src\\shared\\model\\bottom-sheet\\index.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773507195836,
+      "type": "file"
+    },
+    {
+      "path": "src\\shared\\model\\toast\\index.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773507196171,
+      "type": "file"
+    },
+    {
+      "path": "src\\app\\_providers\\BottomSheetProvider.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1773507197906,
+      "type": "file"
+    },
+    {
+      "path": "src\\app\\(protected)\\(modals)\\_layout.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1773507198571,
+      "type": "file"
+    },
+    {
+      "path": "src\\app\\(protected)\\(modals)\\chat.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1773507199161,
+      "type": "file"
+    },
+    {
+      "path": "src\\entities\\user\\index.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773507568261,
+      "type": "file"
+    },
+    {
+      "path": "src\\pages\\login\\index.ts",
+      "accessCount": 1,
+      "lastAccessed": 1773507587993,
+      "type": "file"
+    },
+    {
+      "path": "src\\shared\\ui\\themed-text.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1773507647145,
+      "type": "file"
+    },
+    {
+      "path": "src\\features\\kakao-login\\ui\\OrDivider.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1773508713588,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

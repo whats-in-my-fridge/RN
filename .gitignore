@@ -45,3 +45,4 @@ app-example
 #claude
 CLAUDE.md
 .claudeignore
+.claude/
