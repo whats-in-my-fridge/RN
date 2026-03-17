@@ -66,6 +66,7 @@ module.exports = {
         primary: c["ink-900"],
         secondary: c["warm-gray-500"],
         dark: c["ink-700"],
+        muted: c["warm-gray-250"],
       },
 
       // Stroke (border colors)
