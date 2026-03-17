@@ -1,8 +1,13 @@
+// src/app/(protected)/(tabs)/_layout.tsx
+// 하단 탭 네비게이터 레이아웃.
+
 import { Tabs } from "expo-router";
+
 import { semanticColors } from "@/shared/config/tokens";
 import { HapticTab } from "@/shared/ui/haptic-tab";
 import { IconSymbol } from "@/shared/ui/icon-symbol";
 import { ScanTabButton } from "@/shared/ui/tab-bar";
+
 export default function TabLayout() {
   return (
     <Tabs
@@ -18,7 +23,7 @@ export default function TabLayout() {
     >
       {/* 홈 */}
       <Tabs.Screen
-        name="index"
+        name="home"
         options={{
           title: "홈",
           tabBarIcon: ({ color }) => <IconSymbol size={22} name="house.fill" color={color} />,
@@ -28,7 +33,7 @@ export default function TabLayout() {
 
       {/* 냉장고 */}
       <Tabs.Screen
-        name="fridge"
+        name="inventory"
         options={{
           title: "냉장고",
           tabBarIcon: ({ color }) => (
@@ -42,7 +47,6 @@ export default function TabLayout() {
       <Tabs.Screen
         name="scan"
         options={{
-          title: "스캔",
           tabBarButton: (props) => <ScanTabButton {...props} />,
         }}
       />

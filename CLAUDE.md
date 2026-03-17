@@ -152,6 +152,9 @@ All checks must pass before merge. No force-push or skip-hooks allowed.
 - **`git push`는 절대 자동으로 실행하지 않는다.** 사용자가 "내가 할게", "내가 푸시할게" 등 직접 하겠다고 하면 즉시 멈추고 명령어만 알려준다.
 - push뿐 아니라 모든 외부에 영향을 주는 git 작업(force push, reset --hard 등)은 사용자가 명시적으로 요청할 때만 실행한다.
 
+### 검증 작업
+- **`npm run typecheck`, `npm run biome-check` 등 검증 명령어는 절대 자동으로 실행하지 않는다.** 모든 검증은 사용자가 직접 실행한다.
+
 ## Notes for Contributors
 
 - **PR template**: `.github/pull_request_template.md`
