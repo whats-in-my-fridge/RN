@@ -240,12 +240,8 @@ export function FridgeBoard() {
 
         {/* 냉동 구분선 */}
         <View
-          className="items-center justify-center py-[6px] bg-frozen-divider-bg"
-          style={{
-            borderTopWidth: 0.8,
-            borderBottomWidth: 0.8,
-            borderColor: "#d0e2f0",
-          }}
+          className="items-center justify-center py-[6px] bg-frozen-divider-bg border-y border-frozen-divider-border"
+          style={{ borderTopWidth: 0.8, borderBottomWidth: 0.8 }}
         >
           <Text className="text-frozen-text text-[10px] font-bold" style={{ letterSpacing: 1 }}>
             ❄ 냉동

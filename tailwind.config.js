@@ -121,6 +121,8 @@ module.exports = {
         text: c["ice-blue-500"],
         "text-muted": c["ice-blue-400"],
         bg: c["ice-blue-100"],
+        "divider-bg": c["ice-blue-200"],
+        "divider-border": c["ice-blue-border"],
       },
     },
 
