@@ -9,40 +9,36 @@ type Props = {
   right: FridgeSection;
 };
 
+type DualShelfSectionProps = {
+  section: FridgeSection;
+  isLeft?: boolean;
+};
+
+function DualShelfSection({ section, isLeft }: DualShelfSectionProps) {
+  return (
+    <View className={`flex-1 pt-3 px-4 pb-2 gap-2 ${isLeft ? "border-r border-stroke-default" : ""}`}>
+      <View className="flex-row items-center justify-between">
+        <Text className="text-[11px] leading-4 text-content-secondary font-semibold">
+          {section.label}
+        </Text>
+        <Text className="text-[11px] leading-4 text-stroke-default font-normal">
+          {section.items.length}개
+        </Text>
+      </View>
+      <View className="flex-row flex-wrap gap-1.5">
+        {section.items.map((item) => (
+          <ItemChip key={item.id} name={item.name} status={item.freshnessStatus} />
+        ))}
+      </View>
+    </View>
+  );
+}
+
 export function DualShelfRow({ left, right }: Props) {
   return (
     <View className="flex-row">
-      <View className="flex-1 pt-3 px-4 pb-2 gap-2 border-r border-stroke-default">
-        <View className="flex-row items-center justify-between">
-          <Text className="text-[11px] leading-4 text-content-secondary font-semibold">
-            {left.label}
-          </Text>
-          <Text className="text-[11px] leading-4 text-stroke-default font-normal">
-            {left.items.length}개
-          </Text>
-        </View>
-        <View className="flex-row flex-wrap gap-1.5">
-          {left.items.map((item) => (
-            <ItemChip key={item.id} name={item.name} status={item.freshnessStatus} />
-          ))}
-        </View>
-      </View>
-
-      <View className="flex-1 pt-3 px-4 pb-2 gap-2">
-        <View className="flex-row items-center justify-between">
-          <Text className="text-[11px] leading-4 text-content-secondary font-semibold">
-            {right.label}
-          </Text>
-          <Text className="text-[11px] leading-4 text-stroke-default font-normal">
-            {right.items.length}개
-          </Text>
-        </View>
-        <View className="flex-row flex-wrap gap-1.5">
-          {right.items.map((item) => (
-            <ItemChip key={item.id} name={item.name} status={item.freshnessStatus} />
-          ))}
-        </View>
-      </View>
+      <DualShelfSection section={left} isLeft />
+      <DualShelfSection section={right} />
     </View>
   );
 }
