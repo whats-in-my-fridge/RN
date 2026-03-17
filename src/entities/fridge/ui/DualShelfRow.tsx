@@ -16,7 +16,9 @@ type DualShelfSectionProps = {
 
 function DualShelfSection({ section, isLeft }: DualShelfSectionProps) {
   return (
-    <View className={`flex-1 pt-3 px-4 pb-2 gap-2 ${isLeft ? "border-r border-stroke-default" : ""}`}>
+    <View
+      className={`flex-1 pt-3 px-4 pb-2 gap-2 ${isLeft ? "border-r border-stroke-default" : ""}`}
+    >
       <View className="flex-row items-center justify-between">
         <Text className="text-[11px] leading-4 text-content-secondary font-semibold">
           {section.label}
