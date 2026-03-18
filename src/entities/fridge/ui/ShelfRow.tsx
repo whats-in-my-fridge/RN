@@ -28,7 +28,7 @@ export function ShelfRow({ section }: Props) {
   const hasExpiring = section.items.some((i) => i.freshnessStatus === "expiring");
 
   return (
-    <View className={`pt-3 px-4 pb-2 gap-2 ${cls.container}`}>
+    <View className={`flex-1 pt-3 px-4 pb-2 gap-2 ${cls.container}`}>
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-center flex-shrink">
           <Text className={`text-[11px] leading-4 ${cls.label}`}>{section.label}</Text>

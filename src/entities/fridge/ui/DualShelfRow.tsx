@@ -47,7 +47,7 @@ function DualShelfSection({ section, isLeft }: DualShelfSectionProps) {
 
 export function DualShelfRow({ left, right }: Props) {
   return (
-    <View className="flex-row">
+    <View className="flex-1 flex-row">
       <DualShelfSection section={left} isLeft />
       <DualShelfSection section={right} />
     </View>
