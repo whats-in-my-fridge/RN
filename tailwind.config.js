@@ -88,6 +88,7 @@ module.exports = {
 
         caution: c["caution-500"],
         "caution-bg": c["caution-100"],
+        "caution-border": c["amber-200"],
 
         "fresh-chip-bg": c["green-chip-100"],
 

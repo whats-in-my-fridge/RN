@@ -45,3 +45,6 @@ app-example
 #claude
 CLAUDE.md
 .claudeignore
+
+# Trouble-shooting logs (personal, not for version control)
+troubles/

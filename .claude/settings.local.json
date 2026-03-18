@@ -12,7 +12,9 @@
       "Read(//c/Projects/Capstone_RN/**)",
       "Read(//c/Users/dlxor/**)",
       "Read(//c/tmp/**)",
-      "Bash(grep -r \"vector-icons\\\\|Ionicons\\\\|MaterialIcons\\\\|Feather\" src/ --include=*.tsx --include=*.ts -l)"
+      "Bash(grep -r \"vector-icons\\\\|Ionicons\\\\|MaterialIcons\\\\|Feather\" src/ --include=*.tsx --include=*.ts -l)",
+      "Bash(find /c/Users/dlxor/.claude -name userSettings*)",
+      "Bash(find /c/Users/dlxor/.claude -path *userSettings* -name *.md)"
     ]
   }
 }

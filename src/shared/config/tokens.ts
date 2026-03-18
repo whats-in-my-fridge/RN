@@ -65,6 +65,7 @@ export const semanticColors = {
   // ── Status: Caution / Warm Orange ────────────────────────────────────────
   "status-caution": primitiveColors["caution-500"],
   "status-caution-bg": primitiveColors["caution-100"],
+  "status-caution-border": primitiveColors["amber-200"],
 
   // ── Frozen shelf ──────────────────────────────────────────────────────────
   "frozen-text": primitiveColors["ice-blue-500"],
@@ -203,6 +204,11 @@ export const componentTokens = {
       bg: semanticColors["status-fresh-bg"],
       border: semanticColors["status-fresh-border"],
       text: semanticColors["status-fresh"],
+    },
+    caution: {
+      bg: semanticColors["status-caution-bg"],
+      border: semanticColors["status-caution-border"],
+      text: semanticColors["status-caution"],
     },
     expiring: {
       bg: semanticColors["status-expiring-bg"],
