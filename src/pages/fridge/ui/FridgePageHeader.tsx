@@ -4,6 +4,9 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Pressable, Text, View } from "react-native";
 import { tokens } from "@/shared/config/tokens";
 
+const HEADER_TOP_PADDING = 52;
+const TITLE_GAP = 2;
+
 type Props = {
   totalCount: number;
   onAddPress?: () => void;
@@ -11,12 +14,12 @@ type Props = {
 
 export function FridgePageHeader({ totalCount, onAddPress }: Props) {
   return (
-    <View className="flex-row items-center justify-between px-5 pt-[52px] pb-4">
-      <View className="gap-[2px]">
-        <Text className="text-[24px] font-bold leading-[36px] text-content-primary">
+    <View className="flex-row items-center justify-between px-5 pb-4" style={{ paddingTop: HEADER_TOP_PADDING }}>
+      <View style={{ gap: TITLE_GAP }}>
+        <Text className="text-6xl text-content-primary">
           나의 냉장고
         </Text>
-        <Text className="text-[12px] leading-[18px] text-content-secondary">
+        <Text className="text-sm text-content-secondary">
           총 {totalCount}가지 재료 보관 중
         </Text>
       </View>

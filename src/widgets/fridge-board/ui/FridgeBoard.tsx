@@ -1,6 +1,6 @@
 // 냉장고 카드 전체 위젯 — 선반 섹션들과 범례를 카드 컨테이너로 조립하는 UI 블록
 
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import type { FridgeSection } from "@/entities/fridge";
 import { DualShelfRow, ShelfRow } from "@/entities/fridge";
 
@@ -241,7 +241,7 @@ export function FridgeBoard() {
         {/* 냉동 구분선 */}
         <View
           className="items-center justify-center py-[6px] bg-frozen-divider-bg border-y border-frozen-divider-border"
-          style={{ borderTopWidth: 0.8, borderBottomWidth: 0.8 }}
+          style={{ borderTopWidth: StyleSheet.hairlineWidth, borderBottomWidth: StyleSheet.hairlineWidth }}
         >
           <Text className="text-frozen-text text-[10px] font-bold" style={{ letterSpacing: 1 }}>
             ❄ 냉동

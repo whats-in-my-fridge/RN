@@ -5,6 +5,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { FridgeBoard } from "@/widgets/fridge-board";
 import { FridgePageHeader } from "./FridgePageHeader";
 
+const TAB_BAR_SPACER_HEIGHT = 92;
+
 export function FridgePage() {
   return (
     <SafeAreaView edges={["top"]} className="flex-1 bg-surface-app">
@@ -12,7 +14,7 @@ export function FridgePage() {
       <View className="flex-1 mt-2">
         <FridgeBoard />
       </View>
-      <View style={{ height: 92 }} />
+      <View style={{ height: TAB_BAR_SPACER_HEIGHT }} />
     </SafeAreaView>
   );
 }
