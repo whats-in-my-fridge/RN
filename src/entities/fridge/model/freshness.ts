@@ -2,8 +2,11 @@
 
 import type { FreshnessStatus } from "./types";
 
+const EXPIRING_THRESHOLD_DAYS = 3;
+const CAUTION_THRESHOLD_DAYS = 7;
+
 export function getFreshnessStatus(daysUntilExpiry: number): FreshnessStatus {
-  if (daysUntilExpiry <= 3) return "expiring";
-  if (daysUntilExpiry <= 7) return "caution";
+  if (daysUntilExpiry <= EXPIRING_THRESHOLD_DAYS) return "expiring";
+  if (daysUntilExpiry <= CAUTION_THRESHOLD_DAYS) return "caution";
   return "fresh";
 }

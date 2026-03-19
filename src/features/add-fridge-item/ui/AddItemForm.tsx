@@ -20,11 +20,18 @@ const SHELF_OPTIONS: SelectOption<ShelfType>[] = [
   { label: "냉동 서랍", value: "freezer" },
 ];
 
-const INITIAL_FORM = {
+type FridgeItemFormState = {
+  name: string;
+  quantity: string;
+  expiryDays: string;
+  shelfType: ShelfType | null;
+};
+
+const INITIAL_FORM: FridgeItemFormState = {
   name: "",
   quantity: "",
   expiryDays: "7",
-  shelfType: null as ShelfType | null,
+  shelfType: null,
 };
 
 // ─── 로컬 헬퍼: label + TextInput 패턴 반복 제거 ─────────────────────────────

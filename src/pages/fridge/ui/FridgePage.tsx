@@ -8,6 +8,8 @@ import { AddItemSheet } from "@/features/add-fridge-item";
 import { FridgeBoard } from "@/widgets/fridge-board";
 import { FridgePageHeader } from "./FridgePageHeader";
 
+const BOTTOM_TAB_BAR_HEIGHT = 92;
+
 export function FridgePage() {
   const [isAddOpen, setIsAddOpen] = useState(false);
 
@@ -17,7 +19,7 @@ export function FridgePage() {
       <View className="flex-1 mt-2">
         <FridgeBoard />
       </View>
-      <View style={{ height: 92 }} />
+      <View style={{ height: BOTTOM_TAB_BAR_HEIGHT }} />
 
       <AddItemSheet isOpen={isAddOpen} onClose={() => setIsAddOpen(false)} />
     </SafeAreaView>
