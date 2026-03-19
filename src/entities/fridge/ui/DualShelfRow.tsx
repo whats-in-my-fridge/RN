@@ -1,7 +1,7 @@
 // 냉장 2단 좌/우 두 선반 섹션을 나란히 배치하는 분할 행 컴포넌트
 
-import type { FridgeSection } from "@/entities/fridge/model/types";
 import { Text, View } from "react-native";
+import type { FridgeSection } from "@/entities/fridge/model/types";
 import { ExpiringBadge } from "./ExpiringBadge";
 import { ItemChip } from "./ItemChip";
 
@@ -16,9 +16,7 @@ type DualShelfSectionProps = {
 };
 
 function DualShelfSection({ section, isLeft }: DualShelfSectionProps) {
-  const hasExpiring = section.items.some(
-    (i) => i.freshnessStatus === "expiring",
-  );
+  const hasExpiring = section.items.some((i) => i.freshnessStatus === "expiring");
 
   return (
     <View
@@ -37,11 +35,7 @@ function DualShelfSection({ section, isLeft }: DualShelfSectionProps) {
       </View>
       <View className="flex-row flex-wrap gap-1.5">
         {section.items.map((item) => (
-          <ItemChip
-            key={item.id}
-            name={item.name}
-            status={item.freshnessStatus}
-          />
+          <ItemChip key={item.id} name={item.name} status={item.freshnessStatus} />
         ))}
       </View>
     </View>

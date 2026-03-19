@@ -1,8 +1,8 @@
 // 냉장고 카드 전체 위젯 — 선반 섹션들과 범례를 카드 컨테이너로 조립하는 UI 블록
 
+import { Text, View } from "react-native";
 import type { FridgeSection } from "@/entities/fridge";
 import { DualShelfRow, ShelfRow } from "@/entities/fridge";
-import { Text, View } from "react-native";
 
 // ─── Mock 데이터 (API 연동 전 임시) ────────────────────────────────────────────
 
@@ -211,9 +211,7 @@ function LegendItem({ dotClass, label }: { dotClass: string; label: string }) {
   return (
     <View className="flex-row items-center gap-1">
       <View className={`w-[7px] h-[7px] rounded-full ${dotClass}`} />
-      <Text className="text-[11px] leading-4 text-content-secondary">
-        {label}
-      </Text>
+      <Text className="text-[11px] leading-4 text-content-secondary">{label}</Text>
     </View>
   );
 }
@@ -245,10 +243,7 @@ export function FridgeBoard() {
           className="items-center justify-center py-[6px] bg-frozen-divider-bg border-y border-frozen-divider-border"
           style={{ borderTopWidth: 0.8, borderBottomWidth: 0.8 }}
         >
-          <Text
-            className="text-frozen-text text-[10px] font-bold"
-            style={{ letterSpacing: 1 }}
-          >
+          <Text className="text-frozen-text text-[10px] font-bold" style={{ letterSpacing: 1 }}>
             ❄ 냉동
           </Text>
         </View>
@@ -263,9 +258,7 @@ export function FridgeBoard() {
           <LegendItem dotClass="bg-status-caution" label="주의" />
           <LegendItem dotClass="bg-status-expiring" label="임박" />
         </View>
-        <Text className="text-[11px] leading-4 text-content-muted">
-          탭하면 상세보기
-        </Text>
+        <Text className="text-[11px] leading-4 text-content-muted">탭하면 상세보기</Text>
       </View>
     </View>
   );
