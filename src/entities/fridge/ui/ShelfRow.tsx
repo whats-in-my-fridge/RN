@@ -18,13 +18,14 @@ const frozenClasses = {
 const normalClasses = {
   container: "",
   label: "text-content-secondary font-semibold",
-  description: "text-stroke-default font-normal",
-  count: "text-stroke-default font-normal",
+  description: "text-content-muted font-normal",
+  count: "text-content-muted font-normal",
 } as const;
 
 export function ShelfRow({ section }: Props) {
   const isFrozen = section.type === "freezer";
   const cls = isFrozen ? frozenClasses : normalClasses;
+  const hasExpiring = section.items.some((i) => i.freshnessStatus === "expiring");
 
   return (
     <View className={`pt-3 px-4 pb-2 gap-2 ${cls.container}`}>
@@ -37,7 +38,14 @@ export function ShelfRow({ section }: Props) {
             </Text>
           )}
         </View>
-        <Text className={`text-[11px] leading-4 ${cls.count}`}>{section.items.length}개</Text>
+        <View className="flex-row items-center gap-1.5">
+          {hasExpiring && (
+            <View className="flex-row items-center bg-status-expiring-bg border border-status-expiring-border rounded-full px-[6px] py-[1px]">
+              <Text className="text-[9px] font-bold text-status-expiring">D-임박</Text>
+            </View>
+          )}
+          <Text className={`text-[11px] leading-4 ${cls.count}`}>{section.items.length}개</Text>
+        </View>
       </View>
 
       <View className="flex-row flex-wrap gap-1.5">

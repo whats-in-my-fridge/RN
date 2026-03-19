@@ -44,6 +44,7 @@ export const semanticColors = {
   "content-primary": primitiveColors["ink-900"],
   "content-secondary": primitiveColors["warm-gray-500"],
   "content-dark": primitiveColors["ink-700"],
+  "content-muted": primitiveColors["warm-gray-250"],
 
   // ── Borders (stroke-* prefix avoids border-border-* double prefix) ────────
   "stroke-default": primitiveColors["warm-gray-100"],
