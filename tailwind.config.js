@@ -85,6 +85,11 @@ module.exports = {
         "expiring-bg": c["red-100"],
         "expiring-border": c["red-200"],
 
+        caution: c["caution-500"],
+        "caution-bg": c["caution-100"],
+
+        "fresh-chip-bg": c["green-chip-100"],
+
         soon: c["orange-500"],
         "soon-bg": c["orange-100"],
         "soon-border": c["orange-200"],
@@ -108,6 +113,13 @@ module.exports = {
       },
       tab: {
         inactive: c["warm-gray-250"],
+      },
+
+      // Frozen shelf
+      frozen: {
+        text: c["ice-blue-500"],
+        "text-muted": c["ice-blue-400"],
+        bg: c["ice-blue-100"],
       },
     },
 
