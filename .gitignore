@@ -46,3 +46,6 @@ app-example
 CLAUDE.md
 .claudeignore
 .claude/settings.local.json
+
+# Trouble-shooting logs (personal, not for version control)
+troubles/
