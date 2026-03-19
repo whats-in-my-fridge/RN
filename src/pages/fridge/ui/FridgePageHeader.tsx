@@ -14,14 +14,13 @@ type Props = {
 
 export function FridgePageHeader({ totalCount, onAddPress }: Props) {
   return (
-    <View className="flex-row items-center justify-between px-5 pb-4" style={{ paddingTop: HEADER_TOP_PADDING }}>
+    <View
+      className="flex-row items-center justify-between px-5 pb-4"
+      style={{ paddingTop: HEADER_TOP_PADDING }}
+    >
       <View style={{ gap: TITLE_GAP }}>
-        <Text className="text-6xl text-content-primary">
-          나의 냉장고
-        </Text>
-        <Text className="text-sm text-content-secondary">
-          총 {totalCount}가지 재료 보관 중
-        </Text>
+        <Text className="text-6xl text-content-primary">나의 냉장고</Text>
+        <Text className="text-sm text-content-secondary">총 {totalCount}가지 재료 보관 중</Text>
       </View>
 
       <Pressable

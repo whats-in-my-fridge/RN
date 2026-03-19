@@ -23,14 +23,10 @@ function DualShelfSection({ section, isLeft }: DualShelfSectionProps) {
       className={`flex-1 pt-3 px-4 pb-2 gap-2 ${isLeft ? "border-r border-stroke-default" : ""}`}
     >
       <View className="flex-row items-center justify-between">
-        <Text className="text-xs text-content-secondary font-semibold">
-          {section.label}
-        </Text>
+        <Text className="text-xs text-content-secondary font-semibold">{section.label}</Text>
         <View className="flex-row items-center gap-1.5">
           {hasExpiring && <ExpiringBadge />}
-          <Text className="text-xs text-content-muted font-normal">
-            {section.items.length}개
-          </Text>
+          <Text className="text-xs text-content-muted font-normal">{section.items.length}개</Text>
         </View>
       </View>
       <View className="flex-row flex-wrap gap-1.5">

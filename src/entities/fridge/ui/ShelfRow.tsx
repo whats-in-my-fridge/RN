@@ -34,9 +34,7 @@ export function ShelfRow({ section }: Props) {
         <View className="flex-row items-center flex-shrink">
           <Text className={`text-xs ${cls.label}`}>{section.label}</Text>
           {section.description && (
-            <Text className={`text-xs ${cls.description}`}>
-              {` — ${section.description}`}
-            </Text>
+            <Text className={`text-xs ${cls.description}`}>{` — ${section.description}`}</Text>
           )}
         </View>
         <View className="flex-row items-center gap-1.5">
