@@ -50,7 +50,7 @@ function LabeledInput({
     <View className="gap-[6px]">
       <Text className="text-xs font-medium leading-[18px] text-content-secondary">{label}</Text>
       <BottomSheetTextInput
-        className="h-[47px] rounded-input border border-stroke-default bg-surface-section px-4 text-sm text-content-primary"
+        className="h-12 rounded-input border border-stroke-default bg-surface-section px-4 text-sm text-content-primary"
         placeholder={placeholder}
         placeholderTextColor={tokens.color["content-muted"]}
         value={value}

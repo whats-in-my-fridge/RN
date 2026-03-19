@@ -46,7 +46,7 @@ export function ShelfDetailHeader({ section, onClose }: Props) {
             className="rounded-full px-[7px] h-[22px] items-center justify-center"
             style={{ backgroundColor: tokens.color.primary }}
           >
-            <Text className="text-[11px] font-semibold text-white">{section.items.length}개</Text>
+            <Text className="text-xs font-semibold text-white">{section.items.length}개</Text>
           </View>
         </View>
         {section.description && (

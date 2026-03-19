@@ -3,7 +3,6 @@
 import { Text, View } from "react-native";
 import type { FridgeSection } from "@/entities/fridge";
 import { DualShelfRow, ShelfRow } from "@/entities/fridge";
-// FSD: mock 데이터는 barrel에서 export되지 않으므로 내부 경로 직접 참조.
 // TODO: API 연동 시 이 import 전체를 삭제하고 props/React Query로 교체.
 import {
   MOCK_CHILLED_LEFT,
@@ -12,6 +11,12 @@ import {
   MOCK_FRESH_STORAGE,
   MOCK_VEGETABLE_DRAWER,
 } from "@/entities/fridge/model/mock-sections";
+import { tokens } from "@/shared/config/tokens";
+
+// ─── 상수 ────────────────────────────────────────────────────────────────────
+
+const FROZEN_DIVIDER_BORDER_WIDTH = 0.8;
+const FROZEN_LABEL_LETTER_SPACING = 1;
 
 // ─── Legend 아이템 ──────────────────────────────────────────────────────────────
 
@@ -36,13 +41,7 @@ export function FridgeBoard({ onSectionPress }: Props) {
       {/* 냉장고 카드 */}
       <View
         className="flex-1 mx-3 rounded-[22px] bg-surface-card border border-stroke-default overflow-hidden"
-        style={{
-          elevation: 4,
-          shadowColor: "#2c1a0e",
-          shadowOffset: { width: 0, height: 4 },
-          shadowOpacity: 0.08,
-          shadowRadius: 24,
-        }}
+        style={tokens.component.card.shadow}
       >
         <ShelfRow section={MOCK_FRESH_STORAGE} onPress={() => onSectionPress(MOCK_FRESH_STORAGE)} />
         <View className="h-px bg-stroke-default" />
@@ -59,10 +58,16 @@ export function FridgeBoard({ onSectionPress }: Props) {
 
         {/* 냉동 구분선 */}
         <View
-          className="items-center justify-center py-[6px] bg-frozen-divider-bg border-y border-frozen-divider-border"
-          style={{ borderTopWidth: 0.8, borderBottomWidth: 0.8 }}
+          className="items-center justify-center py-1.5 bg-frozen-divider-bg border-y border-frozen-divider-border"
+          style={{
+            borderTopWidth: FROZEN_DIVIDER_BORDER_WIDTH,
+            borderBottomWidth: FROZEN_DIVIDER_BORDER_WIDTH,
+          }}
         >
-          <Text className="text-frozen-text text-[10px] font-bold" style={{ letterSpacing: 1 }}>
+          <Text
+            className="text-frozen-text text-2xs font-bold"
+            style={{ letterSpacing: FROZEN_LABEL_LETTER_SPACING }}
+          >
             ❄ 냉동
           </Text>
         </View>

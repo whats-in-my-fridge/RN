@@ -159,6 +159,13 @@ export const componentTokens = {
     radius: semanticRadius.lg, // 16px
     border: semanticColors["stroke-default"],
     borderLight: semanticColors["stroke-light"],
+    shadow: {
+      elevation: 4,
+      shadowColor: "#2c1a0e",
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.08,
+      shadowRadius: semanticSpacing.lg, // 24px
+    },
   },
   tag: {
     bg: semanticColors["tag-bg"],

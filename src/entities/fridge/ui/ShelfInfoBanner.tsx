@@ -25,7 +25,7 @@ type Props = {
 export function ShelfInfoBanner({ shelfType }: Props) {
   return (
     <View
-      className="flex-row items-center gap-[10px] mx-5 px-3 py-[10px] rounded-[14px] border"
+      className="flex-row items-center gap-[10px] mx-5 px-3 py-[10px] rounded-md border"
       style={{
         backgroundColor: tokens.color["status-warn-bg"],
         borderColor: tokens.color["status-warn-border"],
