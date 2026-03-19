@@ -15,11 +15,8 @@ type DualShelfSectionProps = {
 };
 
 function DualShelfSection({ section, isLeft }: DualShelfSectionProps) {
-<<<<<<< HEAD
   const hasExpiring = section.items.some((i) => i.freshnessStatus === "expiring");
 
-=======
->>>>>>> origin/develop
   return (
     <View
       className={`flex-1 pt-3 px-4 pb-2 gap-2 ${isLeft ? "border-r border-stroke-default" : ""}`}
@@ -28,7 +25,6 @@ function DualShelfSection({ section, isLeft }: DualShelfSectionProps) {
         <Text className="text-[11px] leading-4 text-content-secondary font-semibold">
           {section.label}
         </Text>
-<<<<<<< HEAD
         <View className="flex-row items-center gap-1.5">
           {hasExpiring && (
             <View className="flex-row items-center bg-status-expiring-bg border border-status-expiring-border rounded-full px-[6px] py-[1px]">
@@ -39,11 +35,6 @@ function DualShelfSection({ section, isLeft }: DualShelfSectionProps) {
             {section.items.length}개
           </Text>
         </View>
-=======
-        <Text className="text-[11px] leading-4 text-stroke-default font-normal">
-          {section.items.length}개
-        </Text>
->>>>>>> origin/develop
       </View>
       <View className="flex-row flex-wrap gap-1.5">
         {section.items.map((item) => (
