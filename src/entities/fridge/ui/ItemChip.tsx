@@ -3,6 +3,12 @@
 import { Text, View } from "react-native";
 import type { FreshnessStatus } from "@/entities/fridge/model/types";
 
+// 칩 레이아웃 상수 — ShelfRow/DualShelfRow에서 overflow 클리핑 영역 계산에 사용
+// py-[3px](6px) + leading-[17px](17px) = 23px, 행 간 gap-1.5 = 6px
+export const CHIP_HEIGHT = 23;
+export const CHIP_ROW_GAP = 6;
+export const CHIPS_AREA_HEIGHT = CHIP_HEIGHT * 2 + CHIP_ROW_GAP; // 2줄 고정 = 52px
+
 type Props = {
   name: string;
   status: FreshnessStatus;

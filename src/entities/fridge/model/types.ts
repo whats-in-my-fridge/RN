@@ -30,6 +30,8 @@ export type FridgeItem = {
   daysUntilExpiry: number;
   /** freshness.ts에서 daysUntilExpiry를 기반으로 계산된 신선도 상태 */
   freshnessStatus: FreshnessStatus;
+  /** 수량 (예: "300g", "1개"). API 연동 전까지 선택적 */
+  quantity?: string;
 };
 
 /** 하나의 선반/칸 섹션 — 헤더 메타 + 재료 목록 */

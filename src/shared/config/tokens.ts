@@ -65,6 +65,7 @@ export const semanticColors = {
   // ── Status: Caution / Warm Orange ────────────────────────────────────────
   "status-caution": primitiveColors["caution-500"],
   "status-caution-bg": primitiveColors["caution-100"],
+  "status-caution-border": primitiveColors["amber-200"],
 
   // ── Frozen shelf ──────────────────────────────────────────────────────────
   "frozen-text": primitiveColors["ice-blue-500"],
@@ -158,6 +159,13 @@ export const componentTokens = {
     radius: semanticRadius.lg, // 16px
     border: semanticColors["stroke-default"],
     borderLight: semanticColors["stroke-light"],
+    shadow: {
+      elevation: 4,
+      shadowColor: "#2c1a0e",
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.08,
+      shadowRadius: semanticSpacing.lg, // 24px
+    },
   },
   tag: {
     bg: semanticColors["tag-bg"],
@@ -203,6 +211,11 @@ export const componentTokens = {
       bg: semanticColors["status-fresh-bg"],
       border: semanticColors["status-fresh-border"],
       text: semanticColors["status-fresh"],
+    },
+    caution: {
+      bg: semanticColors["status-caution-bg"],
+      border: semanticColors["status-caution-border"],
+      text: semanticColors["status-caution"],
     },
     expiring: {
       bg: semanticColors["status-expiring-bg"],
