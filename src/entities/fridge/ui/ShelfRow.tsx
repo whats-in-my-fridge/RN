@@ -2,6 +2,7 @@
 
 import { Text, View } from "react-native";
 import type { FridgeSection } from "@/entities/fridge/model/types";
+import { ExpiringBadge } from "./ExpiringBadge";
 import { ItemChip } from "./ItemChip";
 
 type Props = {
@@ -28,7 +29,7 @@ export function ShelfRow({ section }: Props) {
   const hasExpiring = section.items.some((i) => i.freshnessStatus === "expiring");
 
   return (
-    <View className={`pt-3 px-4 pb-2 gap-2 ${cls.container}`}>
+    <View className={`flex-1 pt-3 px-4 pb-2 gap-2 ${cls.container}`}>
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-center flex-shrink">
           <Text className={`text-[11px] leading-4 ${cls.label}`}>{section.label}</Text>
@@ -39,11 +40,7 @@ export function ShelfRow({ section }: Props) {
           )}
         </View>
         <View className="flex-row items-center gap-1.5">
-          {hasExpiring && (
-            <View className="flex-row items-center bg-status-expiring-bg border border-status-expiring-border rounded-full px-[6px] py-[1px]">
-              <Text className="text-[9px] font-bold text-status-expiring">D-임박</Text>
-            </View>
-          )}
+          {hasExpiring && <ExpiringBadge />}
           <Text className={`text-[11px] leading-4 ${cls.count}`}>{section.items.length}개</Text>
         </View>
       </View>

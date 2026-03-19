@@ -220,10 +220,10 @@ function LegendItem({ dotClass, label }: { dotClass: string; label: string }) {
 
 export function FridgeBoard() {
   return (
-    <View className="gap-3">
+    <View className="flex-1 gap-3">
       {/* 냉장고 카드 */}
       <View
-        className="mx-3 rounded-[22px] bg-surface-card border border-stroke-default overflow-hidden"
+        className="flex-1 mx-3 rounded-[22px] bg-surface-card border border-stroke-default overflow-hidden"
         style={{
           elevation: 4,
           shadowColor: "#2c1a0e",
