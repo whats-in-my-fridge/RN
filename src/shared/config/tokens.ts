@@ -44,6 +44,7 @@ export const semanticColors = {
   "content-primary": primitiveColors["ink-900"],
   "content-secondary": primitiveColors["warm-gray-500"],
   "content-dark": primitiveColors["ink-700"],
+  "content-muted": primitiveColors["warm-gray-250"],
 
   // ── Borders (stroke-* prefix avoids border-border-* double prefix) ────────
   "stroke-default": primitiveColors["warm-gray-100"],
@@ -53,12 +54,24 @@ export const semanticColors = {
   "status-fresh": primitiveColors["green-600"],
   "status-fresh-light": primitiveColors["green-500"],
   "status-fresh-bg": primitiveColors["green-100"],
+  "status-fresh-chip-bg": primitiveColors["green-chip-100"],
   "status-fresh-border": primitiveColors["green-200"],
 
   // ── Status: Expiring / Red ────────────────────────────────────────────────
   "status-expiring": primitiveColors["red-500"],
   "status-expiring-bg": primitiveColors["red-100"],
   "status-expiring-border": primitiveColors["red-200"],
+
+  // ── Status: Caution / Warm Orange ────────────────────────────────────────
+  "status-caution": primitiveColors["caution-500"],
+  "status-caution-bg": primitiveColors["caution-100"],
+
+  // ── Frozen shelf ──────────────────────────────────────────────────────────
+  "frozen-text": primitiveColors["ice-blue-500"],
+  "frozen-text-muted": primitiveColors["ice-blue-400"],
+  "frozen-bg": primitiveColors["ice-blue-100"],
+  "frozen-divider-bg": primitiveColors["ice-blue-200"],
+  "frozen-divider-border": primitiveColors["ice-blue-border"],
 
   // ── Status: Soon / Orange ─────────────────────────────────────────────────
   "status-soon": primitiveColors["orange-500"],
@@ -169,6 +182,21 @@ export const componentTokens = {
       text: semanticColors["content-primary"],
       radius: semanticRadius.lg,
     },
+  },
+  itemChip: {
+    fresh: {
+      bg: semanticColors["status-fresh-chip-bg"],
+      dot: semanticColors["status-fresh"],
+    },
+    caution: {
+      bg: semanticColors["status-caution-bg"],
+      dot: semanticColors["status-caution"],
+    },
+    expiring: {
+      bg: semanticColors["status-expiring-bg"],
+      dot: semanticColors["status-expiring"],
+    },
+    text: semanticColors.primary,
   },
   statusBadge: {
     fresh: {

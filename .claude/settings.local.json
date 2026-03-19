@@ -6,7 +6,12 @@
       "Bash(echo:*)",
       "Bash(npm run typecheck:*)",
       "mcp__figma__get_design_context",
-      "mcp__figma__get_metadata"
+      "mcp__figma__get_metadata",
+      "Bash(npm run:*)",
+      "Read(//c/Users/dlxor/.claude/**)",
+      "Read(//c/Projects/Capstone_RN/**)",
+      "Read(//c/Users/dlxor/**)",
+      "Read(//c/tmp/**)"
     ]
   }
 }
