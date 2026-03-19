@@ -11,8 +11,7 @@
       "Read(//c/Users/dlxor/.claude/**)",
       "Read(//c/Projects/Capstone_RN/**)",
       "Read(//c/Users/dlxor/**)",
-      "Read(//c/tmp/**)",
-      "Bash(grep -r \"vector-icons\\\\|Ionicons\\\\|MaterialIcons\\\\|Feather\" src/ --include=*.tsx --include=*.ts -l)"
+      "Read(//c/tmp/**)"
     ]
   }
 }

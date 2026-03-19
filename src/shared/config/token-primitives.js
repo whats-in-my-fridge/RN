@@ -88,7 +88,6 @@ const primitiveTypography = {
   "3xl": { size: 20, weight: "700", lineHeight: 28 },
   "4xl": { size: 22, weight: "700", lineHeight: 30 },
   "5xl": { size: 26, weight: "800", lineHeight: 34 },
-  "6xl": { size: 24, weight: "700", lineHeight: 36 },
 };
 
 /**
