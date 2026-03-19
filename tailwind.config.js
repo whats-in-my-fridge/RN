@@ -198,6 +198,10 @@ module.exports = {
         `${p["5xl"].size}px`,
         { lineHeight: `${p["5xl"].lineHeight}px`, fontWeight: p["5xl"].weight },
       ],
+      "6xl": [
+        `${p["6xl"].size}px`,
+        { lineHeight: `${p["6xl"].lineHeight}px`, fontWeight: p["6xl"].weight },
+      ],
     },
 
     extend: {

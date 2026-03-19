@@ -3,13 +3,18 @@
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FridgeBoard } from "@/widgets/fridge-board";
+import { FridgePageHeader } from "./FridgePageHeader";
+
+const TAB_BAR_SPACER_HEIGHT = 92;
 
 export function FridgePage() {
   return (
-    <SafeAreaView className="flex-1 bg-surface-app">
-      <View className="flex-1 justify-end pb-20">
+    <SafeAreaView edges={["top"]} className="flex-1 bg-surface-app">
+      <FridgePageHeader totalCount={23} />
+      <View className="flex-1 mt-2">
         <FridgeBoard />
       </View>
+      <View style={{ height: TAB_BAR_SPACER_HEIGHT }} />
     </SafeAreaView>
   );
 }
