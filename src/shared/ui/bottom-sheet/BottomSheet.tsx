@@ -48,6 +48,8 @@ export function BottomSheet({ isOpen, onClose, children }: BottomSheetProps) {
       ref={modalRef}
       enableDynamicSizing
       enablePanDownToClose
+      keyboardBehavior="interactive"
+      keyboardBlurBehavior="restore"
       handleComponent={BottomSheetHandle}
       handleIndicatorStyle={bottomSheetStyles.handleIndicator}
       backdropComponent={BottomSheetBackdropCloseable}
