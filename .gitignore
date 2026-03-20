@@ -54,3 +54,6 @@ CLAUDE.md
 troubles/
 src/app/RN.code-workspace
 /.claude
+
+# Project wiki (local reference copy)
+RN.wiki/
