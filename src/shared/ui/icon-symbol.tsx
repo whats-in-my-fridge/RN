@@ -34,7 +34,11 @@ export type IconSymbolName =
   | "shield"
   | "settings"
   | "help"
-  | "logout";
+  | "logout"
+  | "fork.knife"
+  | "bolt.fill"
+  | "chevron.down"
+  | "xmark";
 
 /**
  * Custom SVG icon components for tab bar and design consistency.
@@ -64,6 +68,10 @@ const SVG_ICONS: Record<
   settings: null,
   help: null,
   logout: null,
+  "fork.knife": null,
+  "bolt.fill": null,
+  "chevron.down": null,
+  xmark: null,
 };
 
 /**
@@ -92,6 +100,10 @@ const MATERIAL_ICONS_MAPPING: Record<IconSymbolName, MaterialIconName> = {
   settings: "settings",
   help: "help-outline",
   logout: "logout",
+  "fork.knife": "restaurant",
+  "bolt.fill": "bolt",
+  "chevron.down": "keyboard-arrow-down",
+  xmark: "close",
 };
 
 /** 설정용 아이콘 - Ionicons 사용 (ChatSheetHeader에서 검증됨) */

@@ -52,3 +52,5 @@ CLAUDE.md
 
 # Trouble-shooting logs (personal, not for version control)
 troubles/
+src/app/RN.code-workspace
+/.claude

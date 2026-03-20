@@ -3,6 +3,8 @@ export interface Ingredient {
   name: string;
   /** 사용자가 보유한 재료인지 여부 */
   owned: boolean;
+  /** 재료 양 (예: "200g", "1/2모") */
+  amount?: string;
 }
 
 /** 조리 단계 */
@@ -33,6 +35,8 @@ export interface Recipe {
   difficulty: "쉬움" | "보통" | "어려움";
   /** 레시피 설명 */
   description: string;
+  /** 칼로리 (kcal) */
+  calories?: number;
   /** 재료 목록 */
   ingredients: Ingredient[];
   /** 조리 순서 */
