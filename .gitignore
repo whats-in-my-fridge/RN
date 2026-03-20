@@ -42,10 +42,10 @@ app-example
 /ios
 /android
 
-#claude
+# Claude
 CLAUDE.md
 .claudeignore
-.claude/settings.local.json
+.claude/
 
 # Cursor/OMC (IDE agent state, sessions)
 .omc/

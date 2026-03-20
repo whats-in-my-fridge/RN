@@ -14,6 +14,7 @@ export default function ProtectedLayout() {
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="scan" />
       <Stack.Screen name="recipe/[recipeId]" />
+      <Stack.Screen name="scan-result" />
       <Stack.Screen name="liked-recipes" />
       <Stack.Screen name="(modals)" options={{ presentation: "modal" }} />
       <Stack.Screen name="onboarding" />
