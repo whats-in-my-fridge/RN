@@ -3,7 +3,8 @@
 // 서버에서 인식된 식재료 목록을 표시하며, [다시 스캔] 버튼으로 돌아갈 수 있다.
 
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { Pressable, SafeAreaView, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, Text, View } from "react-native";
+import { PageLayout } from "@/shared/ui/page-layout";
 
 export function ScanResultPage() {
   const router = useRouter();
@@ -12,7 +13,7 @@ export function ScanResultPage() {
   const ingredients: string[] = rawIngredients ? JSON.parse(rawIngredients) : [];
 
   return (
-    <SafeAreaView className="flex-1 bg-surface-app">
+    <PageLayout>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
         <View className="px-screen pt-12 pb-8">
           {/* 헤더 */}
@@ -53,6 +54,6 @@ export function ScanResultPage() {
           <Text className="text-white font-semibold text-base">다시 스캔하기</Text>
         </Pressable>
       </View>
-    </SafeAreaView>
+    </PageLayout>
   );
 }

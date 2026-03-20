@@ -6,6 +6,9 @@
 import { CameraView } from "expo-camera";
 import type { RefObject } from "react";
 import { ActivityIndicator, Pressable, Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+const CAMERA_BUTTON_BOTTOM_PADDING = 24; // 기본 하단 여백 (safe area inset에 더해짐)
 
 type CameraPermission = { granted: boolean; canAskAgain: boolean } | null;
 
@@ -24,6 +27,7 @@ export function ScanCameraView({
   onCapture,
   onPickImage,
 }: Props) {
+  const { bottom: bottomInset } = useSafeAreaInsets();
   if (!permission) {
     return (
       <View className="flex-1 items-center justify-center bg-surface-app">
@@ -65,7 +69,10 @@ export function ScanCameraView({
       </View>
 
       {/* 하단 버튼 영역 */}
-      <View className="absolute bottom-0 left-0 right-0 pb-12 px-screen">
+      <View
+        className="absolute bottom-0 left-0 right-0 px-screen"
+        style={{ paddingBottom: bottomInset + CAMERA_BUTTON_BOTTOM_PADDING }}
+      >
         <View className="flex-row items-center justify-between">
           {/* 갤러리 버튼 */}
           <Pressable
