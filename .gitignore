@@ -43,10 +43,8 @@ app-example
 /android
 
 # Claude
-CLAUDE.md
 .claudeignore
-.claude/settings.local.json
-.claude/memory/
+.claude/
 
 # Trouble-shooting logs (personal, not for version control)
 troubles/
