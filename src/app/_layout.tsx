@@ -9,6 +9,7 @@ import "../../global.css";
 
 import { BottomSheetProvider } from "@/app/_providers";
 import { ChatFloatingButton, ChatSheet, useChatStore } from "@/features/chat";
+import { useShelfDetailStore } from "@/features/view-shelf-detail";
 import { semanticColors } from "@/shared/config/tokens";
 import { useColorScheme } from "@/shared/lib/hooks/use-color-scheme";
 
@@ -25,6 +26,7 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   const openChat = useChatStore((s) => s.open);
   const isChatOpen = useChatStore((s) => s.isOpen);
+  const isShelfDetailOpen = useShelfDetailStore((s) => s.selectedSection !== null);
   const segments = useSegments();
   const isInAuth = segments[0] === "(auth)";
 
@@ -36,7 +38,9 @@ export default function RootLayout() {
             <Stack.Screen name="(auth)" />
             <Stack.Screen name="(protected)" />
           </Stack>
-          {!isChatOpen && !isInAuth && <ChatFloatingButton onPress={openChat} />}
+          {!isChatOpen && !isInAuth && !isShelfDetailOpen && (
+            <ChatFloatingButton onPress={openChat} />
+          )}
           <ChatSheet />
           {/* 채팅창이 열려있을 때 시트 아래 노출 영역을 아이보리로 덮는 오버레이 */}
           {isChatOpen && (

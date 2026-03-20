@@ -6,7 +6,8 @@ import {
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import { useCallback, useEffect, useRef } from "react";
-import { useWindowDimensions } from "react-native";
+import { useWindowDimensions, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { BOTTOM_SHEET_MAX_HEIGHT_RATIO, bottomSheetStyles } from "./BottomSheet.styles";
 
@@ -26,10 +27,13 @@ export interface BottomSheetProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  /** 고정 스냅포인트. 지정하면 enableDynamicSizing 대신 사용. 스크롤 콘텐츠가 있는 시트에 필요. */
+  snapPoints?: (string | number)[];
 }
 
-export function BottomSheet({ isOpen, onClose, children }: BottomSheetProps) {
+export function BottomSheet({ isOpen, onClose, children, snapPoints }: BottomSheetProps) {
   const { height } = useWindowDimensions();
+  const { bottom: bottomInset } = useSafeAreaInsets();
   const modalRef = useRef<BottomSheetModal>(null);
   const maxDynamicContentSize = height * BOTTOM_SHEET_MAX_HEIGHT_RATIO;
 
@@ -43,19 +47,29 @@ export function BottomSheet({ isOpen, onClose, children }: BottomSheetProps) {
 
   const handleDismiss = useCallback(() => onClose(), [onClose]);
 
+  const sizeProps = snapPoints
+    ? { snapPoints, index: 0, enableDynamicSizing: false }
+    : { enableDynamicSizing: true, maxDynamicContentSize };
+
   return (
     <BottomSheetModal
       ref={modalRef}
-      enableDynamicSizing
+      {...sizeProps}
       enablePanDownToClose
+      keyboardBehavior="interactive"
+      keyboardBlurBehavior="restore"
       handleComponent={BottomSheetHandle}
       handleIndicatorStyle={bottomSheetStyles.handleIndicator}
       backdropComponent={BottomSheetBackdropCloseable}
       backgroundStyle={bottomSheetStyles.background}
-      maxDynamicContentSize={maxDynamicContentSize}
+      bottomInset={bottomInset}
       onDismiss={handleDismiss}
     >
-      <BottomSheetView style={bottomSheetStyles.content}>{children}</BottomSheetView>
+      {snapPoints ? (
+        <View style={bottomSheetStyles.content}>{children}</View>
+      ) : (
+        <BottomSheetView style={bottomSheetStyles.content}>{children}</BottomSheetView>
+      )}
     </BottomSheetModal>
   );
 }
