@@ -51,3 +51,8 @@ app-example
 
 # Trouble-shooting logs (personal, not for version control)
 troubles/
+src/app/RN.code-workspace
+/.claude
+
+# Project wiki (local reference copy)
+RN.wiki/
