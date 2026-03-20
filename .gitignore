@@ -45,3 +45,10 @@ app-example
 #claude
 CLAUDE.md
 .claudeignore
+.claude/settings.local.json
+
+# Cursor/OMC (IDE agent state, sessions)
+.omc/
+
+# Trouble-shooting logs (personal, not for version control)
+troubles/
