@@ -102,6 +102,18 @@ Configure in `tsconfig.json`:
 ### General Rules
 - **File Headers**: When creating a new file, always include a comment at the very top describing its purpose and role.
 - **Error Handling**: Implement robust error handling by wrapping potentially failable operations in try-catch blocks to prevent critical failures.
+- **No Magic Numbers**: Never use bare numeric literals for layout, sizing, or timing values. Always extract them into a named constant that communicates intent. Place the constant at the top of the file (or in `shared/config` if reused across files).
+
+  ```tsx
+  // Bad
+  <View style={{ height: 92 }} />
+
+  // Good
+  const BOTTOM_TAB_BAR_HEIGHT = 92; // spacer so content clears the tab bar
+  <View style={{ height: BOTTOM_TAB_BAR_HEIGHT }} />
+  ```
+
+  Common candidates: tab bar height, header height, border radius, animation duration, snap points, icon sizes, z-index values.
 
 ### FSD Layer Responsibilities
 - **Don't mix concerns**: Keep type definitions in `entities`, feature logic in `features`, composition in `pages`

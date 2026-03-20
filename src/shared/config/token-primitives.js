@@ -30,6 +30,7 @@ const primitiveColors = {
   "green-600": "#4A9B6F",
   "green-500": "#3DA05C",
   "green-100": "#EDF7F2",
+  "green-chip-100": "#F1F8F4",
   "green-200": "#B8DEC8",
   "green-tag-bg": "#EBF0ED",
   "green-tag-text": "#5B7A63",
@@ -44,6 +45,15 @@ const primitiveColors = {
   "orange-500": "#E07048",
   "orange-100": "#FEF0EC",
   "orange-200": "#F8D5C8",
+
+  "caution-500": "#D4893A",
+  "caution-100": "#FDF6EE",
+
+  "ice-blue-500": "#6C9CBF",
+  "ice-blue-400": "#8BBAD6",
+  "ice-blue-100": "#EEF4FA",
+  "ice-blue-200": "#D9EAF5",
+  "ice-blue-border": "#D0E2F0",
 
   // ── Amber / Warning family ────────────────────────────────────────────────
   "amber-500": "#C68642",

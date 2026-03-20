@@ -45,7 +45,13 @@ app-example
 /ios
 /android
 
-#claude
-CLAUDE.md
+# Claude
 .claudeignore
 .claude/
+
+# Cursor/OMC (IDE agent state, sessions)
+.omc/
+
+# Trouble-shooting logs (personal, not for version control)
+troubles/
+
