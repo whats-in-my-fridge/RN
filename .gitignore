@@ -45,10 +45,8 @@ app-example
 # Claude
 CLAUDE.md
 .claudeignore
-.claude/
-
-# Cursor/OMC (IDE agent state, sessions)
-.omc/
+.claude/settings.local.json
+.claude/memory/
 
 # Trouble-shooting logs (personal, not for version control)
 troubles/
