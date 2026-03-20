@@ -3,6 +3,7 @@
 import { useRouter } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { useCallback } from "react";
+import { AUTH_TOKEN_KEY } from "@/shared/config/auth-storage";
 import { kakaoLogin, kakaoLogout } from "../api/kakao-auth";
 import { useAuthStore } from "./store";
 
@@ -16,7 +17,7 @@ export function useKakaoLogin() {
       const { user, token } = await kakaoLogin();
 
       // Save token to secure storage
-      await SecureStore.setItemAsync("auth_token", token);
+      await SecureStore.setItemAsync(AUTH_TOKEN_KEY, token);
 
       // Update auth store
       setAuth(user, token);
@@ -34,7 +35,7 @@ export function useKakaoLogin() {
   const logout = useCallback(async () => {
     try {
       await kakaoLogout();
-      await SecureStore.deleteItemAsync("auth_token");
+      await SecureStore.deleteItemAsync(AUTH_TOKEN_KEY);
       clearAuth();
       router.replace("/(auth)/login");
     } catch {

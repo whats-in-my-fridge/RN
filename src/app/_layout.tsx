@@ -12,6 +12,7 @@ import "../../global.css";
 import { BottomSheetProvider } from "@/app/_providers";
 import { ChatFloatingButton, ChatSheet, useChatStore } from "@/features/chat";
 import { useAuthStore } from "@/features/kakao-login";
+import { AUTH_TOKEN_KEY } from "@/shared/config/auth-storage";
 import { semanticColors } from "@/shared/config/tokens";
 import { useColorScheme } from "@/shared/lib/hooks/use-color-scheme";
 
@@ -37,7 +38,7 @@ export default function RootLayout() {
   useEffect(() => {
     const restoreToken = async () => {
       try {
-        const token = await SecureStore.getItemAsync("auth_token");
+        const token = await SecureStore.getItemAsync(AUTH_TOKEN_KEY);
         if (token) {
           // TODO: Call backend /auth/me to get user info and validate token
           // For now, we'll just set a placeholder user - backend should return actual user data

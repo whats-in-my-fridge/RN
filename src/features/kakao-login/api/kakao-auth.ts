@@ -1,8 +1,7 @@
 // Kakao OAuth flow - handles login via Kakao native SDK
 import { login, logout } from "@react-native-seoul/kakao-login";
 import type { User } from "@/entities/user";
-
-const API_BASE = process.env.EXPO_PUBLIC_API_URL || "http://13.209.189.41:8080";
+import { apiPost } from "@/shared/api";
 
 export interface KakaoLoginResponse {
   user: User;
@@ -26,20 +25,9 @@ export async function kakaoLogin(): Promise<KakaoLoginResponse> {
     }
 
     // 2. Exchange with backend
-    const endpoint = `${API_BASE}/auth/login/kakao`;
-
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ accessToken: result.accessToken }),
+    const data = await apiPost<KakaoLoginResponse>("/auth/login/kakao", {
+      accessToken: result.accessToken,
     });
-
-    if (!response.ok) {
-      const errorText = await response.text().catch(() => "Unable to parse error body");
-      throw new Error(`Backend auth failed: ${response.statusText} - ${errorText}`);
-    }
-
-    const data: KakaoLoginResponse = await response.json();
     return data;
   } catch (error) {
     await logout().catch(() => {});
