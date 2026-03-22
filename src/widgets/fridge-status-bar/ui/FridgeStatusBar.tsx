@@ -1,10 +1,9 @@
-// FridgeStatusBar widget: displays 4 fridge statistics (total, expiring, recipes, recommended).
+// FridgeStatusBar widget: 냉장고 통계(총 재료·찐레시피·추천)를 한 줄로 표시하는 위젯
 import { Text, View } from "react-native";
 import { tokens } from "@/shared/config/tokens";
 
 const STATUS_ITEMS = [
   { label: "총 재료", value: "23개", color: tokens.color["content-primary"] },
-  { label: "임박", value: "5개", color: tokens.color["status-expiring"] },
   { label: "찐레시피", value: "12개", color: tokens.color["content-primary"] },
   { label: "추천", value: "4개", color: tokens.color["content-primary"] },
 ] as const;
