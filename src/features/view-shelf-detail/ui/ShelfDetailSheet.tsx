@@ -1,6 +1,12 @@
 // 냉장고 선반 상세 바텀시트 — ShelfDetailHeader, ShelfInfoBanner, FridgeItemRow 조립
 
-import { FridgeItemRow, ShelfDetailHeader, ShelfInfoBanner } from "@/entities/fridge";
+import {
+  FridgeItemRow,
+  groupItemsToSections,
+  ShelfDetailHeader,
+  ShelfInfoBanner,
+} from "@/entities/fridge";
+import { useDeleteFridgeItem, useFridgeItems } from "@/features/fridge-items";
 import { tokens } from "@/shared/config/tokens";
 import { BottomSheet, BottomSheetScrollView } from "@/shared/ui/bottom-sheet";
 
@@ -15,20 +21,25 @@ const SCROLL_PADDING_BOTTOM = tokens.spacing.sm; // 8px — 목록 하단 여백
 const SCROLL_ITEM_GAP = tokens.spacing.sm; // 8px — 아이템 행 간격
 
 export function ShelfDetailSheet() {
-  const selectedSection = useShelfDetailStore((s) => s.selectedSection);
+  const selectedType = useShelfDetailStore((s) => s.selectedType);
   const close = useShelfDetailStore((s) => s.close);
-  const deleteItem = useShelfDetailStore((s) => s.deleteItem);
+
+  const { data: items = [] } = useFridgeItems();
+  const { mutate: deleteItem } = useDeleteFridgeItem();
+
+  const sections = groupItemsToSections(items);
+  const currentSection = selectedType ? sections[selectedType] : null;
 
   return (
     <BottomSheet
-      isOpen={selectedSection !== null}
+      isOpen={selectedType !== null}
       onClose={close}
       snapPoints={SHELF_DETAIL_SNAP_POINTS}
     >
-      {selectedSection && (
+      {currentSection && (
         <>
-          <ShelfDetailHeader section={selectedSection} onClose={close} />
-          <ShelfInfoBanner shelfType={selectedSection.type} />
+          <ShelfDetailHeader section={currentSection} onClose={close} />
+          <ShelfInfoBanner shelfType={currentSection.type} />
           <BottomSheetScrollView
             style={{ flex: 1, marginTop: SCROLL_MARGIN_TOP }}
             contentContainerStyle={{
@@ -37,8 +48,12 @@ export function ShelfDetailSheet() {
               gap: SCROLL_ITEM_GAP,
             }}
           >
-            {selectedSection.items.map((item) => (
-              <FridgeItemRow key={item.id} item={item} onDelete={() => deleteItem(item.id)} />
+            {currentSection.items.map((item) => (
+              <FridgeItemRow
+                key={item.id}
+                item={item}
+                onDelete={() => deleteItem(Number(item.id))}
+              />
             ))}
           </BottomSheetScrollView>
         </>

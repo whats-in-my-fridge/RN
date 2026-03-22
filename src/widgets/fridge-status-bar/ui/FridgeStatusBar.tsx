@@ -1,14 +1,18 @@
 // FridgeStatusBar widget: 냉장고 통계(총 재료·찐레시피·추천)를 한 줄로 표시하는 위젯
 import { Text, View } from "react-native";
+import { useFridgeItems } from "@/features/fridge-items";
 import { tokens } from "@/shared/config/tokens";
 
-const STATUS_ITEMS = [
-  { label: "총 재료", value: "23개", color: tokens.color["content-primary"] },
-  { label: "찐레시피", value: "12개", color: tokens.color["content-primary"] },
-  { label: "추천", value: "4개", color: tokens.color["content-primary"] },
+const MOCK_ITEMS = [
+  { label: "찐레시피", value: "12개" },
+  { label: "추천", value: "4개" },
 ] as const;
 
 export function FridgeStatusBar() {
+  const { data: items = [] } = useFridgeItems();
+
+  const STATUS_ITEMS = [{ label: "총 재료", value: `${items.length}개` }, ...MOCK_ITEMS];
+
   return (
     <View className="mx-screen mb-6 flex-row rounded-2xl bg-surface-card px-2 py-3">
       {STATUS_ITEMS.map((item, index) => (

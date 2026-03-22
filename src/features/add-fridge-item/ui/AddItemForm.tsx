@@ -1,35 +1,22 @@
-// 재료 추가 폼 — 재료명/수량/냉장고 칸 위치 입력 필드와 추가 버튼을 조립
-// API 미연동 단계: 추가하기 버튼은 시트 닫기만 수행
+// 재료 추가 폼 — 재료명/수량 입력 필드와 추가 버튼 조립
 
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 
-import type { ShelfType } from "@/entities/fridge";
 import { tokens } from "@/shared/config/tokens";
-import type { SelectOption } from "@/shared/ui/select-input";
-import { SelectInput } from "@/shared/ui/select-input";
+import { useAddFridgeItem } from "../model/use-add-fridge-item";
 
 // ─── 상수 ────────────────────────────────────────────────────────────────────
-
-const SHELF_OPTIONS: SelectOption<ShelfType>[] = [
-  { label: "신선 보관 선반", value: "fresh-storage" },
-  { label: "주식 · 조리식품 (좌)", value: "chilled-left" },
-  { label: "소스 · 음료 (우)", value: "chilled-right" },
-  { label: "야채 서랍", value: "vegetable-drawer" },
-  { label: "냉동 서랍", value: "freezer" },
-];
 
 type FridgeItemFormState = {
   name: string;
   quantity: string;
-  shelfType: ShelfType | null;
 };
 
 const INITIAL_FORM: FridgeItemFormState = {
   name: "",
   quantity: "",
-  shelfType: null,
 };
 
 // ─── 로컬 헬퍼: label + TextInput 패턴 반복 제거 ─────────────────────────────
@@ -39,7 +26,6 @@ type LabeledInputProps = {
   value: string;
   onChangeText: (v: string) => void;
   placeholder?: string;
-  keyboardType?: "default" | "number-pad";
   returnKeyType?: "next" | "done";
 };
 
@@ -48,7 +34,6 @@ function LabeledInput({
   value,
   onChangeText,
   placeholder,
-  keyboardType = "default",
   returnKeyType = "next",
 }: LabeledInputProps) {
   return (
@@ -60,7 +45,6 @@ function LabeledInput({
         placeholderTextColor={tokens.color["content-muted"]}
         value={value}
         onChangeText={onChangeText}
-        keyboardType={keyboardType}
         returnKeyType={returnKeyType}
       />
     </View>
@@ -75,13 +59,13 @@ type Props = {
 
 export function AddItemForm({ onClose }: Props) {
   const [form, setForm] = useState(INITIAL_FORM);
+  const { mutate: addItem, isPending } = useAddFridgeItem();
 
-  const isSubmittable =
-    form.name.trim().length > 0 && form.quantity.trim().length > 0 && form.shelfType !== null;
+  const isSubmittable = form.name.trim().length > 0 && form.quantity.trim().length > 0;
 
   function handleSubmit() {
-    // TODO: API 연동 시 mutation 호출로 교체
-    onClose();
+    if (!isSubmittable) return;
+    addItem({ name: form.name.trim(), quantity: form.quantity.trim() }, { onSuccess: onClose });
   }
 
   return (
@@ -101,21 +85,14 @@ export function AddItemForm({ onClose }: Props) {
           value={form.quantity}
           onChangeText={(v) => setForm((s) => ({ ...s, quantity: v }))}
           placeholder="예: 1개"
-        />
-
-        <SelectInput<ShelfType>
-          label="냉장고 칸 위치"
-          placeholder="칸을 선택하세요"
-          options={SHELF_OPTIONS}
-          value={form.shelfType}
-          onChange={(v) => setForm((s) => ({ ...s, shelfType: v }))}
+          returnKeyType="done"
         />
       </View>
 
       {/* 추가하기 버튼 */}
       <Pressable
         onPress={handleSubmit}
-        disabled={!isSubmittable}
+        disabled={!isSubmittable || isPending}
         className="mt-8 h-[52px] items-center justify-center rounded-card"
         style={{
           backgroundColor: isSubmittable
@@ -128,7 +105,9 @@ export function AddItemForm({ onClose }: Props) {
           elevation: isSubmittable ? 6 : 0,
         }}
       >
-        <Text className="text-base font-bold text-white">추가하기</Text>
+        <Text className="text-base font-bold text-white">
+          {isPending ? "추가 중..." : "추가하기"}
+        </Text>
       </Pressable>
     </View>
   );

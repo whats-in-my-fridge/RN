@@ -1,16 +1,9 @@
 // 냉장고 카드 전체 위젯 — 선반 섹션들과 범례를 카드 컨테이너로 조립하는 UI 블록
 
-import { Text, View } from "react-native";
-import type { FridgeSection } from "@/entities/fridge";
-import { DualShelfRow, ShelfRow } from "@/entities/fridge";
-// TODO: API 연동 시 이 import 전체를 삭제하고 props/React Query로 교체.
-import {
-  MOCK_CHILLED_LEFT,
-  MOCK_CHILLED_RIGHT,
-  MOCK_FREEZER,
-  MOCK_FRESH_STORAGE,
-  MOCK_VEGETABLE_DRAWER,
-} from "@/entities/fridge/model/mock-sections";
+import { ActivityIndicator, Text, View } from "react-native";
+import type { ShelfType } from "@/entities/fridge";
+import { DualShelfRow, groupItemsToSections, ShelfRow } from "@/entities/fridge";
+import { useFridgeItems } from "@/features/fridge-items";
 import { tokens } from "@/shared/config/tokens";
 
 // ─── 상수 ────────────────────────────────────────────────────────────────────
@@ -21,10 +14,21 @@ const FROZEN_LABEL_LETTER_SPACING = 1;
 // ─── FridgeBoard ────────────────────────────────────────────────────────────────
 
 type Props = {
-  onSectionPress: (section: FridgeSection) => void;
+  onSectionPress: (type: ShelfType) => void;
 };
 
 export function FridgeBoard({ onSectionPress }: Props) {
+  const { data: items = [], isLoading } = useFridgeItems();
+  const s = groupItemsToSections(items);
+
+  if (isLoading) {
+    return (
+      <View className="flex-1 items-center justify-center">
+        <ActivityIndicator />
+      </View>
+    );
+  }
+
   return (
     <View className="flex-1 gap-3">
       {/* 냉장고 카드 */}
@@ -32,17 +36,17 @@ export function FridgeBoard({ onSectionPress }: Props) {
         className="flex-1 mx-3 rounded-[22px] bg-surface-card border border-stroke-default overflow-hidden"
         style={tokens.component.card.shadow}
       >
-        <ShelfRow section={MOCK_FRESH_STORAGE} onPress={() => onSectionPress(MOCK_FRESH_STORAGE)} />
+        <ShelfRow section={s["fresh-storage"]} onPress={() => onSectionPress("fresh-storage")} />
         <View className="h-px bg-stroke-default" />
         <DualShelfRow
-          left={MOCK_CHILLED_LEFT}
-          right={MOCK_CHILLED_RIGHT}
-          onPress={onSectionPress}
+          left={s["chilled-left"]}
+          right={s["chilled-right"]}
+          onPress={(section) => onSectionPress(section.type)}
         />
         <View className="h-px bg-stroke-default" />
         <ShelfRow
-          section={MOCK_VEGETABLE_DRAWER}
-          onPress={() => onSectionPress(MOCK_VEGETABLE_DRAWER)}
+          section={s["vegetable-drawer"]}
+          onPress={() => onSectionPress("vegetable-drawer")}
         />
 
         {/* 냉동 구분선 */}
@@ -61,7 +65,7 @@ export function FridgeBoard({ onSectionPress }: Props) {
           </Text>
         </View>
 
-        <ShelfRow section={MOCK_FREEZER} onPress={() => onSectionPress(MOCK_FREEZER)} />
+        <ShelfRow section={s.freezer} onPress={() => onSectionPress("freezer")} />
       </View>
 
       {/* 안내 */}
