@@ -25,9 +25,7 @@ export function FridgeStatusBar() {
               : undefined
           }
         >
-          <Text className="text-base font-extrabold" style={{ color: item.color }}>
-            {item.value}
-          </Text>
+          <Text className="text-base font-extrabold text-content-primary">{item.value}</Text>
           <Text className="mt-0.5 text-xs text-content-secondary">{item.label}</Text>
         </View>
       ))}

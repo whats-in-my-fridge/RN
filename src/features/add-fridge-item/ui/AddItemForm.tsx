@@ -93,11 +93,8 @@ export function AddItemForm({ onClose }: Props) {
       <Pressable
         onPress={handleSubmit}
         disabled={!isSubmittable || isPending}
-        className="mt-8 h-[52px] items-center justify-center rounded-card"
+        className={`mt-8 h-[52px] items-center justify-center rounded-card ${isSubmittable ? "bg-content-primary" : "bg-content-muted"}`}
         style={{
-          backgroundColor: isSubmittable
-            ? tokens.color["content-primary"]
-            : tokens.color["content-muted"],
           shadowColor: tokens.color["content-primary"],
           shadowOffset: { width: 0, height: 4 },
           shadowOpacity: isSubmittable ? 0.25 : 0,
