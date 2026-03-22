@@ -18,17 +18,6 @@ import { tokens } from "@/shared/config/tokens";
 const FROZEN_DIVIDER_BORDER_WIDTH = 0.8;
 const FROZEN_LABEL_LETTER_SPACING = 1;
 
-// ─── Legend 아이템 ──────────────────────────────────────────────────────────────
-
-function LegendItem({ dotClass, label }: { dotClass: string; label: string }) {
-  return (
-    <View className="flex-row items-center gap-1">
-      <View className={`w-[7px] h-[7px] rounded-full ${dotClass}`} />
-      <Text className="text-[11px] leading-4 text-content-secondary">{label}</Text>
-    </View>
-  );
-}
-
 // ─── FridgeBoard ────────────────────────────────────────────────────────────────
 
 type Props = {
@@ -75,13 +64,8 @@ export function FridgeBoard({ onSectionPress }: Props) {
         <ShelfRow section={MOCK_FREEZER} onPress={() => onSectionPress(MOCK_FREEZER)} />
       </View>
 
-      {/* 범례 */}
-      <View className="flex-row items-center justify-between px-5">
-        <View className="flex-row gap-4">
-          <LegendItem dotClass="bg-status-fresh" label="신선" />
-          <LegendItem dotClass="bg-status-caution" label="주의" />
-          <LegendItem dotClass="bg-status-expiring" label="임박" />
-        </View>
+      {/* 안내 */}
+      <View className="flex-row items-center justify-end px-5">
         <Text className="text-[11px] leading-4 text-content-muted">탭하면 상세보기</Text>
       </View>
     </View>
