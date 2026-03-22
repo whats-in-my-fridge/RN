@@ -19,7 +19,7 @@ type Props = {
 
 export function FridgeBoard({ onSectionPress }: Props) {
   const { data: items = [], isLoading } = useFridgeItems();
-  const s = groupItemsToSections(items);
+  const sections = groupItemsToSections(items);
 
   if (isLoading) {
     return (
@@ -36,16 +36,19 @@ export function FridgeBoard({ onSectionPress }: Props) {
         className="flex-1 mx-3 rounded-[22px] bg-surface-card border border-stroke-default overflow-hidden"
         style={tokens.component.card.shadow}
       >
-        <ShelfRow section={s["fresh-storage"]} onPress={() => onSectionPress("fresh-storage")} />
+        <ShelfRow
+          section={sections["fresh-storage"]}
+          onPress={() => onSectionPress("fresh-storage")}
+        />
         <View className="h-px bg-stroke-default" />
         <DualShelfRow
-          left={s["chilled-left"]}
-          right={s["chilled-right"]}
+          left={sections["chilled-left"]}
+          right={sections["chilled-right"]}
           onPress={(section) => onSectionPress(section.type)}
         />
         <View className="h-px bg-stroke-default" />
         <ShelfRow
-          section={s["vegetable-drawer"]}
+          section={sections["vegetable-drawer"]}
           onPress={() => onSectionPress("vegetable-drawer")}
         />
 
@@ -65,7 +68,7 @@ export function FridgeBoard({ onSectionPress }: Props) {
           </Text>
         </View>
 
-        <ShelfRow section={s.freezer} onPress={() => onSectionPress("freezer")} />
+        <ShelfRow section={sections.freezer} onPress={() => onSectionPress("freezer")} />
       </View>
 
       {/* 안내 */}

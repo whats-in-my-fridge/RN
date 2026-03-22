@@ -48,8 +48,12 @@ export function groupItemsToSections(items: FridgeItem[]): Record<ShelfType, Fri
   const grouped = new Map<ShelfType, FridgeItem[]>();
 
   for (const item of items) {
-    const existing = grouped.get(item.shelfType) ?? [];
-    grouped.set(item.shelfType, [...existing, item]);
+    const existing = grouped.get(item.shelfType);
+    if (existing) {
+      existing.push(item);
+    } else {
+      grouped.set(item.shelfType, [item]);
+    }
   }
 
   return Object.fromEntries(
