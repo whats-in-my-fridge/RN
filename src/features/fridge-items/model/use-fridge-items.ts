@@ -11,10 +11,7 @@ export const FRIDGE_ITEMS_QUERY_KEY = ["fridge", "items"] as const;
 export function useFridgeItems() {
   return useQuery({
     queryKey: FRIDGE_ITEMS_QUERY_KEY,
-    queryFn: async () => {
-      const raw = await getFridgeItems();
-      return toFridgeItems(raw);
-    },
+    queryFn: () => getFridgeItems().then(toFridgeItems),
   });
 }
 
@@ -23,7 +20,7 @@ export function useDeleteFridgeItem() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (ingredientId: number) => deleteFridgeItem(ingredientId),
+    mutationFn: deleteFridgeItem,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: FRIDGE_ITEMS_QUERY_KEY });
     },
