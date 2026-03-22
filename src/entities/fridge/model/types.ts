@@ -1,7 +1,4 @@
-// 냉장고 도메인의 핵심 타입 정의 — FridgeItem, FridgeSection, FreshnessStatus, ShelfType
-
-/** 재료의 신선도 상태 — 유통기한 D-day를 기반으로 결정 */
-export type FreshnessStatus = "fresh" | "caution" | "expiring";
+// 냉장고 도메인의 핵심 타입 정의 — FridgeItem, FridgeSection, ShelfType
 
 /**
  * 냉장고 선반/칸 구분
@@ -26,11 +23,7 @@ export type FridgeItem = {
   name: string;
   /** 이 재료가 위치한 선반/칸 */
   shelfType: ShelfType;
-  /** 유통기한까지 남은 일수 (D-day). 음수면 이미 만료 */
-  daysUntilExpiry: number;
-  /** freshness.ts에서 daysUntilExpiry를 기반으로 계산된 신선도 상태 */
-  freshnessStatus: FreshnessStatus;
-  /** 수량 (예: "300g", "1개"). API 연동 전까지 선택적 */
+  /** 수량 (예: "300g", "1개") */
   quantity?: string;
 };
 

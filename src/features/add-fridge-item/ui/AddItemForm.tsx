@@ -1,4 +1,4 @@
-// 재료 추가 폼 — 재료명/수량/유통기한/냉장고 칸 위치 입력 필드와 추가 버튼을 조립
+// 재료 추가 폼 — 재료명/수량/냉장고 칸 위치 입력 필드와 추가 버튼을 조립
 // API 미연동 단계: 추가하기 버튼은 시트 닫기만 수행
 
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
@@ -23,14 +23,12 @@ const SHELF_OPTIONS: SelectOption<ShelfType>[] = [
 type FridgeItemFormState = {
   name: string;
   quantity: string;
-  expiryDays: string;
   shelfType: ShelfType | null;
 };
 
 const INITIAL_FORM: FridgeItemFormState = {
   name: "",
   quantity: "",
-  expiryDays: "7",
   shelfType: null,
 };
 
@@ -79,10 +77,7 @@ export function AddItemForm({ onClose }: Props) {
   const [form, setForm] = useState(INITIAL_FORM);
 
   const isSubmittable =
-    form.name.trim().length > 0 &&
-    form.quantity.trim().length > 0 &&
-    form.expiryDays.trim().length > 0 &&
-    form.shelfType !== null;
+    form.name.trim().length > 0 && form.quantity.trim().length > 0 && form.shelfType !== null;
 
   function handleSubmit() {
     // TODO: API 연동 시 mutation 호출로 교체
@@ -101,27 +96,12 @@ export function AddItemForm({ onClose }: Props) {
           placeholder="예: 닭가슴살"
         />
 
-        {/* 수량 + 유통기한 — 2열 */}
-        <View className="flex-row gap-3">
-          <View className="flex-1">
-            <LabeledInput
-              label="수량"
-              value={form.quantity}
-              onChangeText={(v) => setForm((s) => ({ ...s, quantity: v }))}
-              placeholder="예: 1개"
-            />
-          </View>
-          <View className="flex-1">
-            <LabeledInput
-              label="유통기한 (일)"
-              value={form.expiryDays}
-              onChangeText={(v) => setForm((s) => ({ ...s, expiryDays: v.replace(/[^0-9]/g, "") }))}
-              placeholder="7"
-              keyboardType="number-pad"
-              returnKeyType="done"
-            />
-          </View>
-        </View>
+        <LabeledInput
+          label="수량"
+          value={form.quantity}
+          onChangeText={(v) => setForm((s) => ({ ...s, quantity: v }))}
+          placeholder="예: 1개"
+        />
 
         <SelectInput<ShelfType>
           label="냉장고 칸 위치"
