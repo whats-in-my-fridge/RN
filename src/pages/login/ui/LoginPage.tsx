@@ -1,22 +1,13 @@
 // LoginPage: 로그인 화면
 // 앱 브랜딩 + 소셜 로그인 선택 구조 (카카오 우선, 추후 확장 대비 구분선 포함)
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { KakaoLoginButton } from "@/features/kakao-login";
+import { KakaoLoginButton, OrDivider } from "@/features/kakao-login";
 
-// ── 구분선 컴포넌트 ──────────────────────────────────────────────────────────
-// 나중에 다른 소셜 로그인 추가 시 버튼들 사이에 재사용
-function OrDivider() {
-  return (
-    <View className="flex-row items-center gap-md my-lg">
-      <View className="flex-1 h-px bg-stroke-default" />
-      <Text className="text-sm text-content-secondary px-md">또는</Text>
-      <View className="flex-1 h-px bg-stroke-default" />
-    </View>
-  );
-}
+// 에러 자동 해제 대기 시간 (ms)
+const ERROR_AUTO_DISMISS_MS = 5000;
 
 // ── 앱 브랜딩 헤더 ───────────────────────────────────────────────────────────
 function AppBranding() {
@@ -43,11 +34,29 @@ function AppBranding() {
 // ── 메인 페이지 ──────────────────────────────────────────────────────────────
 export function LoginPage() {
   const [error, setError] = useState<string | null>(null);
+  const dismissTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleError = (err: Error) => {
+  // 컴포넌트 언마운트 시 타이머 정리 — 메모리 누수 방지
+  useEffect(() => {
+    return () => {
+      if (dismissTimerRef.current !== null) {
+        clearTimeout(dismissTimerRef.current);
+      }
+    };
+  }, []);
+
+  const handleError = useCallback((err: Error) => {
     setError(err.message || "로그인에 실패했습니다");
-    setTimeout(() => setError(null), 5000);
-  };
+
+    // 이전 타이머가 있으면 취소 후 새로 설정
+    if (dismissTimerRef.current !== null) {
+      clearTimeout(dismissTimerRef.current);
+    }
+    dismissTimerRef.current = setTimeout(() => {
+      setError(null);
+      dismissTimerRef.current = null;
+    }, ERROR_AUTO_DISMISS_MS);
+  }, []);
 
   return (
     <SafeAreaView className="flex-1 bg-surface-app">

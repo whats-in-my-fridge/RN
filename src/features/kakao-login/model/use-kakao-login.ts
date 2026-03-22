@@ -9,27 +9,31 @@ import { useAuthStore } from "./store";
 
 export function useKakaoLogin() {
   const router = useRouter();
-  const { setAuth, clearAuth, setLoading } = useAuthStore();
+  // 개별 액션을 구독해 불필요한 리렌더를 줄인다
+  const setAuth = useAuthStore((s) => s.setAuth);
+  const clearAuth = useAuthStore((s) => s.clearAuth);
+  const setLoading = useAuthStore((s) => s.setLoading);
 
   const login = useCallback(async () => {
     setLoading(true);
     try {
       const { user, token } = await kakaoLogin();
 
-      // Save token to secure storage
+      // 토큰을 SecureStore에 저장 — API 인터셉터가 다음 요청부터 자동 첨부한다
       await SecureStore.setItemAsync(AUTH_TOKEN_KEY, token);
 
-      // Update auth store
+      // 인증 상태 갱신 (내부적으로 isLoading = false 처리)
       setAuth(user, token);
 
-      // Navigate to home
+      // 홈으로 이동
       router.replace("/(protected)/(tabs)/home");
     } catch (error) {
+      // 인증 상태 초기화 (내부적으로 isLoading = false 처리)
       clearAuth();
       throw error;
-    } finally {
-      setLoading(false);
     }
+    // NOTE: setAuth / clearAuth 가 모두 isLoading = false 를 처리하므로
+    //       finally 블록에서 중복 호출하지 않는다.
   }, [router, setAuth, clearAuth, setLoading]);
 
   const logout = useCallback(async () => {
@@ -39,7 +43,7 @@ export function useKakaoLogin() {
       clearAuth();
       router.replace("/(auth)/login");
     } catch {
-      // Ignore logout errors
+      // 로그아웃 실패는 무시 — 로컬 상태는 이미 정리된다
     }
   }, [router, clearAuth]);
 

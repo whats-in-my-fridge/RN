@@ -1,28 +1,25 @@
 // KakaoLoginButton: 카카오 공식 로그인 버튼
 // 카카오 공식 디자인 가이드라인 준수
 // https://developers.kakao.com/docs/latest/ko/kakaologin/design-guide
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { ActivityIndicator, Pressable, Text, View } from "react-native";
-import Svg, { Path } from "react-native-svg";
 import { useAuthStore } from "../model/store";
 import { useKakaoLogin } from "../model/use-kakao-login";
+import { KakaoSymbol } from "./KakaoSymbol";
 
-interface KakaoLoginButtonProps {
+// ── 디자인 상수 (카카오 공식 가이드라인) ─────────────────────────────────────
+const BUTTON_BORDER_RADIUS = 10;
+const BUTTON_PADDING_VERTICAL = 16;
+const BUTTON_PADDING_HORIZONTAL = 24;
+const BUTTON_GAP = 10;
+const BUTTON_PRESSED_OPACITY = 0.85;
+const KAKAO_YELLOW = "#FEE500";
+const KAKAO_BLACK = "#000000";
+const BUTTON_FONT_SIZE = 16;
+const BUTTON_LETTER_SPACING = -0.5;
+
+export interface KakaoLoginButtonProps {
   onError?: (error: Error) => void;
-}
-
-/**
- * 카카오 공식 심볼 - 채팅 버블
- */
-function KakaoSymbol() {
-  return (
-    <Svg width={20} height={20} viewBox="0 0 24 24">
-      <Path
-        d="M12 2C6.48 2 2 5.58 2 10c0 2.54 1.19 4.85 3.15 6.37C4.88 18.6 2.02 21 2 21s3.72-1.78 5.15-2.66C9.24 19.44 10.56 20 12 20c5.52 0 10-3.58 10-8s-4.48-10-10-10z"
-        fill="#000000"
-      />
-    </Svg>
-  );
 }
 
 export function KakaoLoginButton({ onError }: KakaoLoginButtonProps) {
@@ -30,44 +27,49 @@ export function KakaoLoginButton({ onError }: KakaoLoginButtonProps) {
   const isLoading = useAuthStore((state) => state.isLoading);
   const [isPressed, setIsPressed] = useState(false);
 
-  const handlePress = async () => {
+  const handlePress = useCallback(async () => {
     try {
       await login();
     } catch (error) {
       onError?.(error instanceof Error ? error : new Error(String(error)));
     }
-  };
+  }, [login, onError]);
+
+  const handlePressIn = useCallback(() => setIsPressed(true), []);
+  const handlePressOut = useCallback(() => setIsPressed(false), []);
+
+  const buttonOpacity = isPressed && !isLoading ? BUTTON_PRESSED_OPACITY : 1;
 
   return (
     <Pressable
       onPress={handlePress}
-      onPressIn={() => setIsPressed(true)}
-      onPressOut={() => setIsPressed(false)}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
       disabled={isLoading}
     >
       <View
         style={{
-          borderRadius: 10,
-          backgroundColor: "#FEE500",
-          paddingVertical: 16,
-          paddingHorizontal: 24,
+          borderRadius: BUTTON_BORDER_RADIUS,
+          backgroundColor: KAKAO_YELLOW,
+          paddingVertical: BUTTON_PADDING_VERTICAL,
+          paddingHorizontal: BUTTON_PADDING_HORIZONTAL,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "center",
-          gap: 10,
-          opacity: isPressed && !isLoading ? 0.85 : 1,
+          gap: BUTTON_GAP,
+          opacity: buttonOpacity,
         }}
       >
         {!isLoading && <KakaoSymbol />}
         {isLoading ? (
-          <ActivityIndicator color="#000000" size="small" />
+          <ActivityIndicator color={KAKAO_BLACK} size="small" />
         ) : (
           <Text
             style={{
-              fontSize: 16,
+              fontSize: BUTTON_FONT_SIZE,
               fontWeight: "800",
-              color: "#000000",
-              letterSpacing: -0.5,
+              color: KAKAO_BLACK,
+              letterSpacing: BUTTON_LETTER_SPACING,
             }}
           >
             카카오 로그인
