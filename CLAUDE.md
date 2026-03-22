@@ -165,7 +165,7 @@ All checks must pass before merge. No force-push or skip-hooks allowed.
 - push뿐 아니라 모든 외부에 영향을 주는 git 작업(force push, reset --hard 등)은 사용자가 명시적으로 요청할 때만 실행한다.
 
 ### 검증 작업
-- **`npm run typecheck`, `npm run biome-check` 등 검증 명령어는 절대 자동으로 실행하지 않는다.** 모든 검증은 사용자가 직접 실행한다.
+- **모든 작업 완료 후 반드시 `npm run typecheck`와 `npm run biome-check`를 통과해야 한다.** 검증을 통과하지 못하면 작업이 완료되지 않은 것으로 간주한다.
 
 ## Notes for Contributors
 

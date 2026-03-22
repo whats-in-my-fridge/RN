@@ -6,7 +6,8 @@
 
 - `shared/ui`: 재사용 UI 컴포넌트(테마 컴포넌트, 공용 버튼/텍스트 등)
 - `shared/lib`: 공용 유틸/훅/헬퍼
-- `shared/config`: 공용 설정(테마/상수 등)
+- `shared/config`: 공용 설정(테마/상수, `env.ts`의 API URL, `auth-storage.ts`의 SecureStore 키 등)
+- `shared/api`: axios 기반 HTTP 클라이언트(`apiClient`, `apiPost`, `ApiError` 등)
 - `shared/assets`: 공용 에셋(이미지/아이콘/폰트 등)
 
 ## 규칙

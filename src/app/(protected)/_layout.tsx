@@ -6,9 +6,17 @@
 // liked-recipes — 좋아요한 레시피 목록 (stack push)
 // (modals) — 모달 화면 그룹
 
-import { Stack } from "expo-router";
+import { Redirect, Stack } from "expo-router";
+import { useAuthStore } from "@/features/kakao-login";
 
 export default function ProtectedLayout() {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
+  // Redirect to login if not authenticated
+  if (!isAuthenticated) {
+    return <Redirect href="/(auth)/login" />;
+  }
+
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="(tabs)" />
