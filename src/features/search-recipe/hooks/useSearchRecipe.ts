@@ -1,32 +1,59 @@
+// src/features/search-recipe/hooks/useSearchRecipe.ts
+// 재료 태그 기반 레시피 검색 & 카테고리 필터링 훅.
+// 포함 태그(include): 하나라도 매칭되는 레시피만 노출.
+// 제외 태그(exclude): missingIngredients에 해당 재료가 있는 레시피 제외 (클라이언트 필터링).
+
 import { useMemo, useState } from "react";
 
 import type { RecipeCardData } from "@/entities/recipe";
 import type { Category } from "@/shared/ui/CategoryFilter";
+import type { IngredientTag } from "@/shared/ui/IngredientTagInput";
 
-/**
- * 레시피 검색 & 카테고리 필터링 로직을 캡슐화하는 훅.
- * 페이지에서 비즈니스 로직을 분리하여 features 레이어에서 관리합니다.
- */
 export function useSearchRecipe(recipes: RecipeCardData[]) {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [tags, setTags] = useState<IngredientTag[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<Category>("전체");
 
+  function addTag(tag: IngredientTag) {
+    setTags((prev) =>
+      prev.some((t) => t.label === tag.label && t.type === tag.type) ? prev : [...prev, tag],
+    );
+  }
+
+  function removeTag(id: string) {
+    setTags((prev) => prev.filter((t) => t.id !== id));
+  }
+
   const filteredRecipes = useMemo(() => {
-    const lowercasedQuery = searchQuery.toLowerCase();
+    const includeTags = tags.filter((t) => t.type === "include");
+    const excludeTags = tags.filter((t) => t.type === "exclude");
 
     return recipes.filter((recipe) => {
-      const matchesCategory = selectedCategory === "전체" || recipe.category === selectedCategory;
-      const matchesSearch =
-        searchQuery === "" ||
-        recipe.title.toLowerCase().includes(lowercasedQuery) ||
-        recipe.missingIngredients.some((i) => i.toLowerCase().includes(lowercasedQuery));
-      return matchesCategory && matchesSearch;
+      if (selectedCategory !== "전체" && recipe.category !== selectedCategory) return false;
+
+      if (includeTags.length > 0) {
+        const matched = includeTags.some(
+          (t) =>
+            recipe.title.includes(t.label) ||
+            recipe.missingIngredients.some((i) => i.includes(t.label)),
+        );
+        if (!matched) return false;
+      }
+
+      if (excludeTags.length > 0) {
+        const hasExcluded = excludeTags.some((t) =>
+          recipe.missingIngredients.some((i) => i.includes(t.label)),
+        );
+        if (hasExcluded) return false;
+      }
+
+      return true;
     });
-  }, [recipes, searchQuery, selectedCategory]);
+  }, [recipes, tags, selectedCategory]);
 
   return {
-    searchQuery,
-    setSearchQuery,
+    tags,
+    addTag,
+    removeTag,
     selectedCategory,
     setSelectedCategory,
     filteredRecipes,
