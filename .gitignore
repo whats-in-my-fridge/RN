@@ -30,8 +30,11 @@ yarn-error.*
 .DS_Store
 *.pem
 
-# local env files
-.env*.local
+# Environment variables (secrets — commit only templates)
+.env
+.env.*
+!.env.example
+!.env.sample
 
 # typescript
 *.tsbuildinfo
@@ -42,10 +45,9 @@ app-example
 /ios
 /android
 
-#claude
-CLAUDE.md
+# Claude
 .claudeignore
-.claude/settings.local.json
+.claude/
 
 # Cursor/OMC (IDE agent state, sessions)
 .omc/
@@ -57,3 +59,4 @@ src/app/RN.code-workspace
 
 # Project wiki (local reference copy)
 RN.wiki/
+
