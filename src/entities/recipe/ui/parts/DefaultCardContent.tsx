@@ -39,7 +39,7 @@ export function DefaultCardContent({
 
   return (
     <View className="px-4 pb-4 pt-3">
-      <Text className="text-3xl font-extrabold text-content-primary">{recipe.title}</Text>
+      <Text className="text-3xl font-extrabold text-content-primary" numberOfLines={2}>{recipe.title}</Text>
       <RecipeMetaRow cookTime={recipe.cookTime} difficulty={recipe.difficulty} variant="default" />
     </View>
   );
