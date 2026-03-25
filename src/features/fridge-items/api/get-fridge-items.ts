@@ -8,8 +8,8 @@ type FridgeListRes = {
 };
 
 export async function getFridgeItems(): Promise<IngredientRes[]> {
-  console.log("[GET /fridge] request");
+  if (__DEV__) console.log("[GET /fridge] request");
   const data = await apiGet<FridgeListRes>("/fridge");
-  console.log("[GET /fridge] response", JSON.stringify(data, null, 2));
+  if (__DEV__) console.log("[GET /fridge] response", JSON.stringify(data, null, 2));
   return data.items;
 }
