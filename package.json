@@ -55,7 +55,9 @@
   },
   "expo": {
     "install": {
-      "exclude": ["react-native-svg"]
+      "exclude": [
+        "react-native-svg"
+      ]
     }
   },
   "devDependencies": {
