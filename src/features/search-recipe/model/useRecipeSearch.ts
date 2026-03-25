@@ -5,7 +5,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { toRecipeCardData } from "@/entities/recipe";
-import type { Category } from "@/shared/ui/CategoryFilter";
 import type { IngredientTag } from "@/shared/ui/IngredientTagInput";
 import { getFridgeRecipes } from "../api/get-fridge-recipes";
 import { getMissingRecipes } from "../api/get-missing-recipes";
@@ -18,7 +17,6 @@ export const SEARCH_RECIPES_QUERY_KEY = (keyword: string, excludeIngredients: st
 
 export function useRecipeSearch() {
   const [tags, setTags] = useState<IngredientTag[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<Category>("전체");
 
   const includeTags = tags.filter((t) => t.type === "include");
   const excludeTags = tags.filter((t) => t.type === "exclude");
@@ -60,8 +58,6 @@ export function useRecipeSearch() {
     tags,
     addTag,
     removeTag,
-    selectedCategory,
-    setSelectedCategory,
     hasActiveTags,
     fridgeRecipes: fridgeQuery.data ?? [],
     missingRecipes: missingQuery.data ?? [],

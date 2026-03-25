@@ -8,7 +8,6 @@ import { ActivityIndicator, ScrollView, Text, View } from "react-native";
 
 import { useRecipeSearch } from "@/features/search-recipe";
 import { tokens } from "@/shared/config/tokens";
-import { CategoryFilter } from "@/shared/ui/CategoryFilter";
 import { IngredientTagInput } from "@/shared/ui/IngredientTagInput";
 import { IconSymbol } from "@/shared/ui/icon-symbol";
 import { RecipeList } from "@/widgets/RecipeList";
@@ -20,8 +19,6 @@ export function SearchPage() {
     tags,
     addTag,
     removeTag,
-    selectedCategory,
-    setSelectedCategory,
     hasActiveTags,
     fridgeRecipes,
     missingRecipes,
@@ -44,11 +41,6 @@ export function SearchPage() {
 
       {/* 재료 태그 입력 */}
       <IngredientTagInput tags={tags} onAddTag={addTag} onRemoveTag={removeTag} />
-
-      {/* 카테고리 필터 */}
-      <View className="mt-4">
-        <CategoryFilter selected={selectedCategory} onSelect={setSelectedCategory} />
-      </View>
 
       {/* 로딩 */}
       {isLoading && (
