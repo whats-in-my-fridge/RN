@@ -1,6 +1,13 @@
 // entities/fridge 레이어의 공개 배럴 엔트리
 
-export type { FridgeItem, FridgeSection, ShelfType } from "./model/types";
+export { fridgeSlotToShelfType, toFridgeItems } from "./model/fridge-item-mappers";
+export type {
+  FridgeItem,
+  FridgeSection,
+  FridgeSlot,
+  IngredientRes,
+  ShelfType,
+} from "./model/types";
 export { DualShelfRow } from "./ui/DualShelfRow";
 export { FridgeItemRow } from "./ui/FridgeItemRow";
 export { ItemChip } from "./ui/ItemChip";
