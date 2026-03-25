@@ -6,10 +6,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { toRecipeCardData } from "@/entities/recipe";
 import type { IngredientTag } from "@/shared/ui/IngredientTagInput";
+import { getFridgeIngredients } from "../api/get-fridge-ingredients";
 import { getFridgeRecipes } from "../api/get-fridge-recipes";
 import { getMissingRecipes } from "../api/get-missing-recipes";
 import { searchRecipes } from "../api/search-recipes";
 
+export const FRIDGE_INGREDIENTS_QUERY_KEY = ["fridge", "ingredients"] as const;
 export const FRIDGE_RECIPES_QUERY_KEY = ["recipes", "fridge"] as const;
 export const MISSING_RECIPES_QUERY_KEY = ["recipes", "fridge", "missing"] as const;
 export const SEARCH_RECIPES_QUERY_KEY = (keyword: string, excludeIngredients: string[]) =>
@@ -33,6 +35,18 @@ export function useRecipeSearch() {
 
   function removeTag(id: string) {
     setTags((prev) => prev.filter((t) => t.id !== id));
+  }
+
+  const fridgeIngredientsQuery = useQuery({
+    queryKey: FRIDGE_INGREDIENTS_QUERY_KEY,
+    queryFn: getFridgeIngredients,
+  });
+
+  function addFridgeIngredientTags() {
+    const items = fridgeIngredientsQuery.data ?? [];
+    for (const item of items) {
+      addTag({ id: `fridge-${item.id}`, label: item.name, type: "include" });
+    }
   }
 
   const fridgeQuery = useQuery({
@@ -59,6 +73,9 @@ export function useRecipeSearch() {
     addTag,
     removeTag,
     hasActiveTags,
+    fridgeIngredients: fridgeIngredientsQuery.data ?? [],
+    isFridgeIngredientsLoading: fridgeIngredientsQuery.isLoading,
+    addFridgeIngredientTags,
     fridgeRecipes: fridgeQuery.data ?? [],
     missingRecipes: missingQuery.data ?? [],
     searchResults: searchQuery.data ?? [],

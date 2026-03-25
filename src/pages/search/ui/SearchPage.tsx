@@ -4,7 +4,7 @@
 // 태그 있을 때: 재료 키워드로 검색한 결과 목록.
 
 import { useRouter } from "expo-router";
-import { ActivityIndicator, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, Pressable, ScrollView, Text, View } from "react-native";
 
 import { useRecipeSearch } from "@/features/search-recipe";
 import { tokens } from "@/shared/config/tokens";
@@ -20,6 +20,9 @@ export function SearchPage() {
     addTag,
     removeTag,
     hasActiveTags,
+    fridgeIngredients,
+    isFridgeIngredientsLoading,
+    addFridgeIngredientTags,
     fridgeRecipes,
     missingRecipes,
     searchResults,
@@ -41,6 +44,19 @@ export function SearchPage() {
 
       {/* 재료 태그 입력 */}
       <IngredientTagInput tags={tags} onAddTag={addTag} onRemoveTag={removeTag} />
+
+      {/* 냉장고 재료로 검색 버튼 */}
+      {!isFridgeIngredientsLoading && (
+        <Pressable
+          className="mt-2 self-start rounded-tag bg-surface-section px-3 py-1.5"
+          onPress={fridgeIngredients.length > 0 ? addFridgeIngredientTags : undefined}
+          disabled={fridgeIngredients.length === 0}
+        >
+          <Text className="text-xs text-content-secondary">
+            {fridgeIngredients.length > 0 ? "냉장고 재료로 검색" : "냉장고에 재료가 없어요"}
+          </Text>
+        </Pressable>
+      )}
 
       {/* 로딩 */}
       {isLoading && (
