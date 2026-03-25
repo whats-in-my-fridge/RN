@@ -3,7 +3,7 @@
 
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useCallback, useEffect, useRef } from "react";
-import { StyleSheet, View } from "react-native";
+import { BackHandler, Keyboard, type ScrollView, StyleSheet, View } from "react-native";
 
 import { semanticColors, semanticRadius } from "@/shared/config/tokens";
 import { useChatStore } from "../model/store";
@@ -15,9 +15,11 @@ import { ChatSheetHeader } from "./ChatSheetHeader";
 export function ChatSheet() {
   const isOpen = useChatStore((s) => s.isOpen);
   const close = useChatStore((s) => s.close);
+  const setPresented = useChatStore((s) => s.setPresented);
   const messages = useChatStore((s) => s.messages);
   const { sendMessage, isPending } = useChatSend();
   const modalRef = useRef<BottomSheetModal>(null);
+  const scrollRef = useRef<ScrollView>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -27,12 +29,38 @@ export function ChatSheet() {
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const sub = BackHandler.addEventListener("hardwareBackPress", () => {
+      if (Keyboard.isVisible()) {
+        Keyboard.dismiss();
+        return true;
+      }
+      close();
+      return true;
+    });
+    return () => sub.remove();
+  }, [isOpen, close]);
+
   const handleSend = useCallback(
     (text: string) => {
       sendMessage(text);
     },
     [sendMessage],
   );
+
+  const handleAnimate = useCallback(
+    (_fromIndex: number, toIndex: number) => {
+      if (toIndex >= 0) setPresented(true);
+      if (toIndex === -1) setPresented(false);
+    },
+    [setPresented],
+  );
+
+  const handleDismiss = useCallback(() => {
+    setPresented(false);
+    close();
+  }, [setPresented, close]);
 
   return (
     <BottomSheetModal
@@ -43,13 +71,29 @@ export function ChatSheet() {
       keyboardBlurBehavior="none"
       handleComponent={ChatSheetHeader}
       backgroundStyle={styles.background}
-      onDismiss={close}
+      onAnimate={handleAnimate}
+      onDismiss={handleDismiss}
     >
       <View style={styles.content}>
         <View style={styles.messageArea}>
-          <ChatMessageList messages={messages} onChipPress={handleSend} isLoading={isPending} />
+          <ChatMessageList
+            messages={messages}
+            onChipPress={handleSend}
+            isLoading={isPending}
+            scrollRef={scrollRef}
+          />
         </View>
-        <ChatInput onSend={handleSend} disabled={isPending} />
+        <ChatInput
+          onSend={handleSend}
+          disabled={isPending}
+          onFocus={() => {
+            const KEYBOARD_SETTLE_DELAY_MS = 150;
+            setTimeout(
+              () => scrollRef.current?.scrollToEnd?.({ animated: true }),
+              KEYBOARD_SETTLE_DELAY_MS,
+            );
+          }}
+        />
       </View>
     </BottomSheetModal>
   );

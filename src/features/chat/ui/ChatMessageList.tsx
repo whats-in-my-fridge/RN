@@ -2,7 +2,7 @@
 // 채팅 메시지 목록 및 초기 퀵 칩을 렌더링하는 컴포넌트.
 
 import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
-import { useRef } from "react";
+import { type RefObject, useEffect, useRef } from "react";
 import {
   ActivityIndicator,
   Pressable,
@@ -21,17 +21,29 @@ interface ChatMessageListProps {
   messages: ChatMessage[];
   onChipPress: (chip: string) => void;
   isLoading?: boolean;
+  scrollRef: RefObject<ScrollView | null>;
 }
 
-export function ChatMessageList({ messages, onChipPress, isLoading }: ChatMessageListProps) {
-  const scrollRef = useRef<ScrollView>(null);
+export function ChatMessageList({
+  messages,
+  onChipPress,
+  isLoading,
+  scrollRef,
+}: ChatMessageListProps) {
+  const prevCountRef = useRef(messages.length);
+
+  useEffect(() => {
+    if (messages.length > prevCountRef.current) {
+      scrollRef.current?.scrollToEnd?.({ animated: true });
+    }
+    prevCountRef.current = messages.length;
+  }, [messages.length, scrollRef]);
 
   return (
     <BottomSheetScrollView
       ref={scrollRef}
       style={styles.list}
       contentContainerStyle={styles.content}
-      onContentSizeChange={() => scrollRef.current?.scrollToEnd?.({ animated: true })}
     >
       {messages.map((msg) => (
         <View key={msg.id} style={[styles.row, msg.role === "user" && styles.rowUser]}>

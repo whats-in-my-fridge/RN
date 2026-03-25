@@ -13,9 +13,10 @@ import { semanticColors, tokens } from "@/shared/config/tokens";
 interface ChatInputProps {
   onSend: (text: string) => void;
   disabled?: boolean;
+  onFocus?: () => void;
 }
 
-export function ChatInput({ onSend, disabled }: ChatInputProps) {
+export function ChatInput({ onSend, disabled, onFocus }: ChatInputProps) {
   const [value, setValue] = useState("");
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const insets = useSafeAreaInsets();
@@ -30,6 +31,7 @@ export function ChatInput({ onSend, disabled }: ChatInputProps) {
   }, []);
 
   function handleSend() {
+    if (disabled) return;
     const trimmed = value.trim();
     if (!trimmed) return;
     onSend(trimmed);
@@ -53,7 +55,8 @@ export function ChatInput({ onSend, disabled }: ChatInputProps) {
         onSubmitEditing={handleSend}
         returnKeyType="send"
         multiline={false}
-        editable={!disabled}
+        editable
+        onFocus={onFocus}
       />
       <Pressable
         style={[styles.sendButton, (!value.trim() || disabled) && styles.disabled]}
