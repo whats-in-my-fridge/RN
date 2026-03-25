@@ -1,6 +1,12 @@
 // BE IngredientRes → FE FridgeItem 변환 및 선반별 섹션 그룹핑 매퍼
 
-import type { FridgeItem, FridgeSection, FridgeSlot, IngredientRes, ShelfType } from "./types";
+import type {
+  FridgeItem,
+  FridgeSection,
+  FridgeSlot,
+  IngredientRes,
+  ShelfType,
+} from "./types";
 
 const SLOT_TO_SHELF: Record<FridgeSlot, ShelfType> = {
   MAIN_SHELF_1: "fresh-storage",
@@ -18,14 +24,22 @@ const SLOT_TO_SHELF: Record<FridgeSlot, ShelfType> = {
  * BE fridgeSlot 값을 FE ShelfType으로 변환한다.
  * fridgeSlot이 null이면 (auto-place 미실행 상태) undefined를 반환한다.
  */
-export function fridgeSlotToShelfType(slot: FridgeSlot | null): ShelfType | undefined {
+export function fridgeSlotToShelfType(
+  slot: FridgeSlot | null,
+): ShelfType | undefined {
   if (slot === null) return undefined;
   return SLOT_TO_SHELF[slot];
 }
 
 /** 선반별 화면 표시 메타데이터 */
-const SHELF_METADATA: Record<ShelfType, { label: string; description?: string }> = {
-  "fresh-storage": { label: "단백질 선반", description: "유제품 · 계란 · 두부" },
+const SHELF_METADATA: Record<
+  ShelfType,
+  { label: string; description?: string }
+> = {
+  "fresh-storage": {
+    label: "단백질 선반",
+    description: "유제품 · 계란 · 두부",
+  },
   "chilled-left": { label: "주식 · 조리식품" },
   "chilled-right": { label: "소스 · 음료" },
   "vegetable-drawer": { label: "야채 서랍", description: "채소 · 과일" },
@@ -44,7 +58,9 @@ const SHELF_ORDER: ShelfType[] = [
  * FridgeItem 배열을 ShelfType 기준으로 그룹핑한 Record.
  * 항상 5개 ShelfType 키를 모두 포함하며, 아이템 없는 섹션은 items: []
  */
-export function groupItemsToSections(items: FridgeItem[]): Record<ShelfType, FridgeSection> {
+export function groupItemsToSections(
+  items: FridgeItem[],
+): Record<ShelfType, FridgeSection> {
   const grouped = new Map<ShelfType, FridgeItem[]>();
 
   for (const item of items) {

@@ -1,7 +1,8 @@
 // FridgeStatusBar widget: 냉장고 통계(총 재료·찐레시피·추천)를 한 줄로 표시하는 위젯
-import { Text, View } from "react-native";
+// FridgeStatusBar widget: 냉장고 통계(총 재료·찐레시피·추천)를 한 줄로 표시하는 위젯
 import { useFridgeItems } from "@/features/fridge-items";
 import { tokens } from "@/shared/config/tokens";
+import { Text, View } from "react-native";
 
 const MOCK_ITEMS = [
   { label: "찐레시피", value: "12개" },
@@ -11,7 +12,10 @@ const MOCK_ITEMS = [
 export function FridgeStatusBar() {
   const { data: items = [] } = useFridgeItems();
 
-  const STATUS_ITEMS = [{ label: "총 재료", value: `${items.length}개` }, ...MOCK_ITEMS];
+  const STATUS_ITEMS = [
+    { label: "총 재료", value: `${items.length}개` },
+    ...MOCK_ITEMS,
+  ];
 
   return (
     <View className="mx-screen mb-6 flex-row rounded-2xl bg-surface-card px-2 py-3">
@@ -21,12 +25,19 @@ export function FridgeStatusBar() {
           className="flex-1 items-center"
           style={
             index < STATUS_ITEMS.length - 1
-              ? { borderRightWidth: 1, borderRightColor: tokens.color["stroke-default"] }
+              ? {
+                  borderRightWidth: 1,
+                  borderRightColor: tokens.color["stroke-default"],
+                }
               : undefined
           }
         >
-          <Text className="text-base font-extrabold text-content-primary">{item.value}</Text>
-          <Text className="mt-0.5 text-xs text-content-secondary">{item.label}</Text>
+          <Text className="text-base font-extrabold text-content-primary">
+            {item.value}
+          </Text>
+          <Text className="mt-0.5 text-xs text-content-secondary">
+            {item.label}
+          </Text>
         </View>
       ))}
     </View>

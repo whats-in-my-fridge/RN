@@ -24,7 +24,10 @@ export function RecipeIngredients({ owned, missing }: RecipeIngredientsProps) {
               key={ing.name}
               className="rounded-tag border border-status-fresh-border bg-status-fresh-bg px-3 py-1"
             >
-              <Text className="text-xs text-status-fresh">{ing.name}</Text>
+              <Text className="text-xs text-status-fresh">
+                {ing.name}
+                {ing.amount ? ` ${ing.amount}` : ""}
+              </Text>
             </View>
           ))}
         </View>
@@ -42,7 +45,10 @@ export function RecipeIngredients({ owned, missing }: RecipeIngredientsProps) {
                 key={ing.name}
                 className="rounded-tag border border-status-expiring-border bg-status-expiring-bg px-3 py-1"
               >
-                <Text className="text-xs text-status-expiring">{ing.name}</Text>
+                <Text className="text-xs text-status-expiring">
+                  {ing.name}
+                  {ing.amount ? ` ${ing.amount}` : ""}
+                </Text>
               </View>
             ))}
           </View>
