@@ -9,5 +9,8 @@ export type AddIngredientReq = {
 };
 
 export async function postFridgeItem(body: AddIngredientReq): Promise<IngredientRes> {
-  return apiPost<IngredientRes>("/fridge", body);
+  console.log("[POST /fridge] request", JSON.stringify(body, null, 2));
+  const data = await apiPost<IngredientRes>("/fridge", body);
+  console.log("[POST /fridge] response", JSON.stringify(data, null, 2));
+  return data;
 }
