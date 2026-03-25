@@ -10,7 +10,10 @@ export function toRecipeCardData(dto: RecipeDTO): RecipeCardData {
     title: dto.title,
     thumbnail: dto.mainImage,
     category: "",
-    matchRate: 0,
+    matchRate:
+      dto.ingredients.length > 0
+        ? ((dto.ingredients.length - dto.missingIngredients.length) / dto.ingredients.length) * 100
+        : 0,
     missingIngredients: dto.missingIngredients,
     cookTime: dto.cookTime,
     difficulty: dto.difficulty,

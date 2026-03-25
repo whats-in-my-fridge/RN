@@ -14,14 +14,18 @@ export function RecipeMeta({ recipe }: RecipeMetaProps) {
     <View>
       {/* 메타 정보 */}
       <View className="flex-row items-center gap-4">
-        <View className="flex-row items-center gap-1">
-          <IconSymbol name="clock" size={14} color={tokens.color["content-secondary"]} />
-          <Text className="text-sm text-content-secondary">{recipe.cookingTime}분</Text>
-        </View>
-        <View className="flex-row items-center gap-1">
-          <IconSymbol name="person.2" size={14} color={tokens.color["content-secondary"]} />
-          <Text className="text-sm text-content-secondary">{recipe.servings}인분</Text>
-        </View>
+        {recipe.cookingTime > 0 && (
+          <View className="flex-row items-center gap-1">
+            <IconSymbol name="clock" size={14} color={tokens.color["content-secondary"]} />
+            <Text className="text-sm text-content-secondary">{recipe.cookingTime}분</Text>
+          </View>
+        )}
+        {recipe.servings > 0 && (
+          <View className="flex-row items-center gap-1">
+            <IconSymbol name="person.2" size={14} color={tokens.color["content-secondary"]} />
+            <Text className="text-sm text-content-secondary">{recipe.servings}인분</Text>
+          </View>
+        )}
         <View className="flex-row items-center gap-1">
           <IconSymbol name="flame" size={14} color={tokens.color["content-secondary"]} />
           <Text className="text-sm text-content-secondary">{recipe.difficulty}</Text>

@@ -103,6 +103,17 @@ export function SearchPage() {
           {!hasActiveTags && missingRecipes.length > 0 && (
             <OthersSection recipes={missingRecipes} onPressRecipe={handlePressRecipe} />
           )}
+
+          {/* 태그 없을 때: 추천 레시피 없음 */}
+          {!hasActiveTags && fridgeRecipes.length === 0 && missingRecipes.length === 0 && (
+            <View className="mt-20 items-center gap-3">
+              <View className="h-14 w-14 items-center justify-center rounded-2xl bg-surface-section">
+                <IconSymbol name="fork.knife" size={24} color={tokens.color["content-muted"]} />
+              </View>
+              <Text className="text-sm text-content-muted">추천 레시피가 없습니다</Text>
+              <Text className="text-xs text-content-muted">냉장고에 재료를 추가해 보세요</Text>
+            </View>
+          )}
         </>
       )}
     </ScrollView>
