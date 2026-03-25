@@ -30,7 +30,7 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   const openChat = useChatStore((s) => s.open);
   const isChatOpen = useChatStore((s) => s.isOpen);
-  const isShelfDetailOpen = useShelfDetailStore((s) => s.selectedSection !== null);
+  const isShelfDetailOpen = useShelfDetailStore((s) => s.selectedType !== null);
   const segments = useSegments();
   const isInAuth = segments[0] === "(auth)";
 
