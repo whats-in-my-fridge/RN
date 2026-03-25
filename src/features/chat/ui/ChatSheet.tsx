@@ -2,12 +2,12 @@
 // 채팅 바텀시트 최상위 조립 컴포넌트.
 
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import * as Crypto from "expo-crypto";
 import { useCallback, useEffect, useRef } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { semanticColors, semanticRadius } from "@/shared/config/tokens";
 import { useChatStore } from "../model/store";
+import { useChatSend } from "../model/use-chat-send";
 import { ChatInput } from "./ChatInput";
 import { ChatMessageList } from "./ChatMessageList";
 import { ChatSheetHeader } from "./ChatSheetHeader";
@@ -16,7 +16,7 @@ export function ChatSheet() {
   const isOpen = useChatStore((s) => s.isOpen);
   const close = useChatStore((s) => s.close);
   const messages = useChatStore((s) => s.messages);
-  const addMessage = useChatStore((s) => s.addMessage);
+  const { sendMessage, isPending } = useChatSend();
   const modalRef = useRef<BottomSheetModal>(null);
 
   useEffect(() => {
@@ -29,9 +29,9 @@ export function ChatSheet() {
 
   const handleSend = useCallback(
     (text: string) => {
-      addMessage({ id: Crypto.randomUUID(), role: "user", text });
+      sendMessage(text);
     },
-    [addMessage],
+    [sendMessage],
   );
 
   return (
@@ -40,16 +40,16 @@ export function ChatSheet() {
       snapPoints={["75%"]}
       enableDynamicSizing={false}
       keyboardBehavior="interactive"
-      keyboardBlurBehavior="restore"
+      keyboardBlurBehavior="none"
       handleComponent={ChatSheetHeader}
       backgroundStyle={styles.background}
       onDismiss={close}
     >
       <View style={styles.content}>
         <View style={styles.messageArea}>
-          <ChatMessageList messages={messages} onChipPress={handleSend} />
+          <ChatMessageList messages={messages} onChipPress={handleSend} isLoading={isPending} />
         </View>
-        <ChatInput onSend={handleSend} />
+        <ChatInput onSend={handleSend} disabled={isPending} />
       </View>
     </BottomSheetModal>
   );
