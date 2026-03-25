@@ -1,6 +1,7 @@
 // Home page screen: assembles header, status bar, best-match banner, and recipe grid.
 import { router } from "expo-router";
-import { ActivityIndicator, Pressable, SafeAreaView, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, Pressable, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { BannerFoodCard } from "@/entities/recipe";
 import { useBestRecipe, useRecommendedRecipes } from "@/features/home-feed";
@@ -82,7 +83,7 @@ export function HomePage() {
               borderColor: tokens.color["stroke-default"],
               backgroundColor: tokens.color["surface-card"],
             }}
-            onPress={() => router.push("/search" as never)}
+            onPress={() => router.push("/(protected)/(tabs)/search")}
           >
             <Text className="text-sm font-semibold text-content-secondary">레시피 더보기 &gt;</Text>
           </Pressable>

@@ -17,7 +17,6 @@ type DualShelfSectionProps = {
 };
 
 function DualShelfSection({ section, isLeft, onPress }: DualShelfSectionProps) {
-  const hasExpiring = section.items.some((i) => i.freshnessStatus === "expiring");
   return (
     <Pressable
       className={`flex-1 pt-3 px-4 pb-2 gap-2 overflow-hidden ${isLeft ? "border-r border-stroke-default" : ""}`}
@@ -27,23 +26,16 @@ function DualShelfSection({ section, isLeft, onPress }: DualShelfSectionProps) {
         <Text className="text-[11px] leading-4 text-content-secondary font-semibold">
           {section.label}
         </Text>
-        <View className="flex-row items-center gap-1.5">
-          {hasExpiring && (
-            <View className="flex-row items-center bg-status-expiring-bg border border-status-expiring-border rounded-full px-[6px] py-[1px]">
-              <Text className="text-[9px] font-bold text-status-expiring">D-임박</Text>
-            </View>
-          )}
-          <Text className="text-[11px] leading-4 text-content-muted font-normal">
-            {section.items.length}개
-          </Text>
-        </View>
+        <Text className="text-[11px] leading-4 text-content-muted font-normal">
+          {section.items.length}개
+        </Text>
       </View>
       <View
         className="flex-row flex-wrap gap-1.5"
         style={{ height: CHIPS_AREA_HEIGHT, overflow: "hidden" }}
       >
         {section.items.map((item) => (
-          <ItemChip key={item.id} name={item.name} status={item.freshnessStatus} />
+          <ItemChip key={item.id} name={item.name} />
         ))}
       </View>
     </Pressable>

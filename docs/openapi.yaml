@@ -1,0 +1,650 @@
+openapi: 3.0.1
+info:
+  title: fridge API
+  description: 백엔드 소스 코드 기반 fridge API 명세서 (FCM 제외, 상세 응답 구조 완벽 반영)
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: 로컬 개발 서버
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    # ==========================
+    # 1. 공통 응답 구조 (BaseResponse)
+    # ==========================
+    BaseResponse:
+      type: object
+      properties:
+        isSuccess:
+          type: boolean
+          example: true
+        code:
+          type: string
+          example: "COMMON_200"
+        message:
+          type: string
+          example: "성공입니다."
+
+    # ==========================
+    # 2. Auth 관련 DTO
+    # ==========================
+    KakaoLoginReq:
+      type: object
+      required: [code, redirectUri]
+      properties:
+        code: { type: string, description: "카카오 인가 코드" }
+        redirectUri: { type: string, description: "카카오 로그인 리다이렉트 URI" }
+
+    TokenRes:
+      type: object
+      properties:
+        accessToken: { type: string }
+        refreshToken: { type: string }
+        memberId: { type: integer, format: int64 }
+        nickname: { type: string }
+
+    RefreshReq:
+      type: object
+      properties:
+        refreshToken: { type: string }
+
+    LogoutReq:
+      type: object
+      properties:
+        refreshToken: { type: string }
+
+    # ==========================
+    # 3. Member 관련 DTO
+    # ==========================
+    UserInfoDTO:
+      type: object
+      properties:
+        memberId: { type: integer, format: int64 }
+        nickname: { type: string }
+        email: { type: string, nullable: true }
+        profileImageUrl: { type: string, nullable: true }
+        allergies: { type: array, items: { type: string } }
+        dislikedIngredients: { type: array, items: { type: string } }
+
+    UserPreferencesDTO:
+      type: object
+      properties:
+        allergies: { type: array, items: { type: string } }
+        dislikedIngredients: { type: array, items: { type: string } }
+        age: { type: string, nullable: true }
+        gender: { type: string, nullable: true }
+
+    ScrapRecipeDTO:
+      type: object
+      properties:
+        recipeId: { type: integer, format: int64 }
+        title: { type: string }
+        thumbnailUrl: { type: string }
+
+    UserScrapsDTO:
+      type: object
+      properties:
+        scrapList: { type: array, items: { $ref: '#/components/schemas/ScrapRecipeDTO' } }
+
+    OnboardingStatusDTO:
+      type: object
+      properties:
+        isOnboarded: { type: boolean, description: "나이, 성별 등 필수 정보 입력 여부" }
+        memberId: { type: integer, format: int64 }
+
+    # ==========================
+    # 4. Fridge 관련 DTO
+    # ==========================
+    AddIngredientReq:
+      type: object
+      properties:
+        name: { type: string }
+        quantity: { type: string }
+        expiryDate: { type: string, format: date, example: "2025-12-19" }
+        storageCategory: { type: string, description: "분류 (육류/채소/유제품/소스...)" }
+
+    IngredientRes:
+      type: object
+      properties:
+        id: { type: integer, format: int64 }
+        name: { type: string }
+        quantity: { type: string }
+        storageCategory: { type: string }
+        fridgeSlot: { type: string, nullable: true, description: "할당된 냉장고 칸 enum 문자열" }
+        inputMethod: { type: string, description: "MANUAL 또는 OCR" }
+
+    FridgeListRes:
+      type: object
+      properties:
+        items: { type: array, items: { $ref: '#/components/schemas/IngredientRes' } }
+
+    BatchAddReq:
+      type: object
+      properties:
+        items: { type: array, items: { $ref: '#/components/schemas/AddIngredientReq' } }
+
+    BatchAddRes:
+      type: object
+      properties:
+        saved: { type: array, items: { $ref: '#/components/schemas/IngredientRes' } }
+
+    AutoPlaceRes:
+      type: object
+      properties:
+        placed: { type: array, items: { $ref: '#/components/schemas/IngredientRes' } }
+        unplacedIds: { type: array, items: { type: integer, format: int64 } }
+
+    AutoPlaceLlmPlacedItem:
+      type: object
+      properties:
+        id: { type: integer, format: int64 }
+        name: { type: string }
+        storageCategory: { type: string }
+        fridgeSlot: { type: string }
+
+    AutoPlaceLlmUnplacedItem:
+      type: object
+      properties:
+        id: { type: integer, format: int64 }
+        name: { type: string }
+        reason: { type: string }
+
+    AutoPlaceLlmRes:
+      type: object
+      properties:
+        placed: { type: array, items: { $ref: '#/components/schemas/AutoPlaceLlmPlacedItem' } }
+        unplaced: { type: array, items: { $ref: '#/components/schemas/AutoPlaceLlmUnplacedItem' } }
+
+    OcrRes:
+      type: object
+      properties:
+        saved: { type: array, items: { $ref: '#/components/schemas/IngredientRes' } }
+
+    OcrAutoPlaceRes:
+      type: object
+      properties:
+        rawText: { type: string }
+        saved: { type: array, items: { $ref: '#/components/schemas/IngredientRes' } }
+        placed: { type: array, items: { $ref: '#/components/schemas/AutoPlaceLlmPlacedItem' } }
+        unplaced: { type: array, items: { $ref: '#/components/schemas/AutoPlaceLlmUnplacedItem' } }
+
+    # ==========================
+    # 5. Recipe 관련 DTO
+    # ==========================
+    RecipeIngredientDTO:
+      type: object
+      properties:
+        name: { type: string }
+        amount: { type: string, nullable: true }
+        bundle: { type: string, nullable: true }
+
+    RecipeStepDTO:
+      type: object
+      properties:
+        order: { type: integer }
+        content: { type: string }
+        image: { type: string }
+
+    RecipeDTO:
+      type: object
+      properties:
+        recipeId: { type: integer, format: int64 }
+        title: { type: string }
+        description: { type: string }
+        mainImage: { type: string }
+        cookTime: { type: string }
+        difficulty: { type: string }
+        servings: { type: string }
+        ingredients: { type: array, items: { $ref: '#/components/schemas/RecipeIngredientDTO' } }
+        missingIngredients: { type: array, items: { type: string } }
+        isScrapped: { type: boolean }
+
+    RecipeInfoDTO:
+      type: object
+      properties:
+        recipeId: { type: integer, format: int64 }
+        title: { type: string }
+        description: { type: string }
+        mainImage: { type: string }
+        servings: { type: string }
+        cookTime: { type: string }
+        difficulty: { type: string }
+        ingredients: { type: array, items: { $ref: '#/components/schemas/RecipeIngredientDTO' } }
+        steps: { type: array, items: { $ref: '#/components/schemas/RecipeStepDTO' } }
+        isScrapped: { type: boolean }
+
+    RecipeScrapDTO:
+      type: object
+      properties:
+        scrapId: { type: integer, format: int64 }
+        recipeId: { type: integer, format: int64 }
+        memberId: { type: integer, format: int64 }
+        createdAt: { type: string, format: date-time }
+
+    # ==========================
+    # 6. Agentic RAG (Recipe) DTO
+    # ==========================
+    AgentAskReq:
+      type: object
+      properties:
+        query: { type: string, description: "사용자의 자연어 질의" }
+
+    AgentAskRes:
+      type: object
+      properties:
+        answer: { type: string, description: "LLM 생성 최종 답변" }
+        recipes: { type: array, items: { $ref: '#/components/schemas/RecipeDTO' }, description: "참조된 레시피 목록" }
+        rewrittenQueries: { type: array, items: { type: string }, description: "Query Rewriting 결과" }
+        usedRetrieval: { type: boolean }
+        usedRerank: { type: boolean }
+
+security:
+  - bearerAuth: []
+
+paths:
+  # =========================================================
+  # Auth (인증) - BaseResponse 없이 직접 반환
+  # =========================================================
+  /auth/login/kakao:
+    post:
+      tags: [Auth]
+      summary: 카카오 로그인 및 회원가입
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/KakaoLoginReq' }
+      responses:
+        "200":
+          description: 성공
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TokenRes' }
+
+  /auth/refresh:
+    post:
+      tags: [Auth]
+      summary: 토큰 재발급
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/RefreshReq' }
+      responses:
+        "200":
+          description: 성공
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TokenRes' }
+
+  /auth/logout:
+    post:
+      tags: [Auth]
+      summary: 로그아웃
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LogoutReq' }
+      responses:
+        "200":
+          description: 성공 (응답 본문 없음)
+
+  # =========================================================
+  # Members (회원) - BaseResponse로 감싸서 반환됨
+  # =========================================================
+  /users/me:
+    get:
+      tags: [Members]
+      summary: 내 정보 조회
+      responses:
+        "200":
+          description: 성공적으로 유저 정보를 조회했습니다.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      result: { $ref: '#/components/schemas/UserInfoDTO' }
+
+  /users/me/preferences:
+    patch:
+      tags: [Members]
+      summary: 건강 정보 및 기호 수정
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/UserPreferencesDTO' }
+      responses:
+        "200":
+          description: 성공적으로 유저 건강 정보 및 기호를 수정했습니다.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      result: { $ref: '#/components/schemas/UserPreferencesDTO' }
+
+  /users/me/scraps:
+    get:
+      tags: [Members]
+      summary: 찜한 레시피 목록 조회
+      responses:
+        "200":
+          description: 성공적으로 유저의 찜한 레시피 목록을 조회했습니다.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      result: { $ref: '#/components/schemas/UserScrapsDTO' }
+
+  /users/onboarding/check:
+    get:
+      tags: [Members]
+      summary: 온보딩 여부 확인
+      responses:
+        "200":
+          description: 성공적으로 조회되었습니다.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      result: { $ref: '#/components/schemas/OnboardingStatusDTO' }
+
+  # =========================================================
+  # Fridge (냉장고) - BaseResponse 없이 직접 반환
+  # =========================================================
+  /fridge:
+    patch:
+      tags: [Fridge]
+      summary: 냉장고 재료 목록 조회
+      responses:
+        "200":
+          description: 조회 성공
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/FridgeListRes' }
+
+    post:
+      tags: [Fridge]
+      summary: 재료 수동 추가 (단일)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AddIngredientReq' }
+      responses:
+        "200":
+          description: 추가 성공
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/IngredientRes' }
+
+  /fridge/batch:
+    post:
+      tags: [Fridge]
+      summary: 재료 수동 추가 (다중/배치)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/BatchAddReq' }
+      responses:
+        "200":
+          description: 일괄 추가 성공
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/BatchAddRes' }
+
+  /fridge/ocr:
+    post:
+      tags: [Fridge]
+      summary: 영수증/이미지 OCR로 재료 인식 후 저장
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image: { type: string, format: binary }
+      responses:
+        "200":
+          description: OCR 처리 및 저장 성공
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OcrRes' }
+
+  /fridge/auto-place:
+    post:
+      tags: [Fridge]
+      summary: 룰 기반 자동 배치
+      responses:
+        "200":
+          description: 룰 기반 배치 성공
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AutoPlaceRes' }
+
+  /fridge/auto-place-llm:
+    post:
+      tags: [Fridge]
+      summary: LLM 기반 자동 배치
+      responses:
+        "200":
+          description: LLM 기반 배치 성공
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AutoPlaceLlmRes' }
+
+  /fridge/ocr-auto-place:
+    post:
+      tags: [Fridge]
+      summary: OCR 인식 후 LLM 자동 배치 동시 수행
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image: { type: string, format: binary }
+      responses:
+        "200":
+          description: 동시 처리 성공
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OcrAutoPlaceRes' }
+
+  /fridge/{ingredientId}:
+    delete:
+      tags: [Fridge]
+      summary: 재료 삭제
+      parameters:
+        - name: ingredientId
+          in: path
+          required: true
+          schema: { type: integer, format: int64 }
+      responses:
+        "204":
+          description: 삭제 성공 (응답 본문 없음)
+
+  # =========================================================
+  # Recipes (레시피) - BaseResponse로 감싸서 반환됨
+  # =========================================================
+  /recipes/recommend/fridge:
+    get:
+      tags: [Recipes]
+      summary: 맞춤 레시피 추천
+      description: 사용자 냉장고의 재료 기반 하이브리드 레시피 추천
+      responses:
+        "200":
+          description: 성공
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      result: { type: array, items: { $ref: '#/components/schemas/RecipeDTO' } }
+
+  /recipes/recommend/fridge/missing:
+    get:
+      tags: [Recipes]
+      summary: 부족 재료 기반 레시피 추천
+      description: 냉장고 재료를 활용하되 조금만 추가하면 되는 레시피 하이브리드 추천
+      responses:
+        "200":
+          description: 성공
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      result: { type: array, items: { $ref: '#/components/schemas/RecipeDTO' } }
+
+  /recipes/recommend/scraps:
+    get:
+      tags: [Recipes]
+      summary: 찜한 레시피 기반 추천
+      responses:
+        "200":
+          description: 성공
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      result: { type: array, items: { $ref: '#/components/schemas/RecipeDTO' } }
+
+  /recipes/{recipeId}:
+    get:
+      tags: [Recipes]
+      summary: 레시피 상세 조회
+      parameters:
+        - name: recipeId
+          in: path
+          required: true
+          schema: { type: integer, format: int64 }
+      responses:
+        "200":
+          description: 성공
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      result: { $ref: '#/components/schemas/RecipeInfoDTO' }
+
+  /recipes/recommend/search:
+    get:
+      tags: [Recipes]
+      summary: 레시피 검색
+      parameters:
+        - name: keyword
+          in: query
+          schema: { type: string }
+        - name: sort
+          in: query
+          schema: { type: string }
+        - name: excludeAllergy
+          in: query
+          schema: { type: boolean }
+      responses:
+        "200":
+          description: 성공
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      result: { type: array, items: { $ref: '#/components/schemas/RecipeDTO' } }
+
+  /recipes/{recipeId}/scrap:
+    post:
+      tags: [Recipes]
+      summary: 레시피 찜하기
+      parameters:
+        - name: recipeId
+          in: path
+          required: true
+          schema: { type: integer, format: int64 }
+      responses:
+        "200":
+          description: 성공
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      result: { $ref: '#/components/schemas/RecipeScrapDTO' }
+
+    delete:
+      tags: [Recipes]
+      summary: 레시피 찜 취소
+      parameters:
+        - name: recipeId
+          in: path
+          required: true
+          schema: { type: integer, format: int64 }
+      responses:
+        "200":
+          description: 성공
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BaseResponse'
+
+  /recipes/agent/ask:
+    post:
+      tags: [Recipes]
+      summary: Agentic RAG 레시피 질의
+      description: 사용자의 자연어 질문을 바탕으로 Query Rewriting, Hybrid Retrieval 및 Re-ranking을 거쳐 LLM 기반 최종 답변 생성
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AgentAskReq' }
+      responses:
+        "200":
+          description: 성공
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      result: { $ref: '#/components/schemas/AgentAskRes' }

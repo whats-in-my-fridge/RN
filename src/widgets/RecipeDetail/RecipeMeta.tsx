@@ -26,6 +26,12 @@ export function RecipeMeta({ recipe }: RecipeMetaProps) {
           <IconSymbol name="flame" size={14} color={tokens.color["content-secondary"]} />
           <Text className="text-sm text-content-secondary">{recipe.difficulty}</Text>
         </View>
+        {recipe.calories != null && (
+          <View className="flex-row items-center gap-1">
+            <IconSymbol name="bolt.fill" size={14} color={tokens.color["content-secondary"]} />
+            <Text className="text-sm text-content-secondary">{recipe.calories}kcal</Text>
+          </View>
+        )}
       </View>
 
       {/* 설명 */}
