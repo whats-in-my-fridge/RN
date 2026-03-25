@@ -58,7 +58,7 @@ export function ChatInput({ onSend, disabled }: ChatInputProps) {
       <Pressable
         style={[styles.sendButton, (!value.trim() || disabled) && styles.disabled]}
         onPress={handleSend}
-        disabled={disabled}
+        disabled={disabled || !value.trim()}
         accessibilityLabel="전송"
       >
         <Text style={styles.sendIcon}>➤</Text>
