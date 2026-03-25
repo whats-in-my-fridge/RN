@@ -12,5 +12,8 @@ export function useAddFridgeItem() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: FRIDGE_ITEMS_QUERY_KEY });
     },
+    onError: (error) => {
+      if (__DEV__) console.error("[POST /fridge] error", error);
+    },
   });
 }
