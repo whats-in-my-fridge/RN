@@ -42,7 +42,7 @@ export type FridgeSlot =
 export type IngredientRes = {
   id: number;
   name: string;
-  quantity: string;
+  quantity: string | null;
   storageCategory: string;
   fridgeSlot: FridgeSlot | null;
   inputMethod: "MANUAL" | "OCR";
