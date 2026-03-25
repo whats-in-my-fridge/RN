@@ -19,6 +19,7 @@ export function SearchPage() {
     tags,
     addTag,
     removeTag,
+    clearTags,
     hasActiveTags,
     fridgeIngredients,
     isFridgeIngredientsLoading,
@@ -45,16 +46,32 @@ export function SearchPage() {
       {/* 재료 태그 입력 */}
       <IngredientTagInput tags={tags} onAddTag={addTag} onRemoveTag={removeTag} />
 
+      {/* 전체 지우기 버튼 */}
+      {hasActiveTags && (
+        <Pressable className="mt-2 self-end active:opacity-70" onPress={clearTags}>
+          <Text className="text-xs text-content-muted">전체 지우기</Text>
+        </Pressable>
+      )}
+
       {/* 냉장고 재료로 검색 버튼 */}
-      {!isFridgeIngredientsLoading && (
+      {!isFridgeIngredientsLoading && !hasActiveTags && (
         <Pressable
-          className="mt-2 self-start rounded-tag bg-surface-section px-3 py-1.5"
+          className="mt-2 w-full flex-row items-center gap-3 rounded-2xl bg-surface-card px-4 py-3 active:opacity-70"
           onPress={fridgeIngredients.length > 0 ? addFridgeIngredientTags : undefined}
           disabled={fridgeIngredients.length === 0}
         >
-          <Text className="text-xs text-content-secondary">
-            {fridgeIngredients.length > 0 ? "냉장고 재료로 검색" : "냉장고에 재료가 없어요"}
-          </Text>
+          <IconSymbol name="square.stack.fill" size={22} color={tokens.color.primary} />
+          <View className="flex-1">
+            <Text className="text-sm font-semibold text-content-primary">냉장고 재료로 검색</Text>
+            <Text className="mt-0.5 text-xs text-content-muted">
+              {fridgeIngredients.length > 0
+                ? `내 냉장고 재료 ${fridgeIngredients.length}개로 검색하기`
+                : "냉장고에 재료가 없어요"}
+            </Text>
+          </View>
+          {fridgeIngredients.length > 0 && (
+            <IconSymbol name="chevron.right" size={16} color={tokens.color["content-muted"]} />
+          )}
         </Pressable>
       )}
 
