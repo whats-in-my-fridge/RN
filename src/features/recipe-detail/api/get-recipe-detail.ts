@@ -1,7 +1,6 @@
 // 레시피 상세 조회 API — GET /recipes/{recipeId}
 
-import type { RecipeInfoDTO } from "@/entities/recipe";
-import type { BaseResponse } from "@/entities/recipe/model/recipe-api.types";
+import type { BaseResponse, RecipeInfoDTO } from "@/entities/recipe";
 import { apiGet } from "@/shared/api";
 
 export async function getRecipeDetail(recipeId: number): Promise<RecipeInfoDTO> {

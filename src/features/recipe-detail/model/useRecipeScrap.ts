@@ -1,24 +1,57 @@
-// 레시피 찜하기/취소 mutation 훅
+// 레시피 찜하기/취소 mutation 훅 (낙관적 업데이트 적용)
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { scrapRecipe, unscrapRecipe } from "../api/scrap-recipe";
+import type { Recipe } from "@/entities/recipe";
+import { scrapRecipe, unscrapRecipe } from "@/entities/recipe";
 import { RECIPE_DETAIL_QUERY_KEY } from "./useRecipeDetail";
 
 export function useRecipeScrap(recipeId: number) {
   const queryClient = useQueryClient();
 
+  const onSettled = () => {
+    queryClient.invalidateQueries({ queryKey: RECIPE_DETAIL_QUERY_KEY(recipeId) });
+  };
+
   const scrapMutation = useMutation({
     mutationFn: () => scrapRecipe(recipeId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: RECIPE_DETAIL_QUERY_KEY(recipeId) });
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: RECIPE_DETAIL_QUERY_KEY(recipeId) });
+      const previous = queryClient.getQueryData<Recipe>(RECIPE_DETAIL_QUERY_KEY(recipeId));
+      if (previous) {
+        queryClient.setQueryData(RECIPE_DETAIL_QUERY_KEY(recipeId), {
+          ...previous,
+          isScrapped: true,
+        });
+      }
+      return { previous };
     },
+    onError: (_err, _vars, context) => {
+      if (context?.previous) {
+        queryClient.setQueryData(RECIPE_DETAIL_QUERY_KEY(recipeId), context.previous);
+      }
+    },
+    onSettled,
   });
 
   const unscrapMutation = useMutation({
     mutationFn: () => unscrapRecipe(recipeId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: RECIPE_DETAIL_QUERY_KEY(recipeId) });
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: RECIPE_DETAIL_QUERY_KEY(recipeId) });
+      const previous = queryClient.getQueryData<Recipe>(RECIPE_DETAIL_QUERY_KEY(recipeId));
+      if (previous) {
+        queryClient.setQueryData(RECIPE_DETAIL_QUERY_KEY(recipeId), {
+          ...previous,
+          isScrapped: false,
+        });
+      }
+      return { previous };
     },
+    onError: (_err, _vars, context) => {
+      if (context?.previous) {
+        queryClient.setQueryData(RECIPE_DETAIL_QUERY_KEY(recipeId), context.previous);
+      }
+    },
+    onSettled,
   });
 
   function toggleScrap(isScrapped: boolean) {

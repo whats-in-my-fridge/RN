@@ -15,7 +15,11 @@ export function toRecipeCardData(dto: RecipeDTO): RecipeCardData {
     category: "",
     matchRate:
       dto.ingredients.length > 0
-        ? ((dto.ingredients.length - dto.missingIngredients.length) / dto.ingredients.length) * 100
+        ? Math.round(
+            (Math.max(0, dto.ingredients.length - dto.missingIngredients.length) /
+              dto.ingredients.length) *
+              100,
+          )
         : 0,
     allIngredients: [...matched, ...dto.missingIngredients],
     missingIngredients: dto.missingIngredients,
