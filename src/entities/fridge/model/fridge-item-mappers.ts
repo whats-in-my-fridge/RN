@@ -80,7 +80,7 @@ export function toFridgeItems(items: IngredientRes[]): FridgeItem[] {
         id: String(item.id),
         name: item.name,
         shelfType,
-        quantity: item.quantity,
+        quantity: item.quantity ?? undefined,
       },
     ];
   });
