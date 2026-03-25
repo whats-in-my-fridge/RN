@@ -1,5 +1,6 @@
 import { router } from "expo-router";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
+import { useKakaoLogin } from "@/features/kakao-login";
 import { SectionHeader } from "@/shared/ui/section-header";
 import { ProfileCard } from "@/widgets/profile-card";
 import { SettingsListGroup, SettingsListRow } from "@/widgets/settings-list-row";
@@ -7,6 +8,7 @@ import { SettingsListGroup, SettingsListRow } from "@/widgets/settings-list-row"
 const ALERT_STUB = () => alert("준비중입니다");
 
 export function MyPage() {
+  const { logout } = useKakaoLogin();
   return (
     <SafeAreaView className="flex-1 bg-surface-app">
       <ScrollView
@@ -55,7 +57,7 @@ export function MyPage() {
           <SettingsListGroup>
             <SettingsListRow icon="settings" title="앱 설정" onPress={ALERT_STUB} />
             <SettingsListRow icon="help" title="문의 및 도움말" onPress={ALERT_STUB} />
-            <SettingsListRow icon="logout" title="로그아웃" danger onPress={ALERT_STUB} />
+            <SettingsListRow icon="logout" title="로그아웃" danger onPress={logout} />
           </SettingsListGroup>
         </View>
       </ScrollView>
