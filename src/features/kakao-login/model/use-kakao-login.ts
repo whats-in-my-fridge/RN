@@ -1,5 +1,6 @@
 // Hook for Kakao login flow with state management
 
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { useCallback } from "react";
@@ -9,6 +10,7 @@ import { useAuthStore } from "./store";
 
 export function useKakaoLogin() {
   const router = useRouter();
+  const queryClient = useQueryClient();
   // 개별 액션을 구독해 불필요한 리렌더를 줄인다
   const setAuth = useAuthStore((s) => s.setAuth);
   const clearAuth = useAuthStore((s) => s.clearAuth);
@@ -41,11 +43,12 @@ export function useKakaoLogin() {
       await kakaoLogout();
       await SecureStore.deleteItemAsync(AUTH_TOKEN_KEY);
       clearAuth();
+      queryClient.clear();
       router.replace("/(auth)/login");
     } catch {
       // 로그아웃 실패는 무시 — 로컬 상태는 이미 정리된다
     }
-  }, [router, clearAuth]);
+  }, [router, clearAuth, queryClient]);
 
   return { login, logout };
 }

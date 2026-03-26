@@ -1,6 +1,10 @@
+// 마이페이지 화면 컴포넌트 — 사용자 프로필 및 설정 메뉴를 표시한다.
+
 import { router } from "expo-router";
-import { SafeAreaView, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useKakaoLogin } from "@/features/kakao-login";
+import { useUserProfile } from "@/features/user-profile";
 import { SectionHeader } from "@/shared/ui/section-header";
 import { ProfileCard } from "@/widgets/profile-card";
 import { SettingsListGroup, SettingsListRow } from "@/widgets/settings-list-row";
@@ -9,8 +13,10 @@ const ALERT_STUB = () => alert("준비중입니다");
 
 export function MyPage() {
   const { logout } = useKakaoLogin();
+  const { data: userProfile, isLoading, isError } = useUserProfile();
+
   return (
-    <SafeAreaView className="flex-1 bg-surface-app">
+    <SafeAreaView edges={["top"]} className="flex-1 bg-surface-app">
       <ScrollView
         className="flex-1"
         contentContainerClassName="pb-10"
@@ -23,7 +29,22 @@ export function MyPage() {
 
         {/* 프로필 카드 */}
         <View className="px-screen mb-section">
-          <ProfileCard onEdit={ALERT_STUB} />
+          {isLoading ? (
+            <View className="flex-row items-center justify-center rounded-list border border-stroke-default bg-surface-card p-card">
+              <ActivityIndicator />
+            </View>
+          ) : isError ? (
+            <View className="rounded-list border border-stroke-default bg-surface-card p-card">
+              <Text className="text-sm text-content-secondary">프로필을 불러오지 못했어요.</Text>
+            </View>
+          ) : (
+            <ProfileCard
+              nickname={userProfile?.nickname}
+              email={userProfile?.email}
+              profileImageUrl={userProfile?.profileImageUrl}
+              onEdit={ALERT_STUB}
+            />
+          )}
         </View>
 
         {/* 활동 내역 */}
