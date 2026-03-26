@@ -62,6 +62,14 @@ export function ChatSheet() {
     close();
   }, [setPresented, close]);
 
+  const handleInputFocus = useCallback(() => {
+    const KEYBOARD_SETTLE_DELAY_MS = 150;
+    setTimeout(
+      () => scrollRef.current?.scrollToEnd?.({ animated: true }),
+      KEYBOARD_SETTLE_DELAY_MS,
+    );
+  }, []);
+
   return (
     <BottomSheetModal
       ref={modalRef}
@@ -83,17 +91,7 @@ export function ChatSheet() {
             scrollRef={scrollRef}
           />
         </View>
-        <ChatInput
-          onSend={handleSend}
-          disabled={isPending}
-          onFocus={() => {
-            const KEYBOARD_SETTLE_DELAY_MS = 150;
-            setTimeout(
-              () => scrollRef.current?.scrollToEnd?.({ animated: true }),
-              KEYBOARD_SETTLE_DELAY_MS,
-            );
-          }}
-        />
+        <ChatInput onSend={handleSend} disabled={isPending} onFocus={handleInputFocus} />
       </View>
     </BottomSheetModal>
   );
