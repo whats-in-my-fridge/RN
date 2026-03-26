@@ -1,20 +1,11 @@
-// 향 후에 실제 API 요청을 처리하는 함수로 변경될 예정
+// 레시피 찜하기/취소 API 호출 — RecipeLikedButton에서 사용
+import { scrapRecipe, unscrapRecipe } from "@/entities/recipe";
+
 export async function postRecipeLiked(recipeId: number, isLiked: boolean) {
-  try {
-    if (!recipeId || recipeId < 1) {
-      throw new Error("유효하지 않은 레시피 ID입니다.");
-    }
-
-    await new Promise((resolve) => {
-      setTimeout(resolve, 250);
-    });
-
-    return { recipeId, isLiked };
-  } catch (error) {
-    if (error instanceof Error) {
-      throw error;
-    }
-
-    throw new Error("레시피 좋아요 요청에 실패했습니다.");
+  if (isLiked) {
+    const result = await scrapRecipe(recipeId);
+    return { recipeId: result.recipeId, isLiked: true };
   }
+  await unscrapRecipe(recipeId);
+  return { recipeId, isLiked: false };
 }
