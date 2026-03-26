@@ -1,98 +1,32 @@
-// GET /users/me/scraps - 스크랩(좋아요)한 레시피 목록. API 연동 시 교체.
+// GET /users/me/scraps - 스크랩(좋아요)한 레시피 목록
 import type { RecipeCardData } from "@/entities/recipe";
+import { apiGet } from "@/shared/api";
+
+type UserScrapsRes = {
+  message: string;
+  result: {
+    scrapList: Array<{
+      recipeId: number;
+      title: string;
+      thumbnailUrl: string;
+    }>;
+  };
+};
 
 export async function getScraps(): Promise<RecipeCardData[]> {
-  await new Promise((resolve) => setTimeout(resolve, 300));
+  if (__DEV__) console.log("[GET /users/me/scraps] request");
+  const data = await apiGet<UserScrapsRes>("/users/me/scraps");
+  if (__DEV__) console.log("[GET /users/me/scraps] response", JSON.stringify(data, null, 2));
 
-  // 목 데이터. 실제 연동 시 fetch("/users/me/scraps") 응답을 RecipeCardData[]로 매핑
-  return [
-    {
-      recipeId: 1,
-      title: "달걀 볶음밥",
-      thumbnail: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&q=80",
-      category: "한식",
-      matchRate: 88,
-      missingIngredients: ["밥", "계란", "간장"],
-      cookTime: "15분",
-      difficulty: "아무나",
-      isLiked: true,
-    },
-    {
-      recipeId: 2,
-      title: "비빔밥",
-      thumbnail: "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=400&q=80",
-      category: "한식",
-      matchRate: 92,
-      missingIngredients: ["당근", "시금치", "계란"],
-      cookTime: "25분",
-      difficulty: "아무나",
-      isLiked: true,
-    },
-    {
-      recipeId: 3,
-      title: "김치찌개",
-      thumbnail: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80",
-      category: "한식",
-      matchRate: 90,
-      missingIngredients: ["김치", "돼지고기", "두부"],
-      cookTime: "20분",
-      difficulty: "쉬움",
-      isLiked: true,
-    },
-    {
-      recipeId: 4,
-      title: "두부 된장찌개",
-      thumbnail: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&q=80",
-      category: "한식",
-      matchRate: 85,
-      missingIngredients: ["두부", "된장", "애호박"],
-      cookTime: "20분",
-      difficulty: "초급",
-      isLiked: true,
-    },
-    {
-      recipeId: 5,
-      title: "달걀 볶음밥",
-      thumbnail: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&q=80",
-      category: "한식",
-      matchRate: 88,
-      missingIngredients: ["밥", "계란", "간장"],
-      cookTime: "15분",
-      difficulty: "아무나",
-      isLiked: true,
-    },
-    {
-      recipeId: 6,
-      title: "비빔밥",
-      thumbnail: "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=400&q=80",
-      category: "한식",
-      matchRate: 92,
-      missingIngredients: ["당근", "시금치", "계란"],
-      cookTime: "25분",
-      difficulty: "아무나",
-      isLiked: true,
-    },
-    {
-      recipeId: 7,
-      title: "김치찌개",
-      thumbnail: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80",
-      category: "한식",
-      matchRate: 90,
-      missingIngredients: ["김치", "돼지고기", "두부"],
-      cookTime: "20분",
-      difficulty: "쉬움",
-      isLiked: true,
-    },
-    {
-      recipeId: 8,
-      title: "두부 된장찌개",
-      thumbnail: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&q=80",
-      category: "한식",
-      matchRate: 85,
-      missingIngredients: ["두부", "된장", "애호박"],
-      cookTime: "20분",
-      difficulty: "초급",
-      isLiked: true,
-    },
-  ];
+  return data.result.scrapList.map((scrap) => ({
+    recipeId: scrap.recipeId,
+    title: scrap.title,
+    thumbnail: scrap.thumbnailUrl,
+    category: "카테고리",
+    matchRate: 0,
+    missingIngredients: [],
+    cookTime: "0분",
+    difficulty: "정보없음",
+    isLiked: true,
+  }));
 }

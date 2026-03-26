@@ -4,6 +4,7 @@ import { router } from "expo-router";
 import { ActivityIndicator, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useKakaoLogin } from "@/features/kakao-login";
+import { useScraps } from "@/features/liked-recipes";
 import { useUserProfile } from "@/features/user-profile";
 import { SectionHeader } from "@/shared/ui/section-header";
 import { ProfileCard } from "@/widgets/profile-card";
@@ -14,6 +15,7 @@ const ALERT_STUB = () => alert("준비중입니다");
 export function MyPage() {
   const { logout } = useKakaoLogin();
   const { data: userProfile, isLoading, isError } = useUserProfile();
+  const { data: scraps = [] } = useScraps();
 
   return (
     <SafeAreaView edges={["top"]} className="flex-1 bg-surface-app">
@@ -54,7 +56,7 @@ export function MyPage() {
             <SettingsListRow
               icon="heart"
               title="좋아요한 레시피"
-              badge={12}
+              badge={scraps.length}
               onPress={() => router.push("/(protected)/liked-recipes")}
             />
             <SettingsListRow icon="clock" title="최근 본 레시피" onPress={ALERT_STUB} />
