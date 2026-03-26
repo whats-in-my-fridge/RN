@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { BannerFoodCard } from "@/entities/recipe";
 import { useBestRecipe, useRecommendedRecipes } from "@/features/home-feed";
+import { useAuthStore } from "@/features/kakao-login/model/store";
 import { RecipeLikedButton } from "@/features/recipe-liked-button";
 import { tokens } from "@/shared/config/tokens";
 import { IconSymbol } from "@/shared/ui/icon-symbol";
@@ -15,8 +16,19 @@ import { RecipeList } from "@/widgets/RecipeList";
 const ALERT_STUB = () => alert("준비중입니다");
 
 export function HomePage() {
-  const { data: bestRecipe, isLoading: isBestLoading } = useBestRecipe();
-  const { data: recommendedRecipes, isLoading: isRecommendedLoading } = useRecommendedRecipes();
+  const user = useAuthStore((state) => state.user);
+  const {
+    data: bestRecipe,
+    isLoading: isBestLoading,
+    isError: isBestError,
+    error: bestError,
+  } = useBestRecipe();
+  const {
+    data: recommendedRecipes,
+    isLoading: isRecommendedLoading,
+    isError: isRecommendedError,
+    error: recommendedError,
+  } = useRecommendedRecipes();
 
   return (
     <SafeAreaView className="flex-1 bg-surface-app">
@@ -27,7 +39,9 @@ export function HomePage() {
       >
         {/* 헤더 */}
         <View className="flex-row items-center justify-between px-screen py-4">
-          <Text className="text-xl font-extrabold text-content-primary">민지님의 냉장고</Text>
+          <Text className="text-xl font-extrabold text-content-primary">
+            {user?.nickname ? `${user.nickname}님의 냉장고` : "냉장고"}
+          </Text>
           <View>
             <IconSymbol name="bell" size={24} color={tokens.color["content-primary"]} />
             <View
@@ -45,11 +59,17 @@ export function HomePage() {
         {/* 오늘의 베스트 매칭 */}
         <SectionHeader title="오늘의 베스트 매칭" onMore={ALERT_STUB} />
         <View className="mb-6 px-screen">
-          {isBestLoading || !bestRecipe ? (
+          {isBestLoading ? (
             <View className="h-56 items-center justify-center rounded-2xl bg-surface-card">
               <ActivityIndicator color={tokens.color.primary} />
             </View>
-          ) : (
+          ) : isBestError ? (
+            <View className="h-56 items-center justify-center rounded-2xl bg-surface-card">
+              <Text className="text-sm text-content-secondary">
+                {bestError?.message || "베스트 매칭을 불러올 수 없습니다"}
+              </Text>
+            </View>
+          ) : bestRecipe ? (
             <BannerFoodCard
               recipe={bestRecipe}
               onPress={ALERT_STUB}
@@ -60,18 +80,34 @@ export function HomePage() {
                 />
               }
             />
+          ) : (
+            <View className="h-56 items-center justify-center rounded-2xl bg-surface-card">
+              <Text className="text-sm text-content-secondary">추천 레시피가 없습니다</Text>
+            </View>
           )}
         </View>
 
         {/* 지금 바로 만들 수 있어요 */}
         <SectionHeader title="지금 바로 만들 수 있어요" onMore={ALERT_STUB} />
         <View className="mb-6 px-screen">
-          {isRecommendedLoading || !recommendedRecipes ? (
+          {isRecommendedLoading ? (
             <View className="h-56 items-center justify-center">
               <ActivityIndicator color={tokens.color.primary} />
             </View>
-          ) : (
+          ) : isRecommendedError ? (
+            <View className="h-56 items-center justify-center">
+              <Text className="text-sm text-content-secondary">
+                {recommendedError?.message || "레시피를 불러올 수 없습니다"}
+              </Text>
+            </View>
+          ) : recommendedRecipes && recommendedRecipes.length > 0 ? (
             <RecipeList recipes={recommendedRecipes} />
+          ) : (
+            <View className="h-56 items-center justify-center">
+              <Text className="text-sm text-content-secondary">
+                현재 만들 수 있는 레시피가 없습니다
+              </Text>
+            </View>
           )}
         </View>
 
