@@ -19,9 +19,9 @@ export function RecipeIngredients({ owned, missing }: RecipeIngredientsProps) {
           ✓ 보유 재료 ({owned.length})
         </Text>
         <View className="mt-2 flex-row flex-wrap gap-2">
-          {owned.map((ing) => (
+          {owned.map((ing, index) => (
             <View
-              key={ing.name}
+              key={`${ing.name}-${index}`}
               className="rounded-tag border border-status-fresh-border bg-status-fresh-bg px-3 py-1"
             >
               <Text className="text-xs text-status-fresh">
