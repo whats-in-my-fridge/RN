@@ -2,6 +2,7 @@
 
 import { router } from "expo-router";
 import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -12,7 +13,6 @@ import {
   RecommendedSection,
 } from "@/features/home-feed/ui";
 import { tokens } from "@/shared/config/tokens";
-import { ErrorBoundary } from "@/shared/ui/error-boundary";
 import { ErrorView } from "@/shared/ui/error-view";
 import { SectionHeader } from "@/shared/ui/section-header";
 import { FridgeStatusBar } from "@/widgets/fridge-status-bar";
@@ -37,7 +37,9 @@ export function HomePage() {
         {/* 오늘의 베스트 매칭 */}
         <SectionHeader title="오늘의 베스트 매칭" onMore={ALERT_STUB} />
         <View className="mb-6 px-screen">
-          <ErrorBoundary fallback={<ErrorView message="베스트 매칭을 불러올 수 없습니다" />}>
+          <ErrorBoundary
+            FallbackComponent={() => <ErrorView message="베스트 매칭을 불러올 수 없습니다" />}
+          >
             <Suspense fallback={<BestRecipeSkeleton />}>
               <BestMatchingSection />
             </Suspense>
@@ -47,7 +49,9 @@ export function HomePage() {
         {/* 지금 바로 만들 수 있어요 */}
         <SectionHeader title="지금 바로 만들 수 있어요" onMore={ALERT_STUB} />
         <View className="mb-6 px-screen">
-          <ErrorBoundary fallback={<ErrorView message="레시피 목록을 불러올 수 없습니다" />}>
+          <ErrorBoundary
+            FallbackComponent={() => <ErrorView message="레시피 목록을 불러올 수 없습니다" />}
+          >
             <Suspense fallback={<RecipeListSkeleton />}>
               <RecommendedSection />
             </Suspense>
