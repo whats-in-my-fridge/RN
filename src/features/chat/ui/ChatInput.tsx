@@ -12,9 +12,10 @@ import { semanticColors, tokens } from "@/shared/config/tokens";
 
 interface ChatInputProps {
   onSend: (text: string) => void;
+  disabled?: boolean;
 }
 
-export function ChatInput({ onSend }: ChatInputProps) {
+export function ChatInput({ onSend, disabled }: ChatInputProps) {
   const [value, setValue] = useState("");
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const insets = useSafeAreaInsets();
@@ -33,6 +34,7 @@ export function ChatInput({ onSend }: ChatInputProps) {
     if (!trimmed) return;
     onSend(trimmed);
     setValue("");
+    Keyboard.dismiss();
   }
 
   // 키보드 닫힘: insets.bottom으로 nav bar 위에 위치
@@ -51,10 +53,12 @@ export function ChatInput({ onSend }: ChatInputProps) {
         onSubmitEditing={handleSend}
         returnKeyType="send"
         multiline={false}
+        editable={!disabled}
       />
       <Pressable
-        style={[styles.sendButton, !value.trim() && styles.disabled]}
+        style={[styles.sendButton, (!value.trim() || disabled) && styles.disabled]}
         onPress={handleSend}
+        disabled={disabled || !value.trim()}
         accessibilityLabel="전송"
       >
         <Text style={styles.sendIcon}>➤</Text>
