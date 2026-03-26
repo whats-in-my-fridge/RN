@@ -35,7 +35,7 @@ export function HomePage() {
         <FridgeStatusBar />
 
         {/* 오늘의 베스트 매칭 */}
-        <SectionHeader title="오늘의 베스트 매칭" onMore={ALERT_STUB} />
+        <SectionHeader title="오늘의 베스트 매칭"/>
         <View className="mb-6 px-screen">
           <ErrorBoundary
             FallbackComponent={() => <ErrorView message="베스트 매칭을 불러올 수 없습니다" />}
@@ -47,7 +47,7 @@ export function HomePage() {
         </View>
 
         {/* 지금 바로 만들 수 있어요 */}
-        <SectionHeader title="지금 바로 만들 수 있어요" onMore={ALERT_STUB} />
+        <SectionHeader title="지금 바로 만들 수 있어요"/>
         <View className="mb-6 px-screen">
           <ErrorBoundary
             FallbackComponent={() => <ErrorView message="레시피 목록을 불러올 수 없습니다" />}
