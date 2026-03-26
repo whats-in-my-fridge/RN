@@ -3,7 +3,14 @@
 
 import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { useRef } from "react";
-import { Pressable, type ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Pressable,
+  type ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 import { semanticColors, tokens } from "@/shared/config/tokens";
 import type { ChatMessage } from "../model/store";
@@ -13,9 +20,10 @@ const QUICK_CHIPS = ["레시피 추천", "유통기한 확인", "재료 대체�
 interface ChatMessageListProps {
   messages: ChatMessage[];
   onChipPress: (chip: string) => void;
+  isLoading?: boolean;
 }
 
-export function ChatMessageList({ messages, onChipPress }: ChatMessageListProps) {
+export function ChatMessageList({ messages, onChipPress, isLoading }: ChatMessageListProps) {
   const scrollRef = useRef<ScrollView>(null);
 
   return (
@@ -49,6 +57,17 @@ export function ChatMessageList({ messages, onChipPress }: ChatMessageListProps)
           </View>
         </View>
       ))}
+
+      {isLoading && (
+        <View style={styles.row}>
+          <View style={styles.avatar}>
+            <Text style={styles.avatarIcon}>💬</Text>
+          </View>
+          <View style={[styles.bubble, styles.bubbleAssistant, styles.typingBubble]}>
+            <ActivityIndicator size="small" color={semanticColors["content-secondary"]} />
+          </View>
+        </View>
+      )}
 
       {messages.length === 1 && (
         <View style={styles.chips}>
@@ -142,5 +161,9 @@ const styles = StyleSheet.create({
   chipText: {
     fontSize: 13,
     color: semanticColors["content-primary"],
+  },
+  typingBubble: {
+    paddingHorizontal: tokens.spacing.md,
+    paddingVertical: tokens.spacing.sm,
   },
 });
