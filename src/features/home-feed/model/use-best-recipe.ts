@@ -1,11 +1,12 @@
-// useQuery hook for fetching today's best matching recipe from fridge recommendations.
-import { useQuery } from "@tanstack/react-query";
+// useSuspenseQuery hook for fetching today's best matching recipe from fridge recommendations.
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { FRIDGE_RECIPES_QUERY_KEY, getFridgeRecipes } from "../api/get-fridge-recipes";
 
 export function useBestRecipe() {
-  return useQuery({
+  const { data } = useSuspenseQuery({
     queryKey: FRIDGE_RECIPES_QUERY_KEY,
     queryFn: getFridgeRecipes,
-    select: (data) => data[0],
+    select: (recipes) => recipes[0],
   });
+  return data;
 }
