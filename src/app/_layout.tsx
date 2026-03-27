@@ -30,6 +30,7 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   const openChat = useChatStore((s) => s.open);
   const isChatOpen = useChatStore((s) => s.isOpen);
+  const isChatPresented = useChatStore((s) => s.isPresented);
   const isShelfDetailOpen = useShelfDetailStore((s) => s.selectedType !== null);
   const segments = useSegments();
   const isInAuth = segments[0] === "(auth)";
@@ -75,7 +76,7 @@ export default function RootLayout() {
 
           <ChatSheet />
           {/* 채팅창이 열려있을 때 시트 아래 노출 영역을 아이보리로 덮는 오버레이 */}
-          {isChatOpen && (
+          {isChatPresented && (
             <View pointerEvents="none" style={[styles.chatBgOverlay, { height: overlayHeight }]} />
           )}
           <StatusBar style="auto" />

@@ -2,8 +2,15 @@
 // 채팅 메시지 목록 및 초기 퀵 칩을 렌더링하는 컴포넌트.
 
 import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
-import { useRef } from "react";
-import { Pressable, type ScrollView, StyleSheet, Text, View } from "react-native";
+import { type RefObject, useEffect, useRef } from "react";
+import {
+  ActivityIndicator,
+  Pressable,
+  type ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 import { semanticColors, tokens } from "@/shared/config/tokens";
 import type { ChatMessage } from "../model/store";
@@ -13,17 +20,30 @@ const QUICK_CHIPS = ["레시피 추천", "유통기한 확인", "재료 대체�
 interface ChatMessageListProps {
   messages: ChatMessage[];
   onChipPress: (chip: string) => void;
+  isLoading?: boolean;
+  scrollRef: RefObject<ScrollView | null>;
 }
 
-export function ChatMessageList({ messages, onChipPress }: ChatMessageListProps) {
-  const scrollRef = useRef<ScrollView>(null);
+export function ChatMessageList({
+  messages,
+  onChipPress,
+  isLoading,
+  scrollRef,
+}: ChatMessageListProps) {
+  const prevCountRef = useRef(messages.length);
+
+  useEffect(() => {
+    if (messages.length > prevCountRef.current) {
+      scrollRef.current?.scrollToEnd?.({ animated: true });
+    }
+    prevCountRef.current = messages.length;
+  }, [messages.length, scrollRef]);
 
   return (
     <BottomSheetScrollView
       ref={scrollRef}
       style={styles.list}
       contentContainerStyle={styles.content}
-      onContentSizeChange={() => scrollRef.current?.scrollToEnd?.({ animated: true })}
     >
       {messages.map((msg) => (
         <View key={msg.id} style={[styles.row, msg.role === "user" && styles.rowUser]}>
@@ -49,6 +69,17 @@ export function ChatMessageList({ messages, onChipPress }: ChatMessageListProps)
           </View>
         </View>
       ))}
+
+      {isLoading && (
+        <View style={styles.row}>
+          <View style={styles.avatar}>
+            <Text style={styles.avatarIcon}>💬</Text>
+          </View>
+          <View style={[styles.bubble, styles.bubbleAssistant, styles.typingBubble]}>
+            <ActivityIndicator size="small" color={semanticColors["content-secondary"]} />
+          </View>
+        </View>
+      )}
 
       {messages.length === 1 && (
         <View style={styles.chips}>
@@ -142,5 +173,9 @@ const styles = StyleSheet.create({
   chipText: {
     fontSize: 13,
     color: semanticColors["content-primary"],
+  },
+  typingBubble: {
+    paddingHorizontal: tokens.spacing.md,
+    paddingVertical: tokens.spacing.sm,
   },
 });

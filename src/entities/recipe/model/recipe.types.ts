@@ -41,4 +41,6 @@ export interface Recipe {
   ingredients: Ingredient[];
   /** 조리 순서 */
   steps: CookingStep[];
+  /** 찜 여부 */
+  isScrapped: boolean;
 }

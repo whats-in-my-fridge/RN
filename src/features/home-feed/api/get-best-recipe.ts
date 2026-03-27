@@ -10,6 +10,7 @@ export async function getBestRecipe(): Promise<RecipeCardData> {
     thumbnail: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80",
     category: "한식",
     matchRate: 85,
+    allIngredients: ["밥", "계란", "간장"],
     missingIngredients: ["밥", "계란", "간장"],
     cookTime: "15분",
     difficulty: "아무나",
