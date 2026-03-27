@@ -69,7 +69,11 @@ export function MyPage() {
           <SettingsListRow
             icon="shield"
             title="알레르기 설정"
-            subtitle="설정된 알레르기가 없어요"
+            subtitle={
+              !userProfile || userProfile.allergies.length === 0
+                ? "설정된 알레르기가 없어요"
+                : `${userProfile.allergies.length}개 설정됨`
+            }
             onPress={ALERT_STUB}
           />
         </View>
