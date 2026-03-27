@@ -89,11 +89,12 @@ export function useRecipeSearch() {
     //       매퍼의 matched/missing 분리가 정상 동작하므로 이 정렬 로직 검증 필요.
     searchResults: (searchQuery.data ?? []).map((recipe) => {
       const includeSet = new Set(includeTags.map((t) => t.label));
+      const allIngredients = recipe.allIngredients ?? [];
       return {
         ...recipe,
         allIngredients: [
-          ...recipe.allIngredients.filter((i) => includeSet.has(i)),
-          ...recipe.allIngredients.filter((i) => !includeSet.has(i)),
+          ...allIngredients.filter((i) => includeSet.has(i)),
+          ...allIngredients.filter((i) => !includeSet.has(i)),
         ],
       };
     }),

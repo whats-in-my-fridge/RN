@@ -4,12 +4,12 @@ export type RecipeCardVariant = "banner" | "default";
 export interface RecipeCardData {
   recipeId: number;
   title: string;
-  thumbnail: string;
-  category: string;
-  matchRate: number;
-  allIngredients: string[];
+  mainImage: string;
+  category?: string;
+  matchRate?: number;
+  allIngredients?: string[];
   missingIngredients: string[];
-  cookTime: string;
-  difficulty: string;
+  cookTime?: string;
+  difficulty?: string;
   isLiked?: boolean;
 }

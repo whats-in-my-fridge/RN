@@ -1,23 +1,27 @@
 // Home page screen: assembles header, status bar, best-match banner, and recipe grid.
+
 import { router } from "expo-router";
-import { ActivityIndicator, Pressable, ScrollView, Text, View } from "react-native";
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { BannerFoodCard } from "@/entities/recipe";
-import { useBestRecipe, useRecommendedRecipes } from "@/features/home-feed";
-import { RecipeLikedButton } from "@/features/recipe-liked-button";
+import {
+  BestMatchingSection,
+  BestRecipeSkeleton,
+  RecipeListSkeleton,
+  RecommendedSection,
+  ScrapRecommendedSection,
+} from "@/features/home-feed/ui";
 import { tokens } from "@/shared/config/tokens";
-import { IconSymbol } from "@/shared/ui/icon-symbol";
+import { ErrorView } from "@/shared/ui/error-view";
 import { SectionHeader } from "@/shared/ui/section-header";
 import { FridgeStatusBar } from "@/widgets/fridge-status-bar";
-import { RecipeList } from "@/widgets/RecipeList";
+import { HomeHeader } from "./parts/HomeHeader";
 
-const ALERT_STUB = () => alert("준비중입니다");
+const _ALERT_STUB = () => alert("준비중입니다");
 
 export function HomePage() {
-  const { data: bestRecipe, isLoading: isBestLoading } = useBestRecipe();
-  const { data: recommendedRecipes, isLoading: isRecommendedLoading } = useRecommendedRecipes();
-
   return (
     <SafeAreaView className="flex-1 bg-surface-app">
       <ScrollView
@@ -26,53 +30,45 @@ export function HomePage() {
         showsVerticalScrollIndicator={false}
       >
         {/* 헤더 */}
-        <View className="flex-row items-center justify-between px-screen py-4">
-          <Text className="text-xl font-extrabold text-content-primary">민지님의 냉장고</Text>
-          <View>
-            <IconSymbol name="bell" size={24} color={tokens.color["content-primary"]} />
-            <View
-              className="absolute -right-1 -top-1 h-4 w-4 items-center justify-center rounded-full"
-              style={{ backgroundColor: tokens.color["status-expiring"] }}
-            >
-              <Text className="text-[9px] font-bold text-white">3</Text>
-            </View>
-          </View>
-        </View>
+        <HomeHeader />
 
         {/* 냉장고 현황 */}
         <FridgeStatusBar />
 
         {/* 오늘의 베스트 매칭 */}
-        <SectionHeader title="오늘의 베스트 매칭" onMore={ALERT_STUB} />
+        <SectionHeader title="오늘의 베스트 매칭" />
         <View className="mb-6 px-screen">
-          {isBestLoading || !bestRecipe ? (
-            <View className="h-56 items-center justify-center rounded-2xl bg-surface-card">
-              <ActivityIndicator color={tokens.color.primary} />
-            </View>
-          ) : (
-            <BannerFoodCard
-              recipe={bestRecipe}
-              onPress={ALERT_STUB}
-              likeButton={
-                <RecipeLikedButton
-                  recipeId={bestRecipe.recipeId}
-                  initialLiked={bestRecipe.isLiked}
-                />
-              }
-            />
-          )}
+          <ErrorBoundary
+            FallbackComponent={() => <ErrorView message="베스트 매칭을 불러올 수 없습니다" />}
+          >
+            <Suspense fallback={<BestRecipeSkeleton />}>
+              <BestMatchingSection />
+            </Suspense>
+          </ErrorBoundary>
+        </View>
+
+        {/* 이런 요리는 어때요? */}
+        <SectionHeader title="이런 요리는 어때요?" />
+        <View className="mb-6 px-screen">
+          <ErrorBoundary
+            FallbackComponent={() => <ErrorView message="추천 레시피를 불러올 수 없습니다" />}
+          >
+            <Suspense fallback={<RecipeListSkeleton />}>
+              <ScrapRecommendedSection />
+            </Suspense>
+          </ErrorBoundary>
         </View>
 
         {/* 지금 바로 만들 수 있어요 */}
-        <SectionHeader title="지금 바로 만들 수 있어요" onMore={ALERT_STUB} />
+        <SectionHeader title="지금 바로 만들 수 있어요" />
         <View className="mb-6 px-screen">
-          {isRecommendedLoading || !recommendedRecipes ? (
-            <View className="h-56 items-center justify-center">
-              <ActivityIndicator color={tokens.color.primary} />
-            </View>
-          ) : (
-            <RecipeList recipes={recommendedRecipes} />
-          )}
+          <ErrorBoundary
+            FallbackComponent={() => <ErrorView message="레시피 목록을 불러올 수 없습니다" />}
+          >
+            <Suspense fallback={<RecipeListSkeleton />}>
+              <RecommendedSection />
+            </Suspense>
+          </ErrorBoundary>
         </View>
 
         {/* 레시피 더보기 */}

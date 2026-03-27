@@ -16,8 +16,8 @@ export function getVisibleMissingIngredients(
   recipe: RecipeCardData,
   limit = BASE_INGREDIENT_LIMIT,
 ) {
-  const visibleIngredients = recipe.allIngredients.slice(0, limit);
-  const overflowCount = Math.max(recipe.allIngredients.length - limit, 0);
+  const visibleIngredients = recipe.missingIngredients.slice(0, limit);
+  const overflowCount = Math.max(recipe.missingIngredients.length - limit, 0);
 
   return { visibleIngredients, overflowCount };
 }
