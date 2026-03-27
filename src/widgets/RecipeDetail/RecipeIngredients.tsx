@@ -13,10 +13,10 @@ export function RecipeIngredients({ owned, missing }: RecipeIngredientsProps) {
     <View>
       <Text className="text-lg font-bold text-content-primary">재료</Text>
 
-      {/* 보유 재료 */}
+      {/* 필요한 재료 */}
       <View className="mt-3">
         <Text className="text-sm font-semibold text-status-fresh">
-          ✓ 보유 재료 ({owned.length})
+          ✓ 필요한 재료 ({owned.length})
         </Text>
         <View className="mt-2 flex-row flex-wrap gap-2">
           {owned.map((ing) => (
