@@ -22,7 +22,7 @@ export function useDeleteFridgeItem() {
   return useMutation({
     mutationFn: deleteFridgeItem,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: FRIDGE_ITEMS_QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: ["fridge"] });
     },
   });
 }

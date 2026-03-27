@@ -10,7 +10,7 @@ export function useAddFridgeItem() {
   return useMutation({
     mutationFn: (body: AddIngredientReq) => postFridgeItem(body),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: FRIDGE_ITEMS_QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: ["fridge"] });
     },
     onError: (error) => {
       if (__DEV__) console.error("[POST /fridge] error", error);
