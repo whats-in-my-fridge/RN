@@ -20,7 +20,9 @@ export function BannerCardContent({
   return (
     <>
       <View className="absolute bottom-4 left-4 right-[44%]">
-        <Text className="text-3xl font-extrabold text-white">{recipe.title}</Text>
+        <Text className="text-2xl font-extrabold text-white" numberOfLines={2} ellipsizeMode="tail">
+          {recipe.title}
+        </Text>
         <RecipeMetaRow cookTime={recipe.cookTime} difficulty={recipe.difficulty} variant="banner" />
       </View>
 

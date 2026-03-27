@@ -9,7 +9,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 1,
     title: "김치찌개",
-    thumbnail: "https://images.unsplash.com/photo-1760228865341-675704c22a5b?w=400",
+    mainImage: "https://images.unsplash.com/photo-1760228865341-675704c22a5b?w=400",
     category: "한식",
     matchRate: 80,
     missingIngredients: ["대파", "간장"],
@@ -19,7 +19,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 2,
     title: "안심 스테이크",
-    thumbnail: "https://images.unsplash.com/photo-1708615017161-2eff302d0389?w=400",
+    mainImage: "https://images.unsplash.com/photo-1708615017161-2eff302d0389?w=400",
     category: "양식",
     matchRate: 40,
     missingIngredients: ["안심", "마늘", "버터"],
@@ -29,7 +29,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 3,
     title: "비빔밥",
-    thumbnail: "https://images.unsplash.com/photo-1741295017668-c8132acd6fc0?w=400",
+    mainImage: "https://images.unsplash.com/photo-1741295017668-c8132acd6fc0?w=400",
     category: "한식",
     matchRate: 60,
     missingIngredients: ["밥", "시금치", "고추장"],
@@ -39,7 +39,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 4,
     title: "잡채",
-    thumbnail: "https://images.unsplash.com/photo-1583032015879-e5022cb87c3b?w=400",
+    mainImage: "https://images.unsplash.com/photo-1583032015879-e5022cb87c3b?w=400",
     category: "한식",
     matchRate: 55,
     missingIngredients: ["당면", "소고기", "시금치"],
@@ -49,7 +49,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 5,
     title: "토마토 파스타",
-    thumbnail: "https://images.unsplash.com/photo-1712746785116-4a901521fe8b?w=400",
+    mainImage: "https://images.unsplash.com/photo-1712746785116-4a901521fe8b?w=400",
     category: "양식",
     matchRate: 65,
     missingIngredients: ["파스타", "마늘"],
@@ -59,7 +59,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 6,
     title: "라멘",
-    thumbnail: "https://images.unsplash.com/photo-1731460202531-bf8389d565f7?w=400",
+    mainImage: "https://images.unsplash.com/photo-1731460202531-bf8389d565f7?w=400",
     category: "일식",
     matchRate: 50,
     missingIngredients: ["라멘면", "대파"],
@@ -69,7 +69,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 7,
     title: "오이냉국",
-    thumbnail: "https://images.unsplash.com/photo-1604908177453-7462950a6a3b?w=400",
+    mainImage: "https://images.unsplash.com/photo-1604908177453-7462950a6a3b?w=400",
     category: "한식",
     matchRate: 70,
     missingIngredients: ["식초", "설탕"],
@@ -79,7 +79,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 8,
     title: "오이소박이",
-    thumbnail: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400",
+    mainImage: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400",
     category: "한식",
     matchRate: 45,
     missingIngredients: ["부추", "고춧가루", "새우젓"],
@@ -89,7 +89,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 9,
     title: "된장찌개",
-    thumbnail: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400",
+    mainImage: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400",
     category: "한식",
     matchRate: 75,
     missingIngredients: ["된장", "호박"],
@@ -99,7 +99,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 10,
     title: "파전",
-    thumbnail: "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400",
+    mainImage: "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400",
     category: "한식",
     matchRate: 80,
     missingIngredients: ["밀가루"],
@@ -109,7 +109,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 11,
     title: "순두부찌개",
-    thumbnail: "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400",
+    mainImage: "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400",
     category: "한식",
     matchRate: 65,
     missingIngredients: ["순두부", "고춧가루"],
@@ -119,7 +119,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 12,
     title: "불고기",
-    thumbnail: "https://images.unsplash.com/photo-1635363638580-c2809d049eee?w=400",
+    mainImage: "https://images.unsplash.com/photo-1635363638580-c2809d049eee?w=400",
     category: "한식",
     matchRate: 50,
     missingIngredients: ["소고기", "배", "설탕"],
@@ -129,7 +129,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 13,
     title: "제육볶음",
-    thumbnail: "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=400",
+    mainImage: "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=400",
     category: "한식",
     matchRate: 55,
     missingIngredients: ["고추장"],
@@ -139,7 +139,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 14,
     title: "크림 파스타",
-    thumbnail: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400",
+    mainImage: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400",
     category: "양식",
     matchRate: 30,
     missingIngredients: ["파스타", "베이컨", "생크림", "파마산치즈"],
@@ -149,7 +149,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 15,
     title: "마르게리타 피자",
-    thumbnail: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400",
+    mainImage: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400",
     category: "양식",
     matchRate: 25,
     missingIngredients: ["밀가루", "토마토소스", "모차렐라"],
@@ -159,7 +159,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 16,
     title: "마파두부",
-    thumbnail: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400",
+    mainImage: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400",
     category: "중식",
     matchRate: 55,
     missingIngredients: ["두반장", "고추기름"],
@@ -169,7 +169,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 17,
     title: "짜장면",
-    thumbnail: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400",
+    mainImage: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400",
     category: "중식",
     matchRate: 35,
     missingIngredients: ["중면", "춘장", "소고기"],
@@ -179,7 +179,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 18,
     title: "월남쌈",
-    thumbnail: "https://images.unsplash.com/photo-1562802378-063ec186a863?w=400",
+    mainImage: "https://images.unsplash.com/photo-1562802378-063ec186a863?w=400",
     category: "양식",
     matchRate: 40,
     missingIngredients: ["라이스페이퍼", "새우", "민트"],
@@ -189,7 +189,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 19,
     title: "규동",
-    thumbnail: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400",
+    mainImage: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400",
     category: "일식",
     matchRate: 50,
     missingIngredients: ["소고기", "미림"],
@@ -199,7 +199,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 20,
     title: "카레라이스",
-    thumbnail: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400",
+    mainImage: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400",
     category: "일식",
     matchRate: 60,
     missingIngredients: ["카레가루", "감자"],
@@ -209,7 +209,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 21,
     title: "계란말이",
-    thumbnail: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=400",
+    mainImage: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=400",
     category: "한식",
     matchRate: 90,
     missingIngredients: [],
@@ -219,7 +219,7 @@ export const MOCK_SEARCH_RECIPES: RecipeCardData[] = [
   {
     recipeId: 22,
     title: "감자볶음",
-    thumbnail: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400",
+    mainImage: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400",
     category: "한식",
     matchRate: 85,
     missingIngredients: ["감자"],

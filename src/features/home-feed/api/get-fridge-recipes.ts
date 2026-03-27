@@ -33,7 +33,7 @@ export function toRecipeCardData(dto: RecipeDTO): RecipeCardData {
   return {
     recipeId: dto.recipeId,
     title: dto.title,
-    thumbnail: dto.mainImage,
+    mainImage: dto.mainImage,
     missingIngredients: dto.missingIngredients,
     cookTime: dto.cookTime,
     difficulty: dto.difficulty,

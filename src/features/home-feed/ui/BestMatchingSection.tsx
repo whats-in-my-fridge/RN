@@ -1,14 +1,16 @@
-// Best matching recipe section with direct data fetching (Suspense-ready).
+// Best matching recipe section — displays first recipe from scrap recommendations as banner.
 
 import { Text, View } from "react-native";
+
 import { BannerFoodCard } from "@/entities/recipe";
 import { RecipeLikedButton } from "@/features/recipe-liked-button";
-import { useBestRecipe } from "../model/use-best-recipe";
+import { useScrapRecommendedRecipes } from "../model/use-scrap-recommended-recipes";
 
 const ALERT_STUB = () => alert("준비중입니다");
 
 export function BestMatchingSection() {
-  const bestRecipe = useBestRecipe();
+  const recipes = useScrapRecommendedRecipes();
+  const bestRecipe = recipes?.[0];
 
   if (!bestRecipe) {
     return (

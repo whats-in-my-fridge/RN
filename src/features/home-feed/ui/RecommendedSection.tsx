@@ -8,7 +8,7 @@ export function RecommendedSection() {
 
   if (!recommendedRecipes || recommendedRecipes.length === 0) {
     return (
-      <View className="h-56 items-center justify-center">
+      <View className="h-56 items-center justify-center rounded-lg bg-white">
         <Text className="text-sm text-content-secondary">현재 만들 수 있는 레시피가 없습니다</Text>
       </View>
     );

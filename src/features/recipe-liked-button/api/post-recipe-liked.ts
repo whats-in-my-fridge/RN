@@ -1,13 +1,26 @@
-// 향 후에 실제 API 요청을 처리하는 함수로 변경될 예정
+// POST /recipes/{recipeId}/scrap (찜하기), DELETE /recipes/{recipeId}/scrap (찜하기 취소)
+
+import { apiDelete, apiPost } from "@/shared/api";
+
 export async function postRecipeLiked(recipeId: number, isLiked: boolean) {
+  if (!recipeId || recipeId < 1) {
+    throw new Error("유효하지 않은 레시피 ID입니다.");
+  }
+
+  if (__DEV__) {
+    console.log(`[${isLiked ? "POST" : "DELETE"} /recipes/${recipeId}/scrap] request`);
+  }
+
   try {
-    if (!recipeId || recipeId < 1) {
-      throw new Error("유효하지 않은 레시피 ID입니다.");
+    if (isLiked) {
+      await apiPost(`/recipes/${recipeId}/scrap`);
+    } else {
+      await apiDelete(`/recipes/${recipeId}/scrap`);
     }
 
-    await new Promise((resolve) => {
-      setTimeout(resolve, 250);
-    });
+    if (__DEV__) {
+      console.log(`[${isLiked ? "POST" : "DELETE"} /recipes/${recipeId}/scrap] response`);
+    }
 
     return { recipeId, isLiked };
   } catch (error) {

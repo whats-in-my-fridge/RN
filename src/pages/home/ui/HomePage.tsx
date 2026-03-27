@@ -11,6 +11,7 @@ import {
   BestRecipeSkeleton,
   RecipeListSkeleton,
   RecommendedSection,
+  ScrapRecommendedSection,
 } from "@/features/home-feed/ui";
 import { tokens } from "@/shared/config/tokens";
 import { ErrorView } from "@/shared/ui/error-view";
@@ -42,6 +43,18 @@ export function HomePage() {
           >
             <Suspense fallback={<BestRecipeSkeleton />}>
               <BestMatchingSection />
+            </Suspense>
+          </ErrorBoundary>
+        </View>
+
+        {/* 이런 요리는 어때요? */}
+        <SectionHeader title="이런 요리는 어때요?" />
+        <View className="mb-6 px-screen">
+          <ErrorBoundary
+            FallbackComponent={() => <ErrorView message="추천 레시피를 불러올 수 없습니다" />}
+          >
+            <Suspense fallback={<RecipeListSkeleton />}>
+              <ScrapRecommendedSection />
             </Suspense>
           </ErrorBoundary>
         </View>

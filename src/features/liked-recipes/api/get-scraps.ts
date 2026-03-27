@@ -21,7 +21,7 @@ export async function getScraps(): Promise<RecipeCardData[]> {
   return data.result.scrapList.map((scrap) => ({
     recipeId: scrap.recipeId,
     title: scrap.title,
-    thumbnail: scrap.thumbnailUrl,
+    mainImage: scrap.thumbnailUrl,
     category: "카테고리",
     matchRate: 0,
     missingIngredients: [],
