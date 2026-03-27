@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // 앱 진입점 — 인증 상태 확인 후 적절한 화면으로 라우팅한다.
 
 import { Redirect } from "expo-router";
@@ -39,11 +38,4 @@ export default function RootPage() {
 
   // Not authenticated → Login
   return <Redirect href="/(auth)/login" />;
-=======
-// 앱 루트 경로(/) 진입점
-import { Redirect } from "expo-router";
-
-export default function Index() {
-  return <Redirect href="/(protected)/(tabs)/home" />;
->>>>>>> 30a56a40736e078b71fbd580251b501c0d0ef7d2
 }

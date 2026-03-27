@@ -11,7 +11,7 @@ export function toRecipeCardData(dto: RecipeDTO): RecipeCardData {
   return {
     recipeId: dto.recipeId,
     title: dto.title,
-    thumbnail: dto.mainImage,
+    mainImage: dto.mainImage,
     category: "",
     matchRate:
       dto.ingredients.length > 0
@@ -21,7 +21,6 @@ export function toRecipeCardData(dto: RecipeDTO): RecipeCardData {
               100,
           )
         : 0,
-    allIngredients: [...matched, ...dto.missingIngredients],
     missingIngredients: dto.missingIngredients,
     cookTime: dto.cookTime,
     difficulty: dto.difficulty,

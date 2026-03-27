@@ -24,19 +24,11 @@ export function RecipeMetaRow({ cookTime, difficulty, variant }: RecipeMetaRowPr
     <View className="mt-1 flex-row items-center gap-3">
       <View className="flex-row items-center gap-1">
         <IconSymbol name="clock" size={14} color={iconColor} />
-<<<<<<< HEAD
         <Text className={`text-sm font-medium ${textClassName}`}>{safeCookTime}</Text>
       </View>
       <View className="flex-row items-center gap-1">
         <IconSymbol name="person.2" size={14} color={iconColor} />
         <Text className={`text-sm font-medium ${textClassName}`}>{safeDifficulty}</Text>
-=======
-        <Text className={`text-sm font-medium ${textClassName}`}>{cookTime || "-"}</Text>
-      </View>
-      <View className="flex-row items-center gap-1">
-        <IconSymbol name="person.2" size={14} color={iconColor} />
-        <Text className={`text-sm font-medium ${textClassName}`}>{difficulty || "-"}</Text>
->>>>>>> 30a56a40736e078b71fbd580251b501c0d0ef7d2
       </View>
     </View>
   );
