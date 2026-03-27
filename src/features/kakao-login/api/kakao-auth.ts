@@ -36,12 +36,9 @@ export async function kakaoLogin(): Promise<KakaoLoginResponse> {
     }
 
     // 2. Exchange with backend
-    const data = await apiPost<KakaoLoginResponse>(
-      "/auth/login/kakao",
-      {
-        accessToken: result.accessToken,
-      },
-    );
+    const data = await apiPost<KakaoLoginResponse>("/auth/login/kakao", {
+      accessToken: result.accessToken,
+    });
 
     return data;
   } catch (error) {
