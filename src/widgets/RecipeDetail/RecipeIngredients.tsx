@@ -22,7 +22,7 @@ export function RecipeIngredients({ owned, missing }: RecipeIngredientsProps) {
           {owned.map((ing) => (
             <View
               key={`${ing.name}-${ing.amount ?? ""}`}
-              className="rounded-tag border border-status-fresh-border bg-status-fresh-bg px-3 py-1"
+              className="rounded-tag bg-status-fresh-bg px-3 py-1"
             >
               <Text className="text-xs text-status-fresh">
                 {ing.name}
