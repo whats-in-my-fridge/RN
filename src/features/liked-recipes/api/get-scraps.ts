@@ -24,6 +24,7 @@ export async function getScraps(): Promise<RecipeCardData[]> {
     mainImage: scrap.thumbnailUrl,
     category: "카테고리",
     matchRate: 0,
+    allIngredients: [],
     missingIngredients: [],
     cookTime: "0분",
     difficulty: "정보없음",

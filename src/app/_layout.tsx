@@ -57,6 +57,7 @@ function RootLayoutContent() {
   const isInAuth = segments[0] === "(auth)";
   const openChat = useChatStore((s) => s.open);
   const isChatOpen = useChatStore((s) => s.isOpen);
+  const isChatPresented = useChatStore((s) => s.isPresented);
   const isShelfDetailOpen = useShelfDetailStore((s) => s.selectedType !== null);
 
   return (
@@ -69,6 +70,7 @@ function RootLayoutContent() {
       {/* Chat floating button: hidden when chat is open, in auth flow, or shelf detail is open */}
       {!isChatOpen && !isInAuth && !isShelfDetailOpen && <ChatFloatingButton onPress={openChat} />}
 
+<<<<<<< HEAD
       <ChatSheet />
 
       {/* Overlay to cover content below when chat sheet is open */}
@@ -78,6 +80,17 @@ function RootLayoutContent() {
 
       <StatusBar style="auto" />
     </>
+=======
+          <ChatSheet />
+          {/* 채팅창이 열려있을 때 시트 아래 노출 영역을 아이보리로 덮는 오버레이 */}
+          {isChatPresented && (
+            <View pointerEvents="none" style={[styles.chatBgOverlay, { height: overlayHeight }]} />
+          )}
+          <StatusBar style="auto" />
+        </ThemeProvider>
+      </BottomSheetProvider>
+    </QueryClientProvider>
+>>>>>>> 30a56a40736e078b71fbd580251b501c0d0ef7d2
   );
 }
 
