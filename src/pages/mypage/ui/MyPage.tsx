@@ -1,10 +1,12 @@
 // 마이페이지 화면 컴포넌트 — 사용자 프로필 및 설정 메뉴를 표시한다.
 
 import { router } from "expo-router";
+import { useEffect } from "react";
 import { ActivityIndicator, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useKakaoLogin } from "@/features/kakao-login";
 import { useScraps } from "@/features/liked-recipes";
+import { AllergySettingsSheet, usePreferencesStore } from "@/features/user-preferences";
 import { useUserProfile } from "@/features/user-profile";
 import { SectionHeader } from "@/shared/ui/section-header";
 import { ProfileCard } from "@/widgets/profile-card";
@@ -16,6 +18,16 @@ export function MyPage() {
   const { logout } = useKakaoLogin();
   const { data: userProfile, isLoading, isError } = useUserProfile();
   const { data: scraps = [] } = useScraps();
+  const { allergies, isSheetOpen, openSheet, closeSheet, setAllergies } = usePreferencesStore();
+
+  useEffect(() => {
+    if (userProfile?.allergies) {
+      setAllergies(userProfile.allergies);
+    }
+  }, [userProfile?.allergies, setAllergies]);
+
+  const allergySubtitle =
+    allergies.length > 0 ? `${allergies.length}개 설정됨` : "설정된 알레르기가 없어요";
 
   return (
     <SafeAreaView edges={["top"]} className="flex-1 bg-surface-app">
@@ -69,8 +81,8 @@ export function MyPage() {
           <SettingsListRow
             icon="shield"
             title="알레르기 설정"
-            subtitle="설정된 알레르기가 없어요"
-            onPress={ALERT_STUB}
+            subtitle={allergySubtitle}
+            onPress={openSheet}
           />
         </View>
 
@@ -84,6 +96,8 @@ export function MyPage() {
           </SettingsListGroup>
         </View>
       </ScrollView>
+
+      <AllergySettingsSheet isOpen={isSheetOpen} onClose={closeSheet} />
     </SafeAreaView>
   );
 }
