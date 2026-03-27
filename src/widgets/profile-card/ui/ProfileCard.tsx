@@ -1,30 +1,44 @@
-import { Pressable, Text, View } from "react-native";
+// 마이페이지 상단에 표시되는 사용자 프로필 카드 컴포넌트
 
+import { Image, Pressable, Text, View } from "react-native";
 import { tokens } from "@/shared/config/tokens";
 import { IconSymbol } from "@/shared/ui/icon-symbol";
 
+const AVATAR_SIZE = 56; // 프로필 아이콘/이미지 크기 (h-14 w-14)
+
 interface ProfileCardProps {
-  nickname?: string;
-  email?: string;
+  nickname?: string | null;
+  email?: string | null;
+  profileImageUrl?: string | null;
   onEdit?: () => void;
 }
 
-export function ProfileCard({
-  nickname = "냉장고 셰프",
-  email = "chef@example.com",
-  onEdit,
-}: ProfileCardProps) {
+export function ProfileCard({ nickname, email, profileImageUrl, onEdit }: ProfileCardProps) {
+  const displayNickname = nickname ?? "사용자";
+
   return (
     <View className="flex-row items-center rounded-list border border-stroke-default bg-surface-card p-card">
       <View
-        className="h-14 w-14 items-center justify-center rounded-full"
-        style={{ backgroundColor: tokens.color["surface-section"] }}
+        className="items-center justify-center rounded-full overflow-hidden"
+        style={{
+          width: AVATAR_SIZE,
+          height: AVATAR_SIZE,
+          backgroundColor: tokens.color["surface-section"],
+        }}
       >
-        <IconSymbol name="person.fill" size={28} color={tokens.color["content-secondary"]} />
+        {profileImageUrl ? (
+          <Image
+            source={{ uri: profileImageUrl }}
+            style={{ width: AVATAR_SIZE, height: AVATAR_SIZE }}
+            resizeMode="cover"
+          />
+        ) : (
+          <IconSymbol name="person.fill" size={28} color={tokens.color["content-secondary"]} />
+        )}
       </View>
       <View className="ml-4 flex-1">
-        <Text className="text-base font-bold text-content-primary">{nickname}</Text>
-        <Text className="mt-0.5 text-sm text-content-secondary">{email}</Text>
+        <Text className="text-base font-bold text-content-primary">{displayNickname}</Text>
+        {email ? <Text className="mt-0.5 text-sm text-content-secondary">{email}</Text> : null}
       </View>
       {onEdit && (
         <Pressable

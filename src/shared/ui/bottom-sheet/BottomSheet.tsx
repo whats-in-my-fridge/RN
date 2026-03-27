@@ -7,7 +7,6 @@ import {
 } from "@gorhom/bottom-sheet";
 import { useCallback, useEffect, useRef } from "react";
 import { useWindowDimensions, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { BOTTOM_SHEET_MAX_HEIGHT_RATIO, bottomSheetStyles } from "./BottomSheet.styles";
 
@@ -33,7 +32,6 @@ export interface BottomSheetProps {
 
 export function BottomSheet({ isOpen, onClose, children, snapPoints }: BottomSheetProps) {
   const { height } = useWindowDimensions();
-  const { bottom: bottomInset } = useSafeAreaInsets();
   const modalRef = useRef<BottomSheetModal>(null);
   const maxDynamicContentSize = height * BOTTOM_SHEET_MAX_HEIGHT_RATIO;
 
@@ -62,7 +60,6 @@ export function BottomSheet({ isOpen, onClose, children, snapPoints }: BottomShe
       handleIndicatorStyle={bottomSheetStyles.handleIndicator}
       backdropComponent={BottomSheetBackdropCloseable}
       backgroundStyle={bottomSheetStyles.background}
-      bottomInset={bottomInset}
       onDismiss={handleDismiss}
     >
       {snapPoints ? (
