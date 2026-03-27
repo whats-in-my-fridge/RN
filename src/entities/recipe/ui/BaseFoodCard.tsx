@@ -31,16 +31,15 @@ export function BaseFoodCard({ recipe, variant, onPress, likeButton }: BaseFoodC
   const isBanner = variant === "banner";
   const [cardWidth, setCardWidth] = useState(0);
   const isLayoutReady = cardWidth > 0;
-  const maxChipWidth = cardWidth * BANNER_CHIP_RATIO;
   const bannerChipDisplay = useMemo<BannerChipDisplay>(() => {
-    if (!isLayoutReady) {
+    if (cardWidth <= 0) {
       return { visibleLabels: [], totalOverflow: 0, showEnoughChip: false };
     }
-    return getBannerChipDisplay(visibleIngredients, overflowCount, maxChipWidth);
-  }, [isLayoutReady, visibleIngredients, overflowCount, maxChipWidth]);
+    return getBannerChipDisplay(visibleIngredients, overflowCount, cardWidth * BANNER_CHIP_RATIO);
+  }, [visibleIngredients, overflowCount, cardWidth]);
 
   const defaultChipDisplay = useMemo<BannerChipDisplay>(() => {
-    if (!isLayoutReady) {
+    if (cardWidth <= 0) {
       return { visibleLabels: [], totalOverflow: 0, showEnoughChip: false };
     }
     return getBannerChipDisplay(
@@ -48,7 +47,7 @@ export function BaseFoodCard({ recipe, variant, onPress, likeButton }: BaseFoodC
       overflowCount,
       cardWidth - DEFAULT_CHIP_CONTAINER_INSET,
     );
-  }, [isLayoutReady, visibleIngredients, overflowCount, cardWidth]);
+  }, [visibleIngredients, overflowCount, cardWidth]);
 
   const handleLayout = (event: LayoutChangeEvent) => {
     setCardWidth(event.nativeEvent.layout.width);
