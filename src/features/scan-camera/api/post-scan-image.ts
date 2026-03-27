@@ -1,21 +1,37 @@
 // src/features/scan-camera/api/post-scan-image.ts
 // 캡처한 이미지를 서버에 전송하여 식재료를 인식하는 API 함수.
-// 현재는 mock 응답을 반환하며, 실제 엔드포인트 연결 시 FormData 전송으로 교체한다.
+// POST /fridge/ocr-auto-place — multipart/form-data 로 이미지를 전송하고 인식된 재료 목록을 반환한다.
+
+import type { IngredientRes } from "@/entities/fridge";
+import { apiRequest } from "@/shared/api";
 
 export type ScanImageResult = {
-  ingredients: string[];
+  saved: IngredientRes[];
 };
 
-export async function postScanImage(_imageUri: string): Promise<ScanImageResult> {
-  // TODO: 실제 API 연결 시 아래 코드로 교체
-  // const formData = new FormData();
-  // formData.append("image", { uri: imageUri, name: "scan.jpg", type: "image/jpeg" } as unknown as Blob);
-  // const response = await fetch("https://api.example.com/scan", { method: "POST", body: formData });
-  // return response.json();
+type OcrRes = {
+  saved: IngredientRes[];
+};
 
-  await new Promise((resolve) => setTimeout(resolve, 1500));
+export async function postScanImage(imageUri: string): Promise<ScanImageResult> {
+  if (__DEV__) console.log("[POST /fridge/ocr-auto-place] request", imageUri);
 
-  return {
-    ingredients: ["당근", "양파", "달걀", "두부", "시금치"],
-  };
+  const formData = new FormData();
+  formData.append("image", {
+    uri: imageUri,
+    name: "scan.jpg",
+    type: "image/jpeg",
+  } as unknown as Blob);
+
+  const data = await apiRequest<OcrRes>("/fridge/ocr-auto-place", {
+    method: "POST",
+    body: formData,
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  if (__DEV__) console.log("[POST /fridge/ocr-auto-place] response", JSON.stringify(data, null, 2));
+
+  return { saved: data.saved ?? [] };
 }

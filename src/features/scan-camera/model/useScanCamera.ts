@@ -7,6 +7,7 @@ import type { CameraView } from "expo-camera";
 import { useCameraPermissions } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
 import { useCallback, useRef, useState } from "react";
+import { Alert } from "react-native";
 import { postScanImage } from "../api/post-scan-image";
 
 export type ScanMode = "camera" | "preview" | "submitting";
@@ -24,10 +25,16 @@ export function useScanCamera({ onSubmitSuccess }: UseScanCameraOptions) {
   const { mutate: submitImage, isPending } = useMutation({
     mutationFn: (uri: string) => postScanImage(uri),
     onSuccess: (data) => {
-      onSubmitSuccess(data.ingredients);
+      const ingredientNames = data.saved.map((item) => item.name);
+      onSubmitSuccess(ingredientNames);
     },
     onError: () => {
       setMode("preview");
+      Alert.alert(
+        "분석 실패",
+        "식재료 인식에 실패했습니다. 사진을 다시 찍거나 잠시 후 다시 시도해 주세요.",
+        [{ text: "확인" }],
+      );
     },
   });
 
