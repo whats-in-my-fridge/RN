@@ -18,7 +18,7 @@ export function MyPage() {
   const { logout } = useKakaoLogin();
   const { data: userProfile, isLoading, isError } = useUserProfile();
   const { data: scraps = [] } = useScraps();
-  const { allergies, isSheetOpen, openSheet, closeSheet, setAllergies } = usePreferencesStore();
+  const { allergies, isSheetOpen, closeSheet, setAllergies } = usePreferencesStore();
 
   useEffect(() => {
     if (userProfile?.allergies) {
@@ -26,7 +26,7 @@ export function MyPage() {
     }
   }, [userProfile?.allergies, setAllergies]);
 
-  const allergySubtitle =
+  const _allergySubtitle =
     allergies.length > 0 ? `${allergies.length}개 설정됨` : "설정된 알레르기가 없어요";
 
   return (

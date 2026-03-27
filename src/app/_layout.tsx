@@ -57,7 +57,7 @@ function RootLayoutContent() {
   const isInAuth = segments[0] === "(auth)";
   const openChat = useChatStore((s) => s.open);
   const isChatOpen = useChatStore((s) => s.isOpen);
-  const isChatPresented = useChatStore((s) => s.isPresented);
+  const _isChatPresented = useChatStore((s) => s.isPresented);
   const isShelfDetailOpen = useShelfDetailStore((s) => s.selectedType !== null);
 
   return (

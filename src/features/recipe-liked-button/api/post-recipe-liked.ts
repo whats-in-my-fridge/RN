@@ -1,4 +1,3 @@
-
 // POST /recipes/{recipeId}/scrap (찜하기), DELETE /recipes/{recipeId}/scrap (찜하기 취소)
 
 import { apiDelete, apiPost } from "@/shared/api";
