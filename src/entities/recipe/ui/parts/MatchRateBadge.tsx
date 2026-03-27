@@ -6,7 +6,7 @@ const HIGH_MATCH_THRESHOLD = 80;
 const MID_MATCH_THRESHOLD = 50;
 
 interface MatchRateBadgeProps {
-  matchRate: number;
+  matchRate?: number;
 }
 
 function getMatchRateStyle(rate: number): string {

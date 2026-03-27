@@ -1,6 +1,13 @@
+// 마이페이지 화면 컴포넌트 — 사용자 프로필 및 설정 메뉴를 표시한다.
+
 import { router } from "expo-router";
-import { SafeAreaView, ScrollView, Text, View } from "react-native";
+import { useEffect } from "react";
+import { ActivityIndicator, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useKakaoLogin } from "@/features/kakao-login";
+import { useScraps } from "@/features/liked-recipes";
+import { AllergySettingsSheet, usePreferencesStore } from "@/features/user-preferences";
+import { useUserProfile } from "@/features/user-profile";
 import { SectionHeader } from "@/shared/ui/section-header";
 import { ProfileCard } from "@/widgets/profile-card";
 import { SettingsListGroup, SettingsListRow } from "@/widgets/settings-list-row";
@@ -9,8 +16,21 @@ const ALERT_STUB = () => alert("준비중입니다");
 
 export function MyPage() {
   const { logout } = useKakaoLogin();
+  const { data: userProfile, isLoading, isError } = useUserProfile();
+  const { data: scraps = [] } = useScraps();
+  const { allergies, isSheetOpen, closeSheet, setAllergies } = usePreferencesStore();
+
+  useEffect(() => {
+    if (userProfile?.allergies) {
+      setAllergies(userProfile.allergies);
+    }
+  }, [userProfile?.allergies, setAllergies]);
+
+  const _allergySubtitle =
+    allergies.length > 0 ? `${allergies.length}개 설정됨` : "설정된 알레르기가 없어요";
+
   return (
-    <SafeAreaView className="flex-1 bg-surface-app">
+    <SafeAreaView edges={["top"]} className="flex-1 bg-surface-app">
       <ScrollView
         className="flex-1"
         contentContainerClassName="pb-10"
@@ -23,7 +43,22 @@ export function MyPage() {
 
         {/* 프로필 카드 */}
         <View className="px-screen mb-section">
-          <ProfileCard onEdit={ALERT_STUB} />
+          {isLoading ? (
+            <View className="flex-row items-center justify-center rounded-list border border-stroke-default bg-surface-card p-card">
+              <ActivityIndicator />
+            </View>
+          ) : isError ? (
+            <View className="rounded-list border border-stroke-default bg-surface-card p-card">
+              <Text className="text-sm text-content-secondary">프로필을 불러오지 못했어요.</Text>
+            </View>
+          ) : (
+            <ProfileCard
+              nickname={userProfile?.nickname}
+              email={userProfile?.email}
+              profileImageUrl={userProfile?.profileImageUrl}
+              onEdit={ALERT_STUB}
+            />
+          )}
         </View>
 
         {/* 활동 내역 */}
@@ -33,7 +68,7 @@ export function MyPage() {
             <SettingsListRow
               icon="heart"
               title="좋아요한 레시피"
-              badge={12}
+              badge={scraps.length}
               onPress={() => router.push("/(protected)/liked-recipes")}
             />
             <SettingsListRow icon="clock" title="최근 본 레시피" onPress={ALERT_STUB} />
@@ -46,7 +81,11 @@ export function MyPage() {
           <SettingsListRow
             icon="shield"
             title="알레르기 설정"
-            subtitle="설정된 알레르기가 없어요"
+            subtitle={
+              !userProfile || userProfile.allergies.length === 0
+                ? "설정된 알레르기가 없어요"
+                : `${userProfile.allergies.length}개 설정됨`
+            }
             onPress={ALERT_STUB}
           />
         </View>
@@ -61,6 +100,8 @@ export function MyPage() {
           </SettingsListGroup>
         </View>
       </ScrollView>
+
+      <AllergySettingsSheet isOpen={isSheetOpen} onClose={closeSheet} />
     </SafeAreaView>
   );
 }

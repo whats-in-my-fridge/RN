@@ -81,7 +81,7 @@ export function BaseFoodCard({ recipe, variant, onPress, likeButton }: BaseFoodC
         <Image source={{ uri: recipe.thumbnail }} className="h-full w-full" resizeMode="cover" />
         {bannerOverlay}
 
-        {recipe.matchRate > 0 && (
+        {recipe.matchRate !== undefined && recipe.matchRate > 0 && (
           <View className="absolute left-3 top-3">
             <MatchRateBadge matchRate={recipe.matchRate} />
           </View>

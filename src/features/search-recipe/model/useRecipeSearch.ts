@@ -85,11 +85,12 @@ export function useRecipeSearch() {
     missingRecipes: missingQuery.data ?? [],
     searchResults: (searchQuery.data ?? []).map((recipe) => {
       const includeSet = new Set(includeTags.map((t) => t.label));
+      const allIngredients = recipe.allIngredients ?? [];
       return {
         ...recipe,
         allIngredients: [
-          ...recipe.allIngredients.filter((i) => includeSet.has(i)),
-          ...recipe.allIngredients.filter((i) => !includeSet.has(i)),
+          ...allIngredients.filter((i) => includeSet.has(i)),
+          ...allIngredients.filter((i) => !includeSet.has(i)),
         ],
       };
     }),
