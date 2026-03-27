@@ -1,16 +1,16 @@
 // Home page header with user info and notifications.
 import { Text, View } from "react-native";
-import { useAuthStore } from "@/features/kakao-login/model/store";
+import { useUserProfile } from "@/features/user-profile";
 import { tokens } from "@/shared/config/tokens";
 import { IconSymbol } from "@/shared/ui/icon-symbol";
 
 export function HomeHeader() {
-  const user = useAuthStore((state) => state.user);
+  const { data: userProfile } = useUserProfile();
 
   return (
     <View className="flex-row items-center justify-between px-screen py-4">
-      <Text className="text-xl font-extrabold text-content-primary">
-        {user?.nickname ? `${user.nickname}님의 냉장고` : "냉장고"}
+      <Text className="text-2xl font-extrabold text-content-primary">
+        {userProfile?.nickname ? `${userProfile.nickname}님의 냉장고` : "냉장고"}
       </Text>
       <View>
         <IconSymbol name="bell" size={24} color={tokens.color["content-primary"]} />
