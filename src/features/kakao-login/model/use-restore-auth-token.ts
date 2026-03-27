@@ -7,13 +7,16 @@ import { useAuthStore } from "./store";
 /**
  * Restores authentication token from SecureStore on app startup.
  * Initializes auth state based on stored token.
+ * Manages loading state during token restoration.
  */
 export function useRestoreAuthToken() {
   const setAuth = useAuthStore((s) => s.setAuth);
   const clearAuth = useAuthStore((s) => s.clearAuth);
+  const setLoading = useAuthStore((s) => s.setLoading);
 
   useEffect(() => {
     const restoreToken = async () => {
+      setLoading(true);
       try {
         const token = await SecureStore.getItemAsync(AUTH_TOKEN_KEY);
         if (token) {
@@ -26,9 +29,11 @@ export function useRestoreAuthToken() {
       } catch (error) {
         console.error("[useRestoreAuthToken] Failed to restore token:", error);
         clearAuth();
+      } finally {
+        setLoading(false);
       }
     };
 
     restoreToken();
-  }, [setAuth, clearAuth]);
+  }, [setAuth, clearAuth, setLoading]);
 }

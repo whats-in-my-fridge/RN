@@ -16,10 +16,6 @@ import { useColorScheme } from "@/shared/lib/hooks/use-color-scheme";
 
 const queryClient = new QueryClient();
 
-export const unstable_settings = {
-  anchor: "(protected)",
-};
-
 export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
