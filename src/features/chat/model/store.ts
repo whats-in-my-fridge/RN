@@ -11,9 +11,11 @@ export interface ChatMessage {
 
 interface ChatStore {
   isOpen: boolean;
+  isPresented: boolean;
   messages: ChatMessage[];
   open: () => void;
   close: () => void;
+  setPresented: (value: boolean) => void;
   addMessage: (msg: ChatMessage) => void;
   clearMessages: () => void;
 }
@@ -26,9 +28,11 @@ const INITIAL_MESSAGE: ChatMessage = {
 
 export const useChatStore = create<ChatStore>((set) => ({
   isOpen: false,
+  isPresented: false,
   messages: [INITIAL_MESSAGE],
   open: () => set({ isOpen: true }),
   close: () => set({ isOpen: false }),
+  setPresented: (value) => set({ isPresented: value }),
   addMessage: (msg) => set((state) => ({ messages: [...state.messages, msg] })),
   clearMessages: () => set({ messages: [INITIAL_MESSAGE] }),
 }));

@@ -18,12 +18,14 @@ export async function getScraps(): Promise<RecipeCardData[]> {
   const data = await apiGet<UserScrapsRes>("/users/me/scraps");
   if (__DEV__) console.log("[GET /users/me/scraps] response", JSON.stringify(data, null, 2));
 
+
   return data.result.scrapList.map((scrap) => ({
     recipeId: scrap.recipeId,
     title: scrap.title,
     thumbnail: scrap.thumbnailUrl,
     category: "카테고리",
     matchRate: 0,
+    allIngredients: [],
     missingIngredients: [],
     cookTime: "0분",
     difficulty: "정보없음",
