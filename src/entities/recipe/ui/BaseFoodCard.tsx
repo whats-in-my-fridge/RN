@@ -21,6 +21,7 @@ interface BaseFoodCardProps {
 
 const BASE_INGREDIENT_LIMIT = 3;
 const BANNER_CHIP_RATIO = 0.4;
+const DEFAULT_CHIP_CONTAINER_INSET = 16; // left-1 (4px) + right-3 (12px)
 
 export function BaseFoodCard({ recipe, variant, onPress, likeButton }: BaseFoodCardProps) {
   const { visibleIngredients, overflowCount } = getVisibleMissingIngredients(
@@ -28,21 +29,29 @@ export function BaseFoodCard({ recipe, variant, onPress, likeButton }: BaseFoodC
     BASE_INGREDIENT_LIMIT,
   );
   const isBanner = variant === "banner";
-  const [bannerWidth, setBannerWidth] = useState(0);
-  const isBannerLayoutReady = bannerWidth > 0;
-  const maxChipWidth = bannerWidth * BANNER_CHIP_RATIO;
+  const [cardWidth, setCardWidth] = useState(0);
+  const isLayoutReady = cardWidth > 0;
+  const maxChipWidth = cardWidth * BANNER_CHIP_RATIO;
   const bannerChipDisplay = useMemo<BannerChipDisplay>(() => {
-    if (!isBannerLayoutReady) {
+    if (!isLayoutReady) {
       return { visibleLabels: [], totalOverflow: 0, showEnoughChip: false };
     }
     return getBannerChipDisplay(visibleIngredients, overflowCount, maxChipWidth);
-  }, [isBannerLayoutReady, visibleIngredients, overflowCount, maxChipWidth]);
+  }, [isLayoutReady, visibleIngredients, overflowCount, maxChipWidth]);
 
-  const handleBannerLayout = (event: LayoutChangeEvent) => {
-    if (!isBanner) {
-      return;
+  const defaultChipDisplay = useMemo<BannerChipDisplay>(() => {
+    if (!isLayoutReady) {
+      return { visibleLabels: [], totalOverflow: 0, showEnoughChip: false };
     }
-    setBannerWidth(event.nativeEvent.layout.width);
+    return getBannerChipDisplay(
+      visibleIngredients,
+      overflowCount,
+      cardWidth - DEFAULT_CHIP_CONTAINER_INSET,
+    );
+  }, [isLayoutReady, visibleIngredients, overflowCount, cardWidth]);
+
+  const handleLayout = (event: LayoutChangeEvent) => {
+    setCardWidth(event.nativeEvent.layout.width);
   };
 
   const imageHeightClassName = isBanner ? "h-64" : "h-40";
@@ -54,22 +63,22 @@ export function BaseFoodCard({ recipe, variant, onPress, likeButton }: BaseFoodC
     <BannerCardContent
       recipe={recipe}
       chipDisplay={bannerChipDisplay}
-      chipsVisible={isBannerLayoutReady}
+      chipsVisible={isLayoutReady}
     />
-  ) : (
+  ) : isLayoutReady ? (
     <DefaultCardContent
       section="overlay"
-      labels={visibleIngredients}
-      overflowCount={overflowCount}
+      labels={defaultChipDisplay.visibleLabels}
+      overflowCount={defaultChipDisplay.totalOverflow}
     />
-  );
+  ) : null;
   const variantBottomContent = isBanner ? null : (
     <DefaultCardContent section="bottom" recipe={recipe} />
   );
 
   return (
     <Pressable className="overflow-hidden rounded-hero bg-surface-card shadow-sm" onPress={onPress}>
-      <View className={imageHeightClassName} onLayout={handleBannerLayout}>
+      <View className={imageHeightClassName} onLayout={handleLayout}>
         <Image source={{ uri: recipe.thumbnail }} className="h-full w-full" resizeMode="cover" />
         {bannerOverlay}
 

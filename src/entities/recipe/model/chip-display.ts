@@ -23,7 +23,7 @@ export function getVisibleMissingIngredients(
 }
 
 function getEstimatedChipWidth(label: string) {
-  const textWidth = label.length * 10;
+  const textWidth = label.length * 14; // 한글 기준 약 14px/글자 (text-sm)
   return textWidth + CHIP_HORIZONTAL_PADDING;
 }
 
