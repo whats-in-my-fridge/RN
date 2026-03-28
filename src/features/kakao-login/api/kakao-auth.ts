@@ -36,13 +36,11 @@ export async function kakaoLogin(): Promise<KakaoLoginResponse> {
     }
 
     // 2. Exchange with backend
-    const data = await apiPost<{ message: string; result: KakaoLoginResponse }>(
-      "/auth/login/kakao",
-      {
-        accessToken: result.accessToken,
-      },
-    );
-    return data.result;
+    const data = await apiPost<KakaoLoginResponse>("/auth/login/kakao", {
+      accessToken: result.accessToken,
+    });
+
+    return data;
   } catch (error) {
     // 카카오 세션 정리 후 사용자 친화적인 에러로 재throw
     await logout().catch(() => {});
