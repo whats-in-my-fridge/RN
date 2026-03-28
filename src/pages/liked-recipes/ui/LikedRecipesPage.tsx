@@ -1,5 +1,6 @@
 import { router } from "expo-router";
-import { ActivityIndicator, SafeAreaView, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import type { RecipeCardData } from "@/entities/recipe";
 import { useScraps } from "@/features/liked-recipes";
@@ -15,7 +16,7 @@ export function LikedRecipesPage() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-surface-app">
+    <SafeAreaView className="flex-1 bg-surface-app" edges={["top"]}>
       {/* 헤더 */}
       <View className="flex-row items-center px-screen py-4">
         <BackButton onPress={() => router.back()} variant="light" />
@@ -30,7 +31,7 @@ export function LikedRecipesPage() {
       {/* 레시피 그리드 */}
       <ScrollView
         className="flex-1"
-        contentContainerClassName="px-screen pb-10"
+        contentContainerStyle={{ paddingHorizontal: tokens.spacing.screen, paddingBottom: 40 }}
         showsVerticalScrollIndicator={false}
       >
         {isLoading ? (
