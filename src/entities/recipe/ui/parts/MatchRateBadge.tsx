@@ -3,7 +3,6 @@
 import { Text, View } from "react-native";
 
 const HIGH_MATCH_THRESHOLD = 80;
-const MID_MATCH_THRESHOLD = 50;
 
 interface MatchRateBadgeProps {
   matchRate?: number;
@@ -11,7 +10,6 @@ interface MatchRateBadgeProps {
 
 function getMatchRateStyle(rate: number): string {
   if (rate >= HIGH_MATCH_THRESHOLD) return "bg-status-fresh";
-  if (rate >= MID_MATCH_THRESHOLD) return "bg-status-soon";
   return "bg-black/70";
 }
 

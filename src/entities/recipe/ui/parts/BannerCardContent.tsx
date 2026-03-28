@@ -33,7 +33,6 @@ export function BannerCardContent({
         <IngredientChipsRow
           labels={chipDisplay.visibleLabels}
           overflowCount={chipDisplay.totalOverflow}
-          showEnoughChip={chipDisplay.showEnoughChip}
           variant="banner"
         />
       </View>
