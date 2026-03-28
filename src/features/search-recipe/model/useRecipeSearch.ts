@@ -83,10 +83,6 @@ export function useRecipeSearch() {
     addFridgeIngredientTags,
     fridgeRecipes: fridgeQuery.data ?? [],
     missingRecipes: missingQuery.data ?? [],
-    // NOTE: 현재 백엔드 냉장고 DB가 비어있어 missingIngredients에 전체 재료가 포함됨.
-    // 때문에 매퍼(toRecipeCardData)의 matched 로직이 동작하지 않아 검색 태그 기준으로 재정렬.
-    // TODO: taegeon2 냉장고 API 연동 후 실제 fridge 데이터가 반영되면
-    //       매퍼의 matched/missing 분리가 정상 동작하므로 이 정렬 로직 검증 필요.
     searchResults: (searchQuery.data ?? []).map((recipe) => {
       const includeSet = new Set(includeTags.map((t) => t.label));
       const allIngredients = recipe.allIngredients ?? [];

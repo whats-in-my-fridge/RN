@@ -13,16 +13,16 @@ export function RecipeIngredients({ owned, missing }: RecipeIngredientsProps) {
     <View>
       <Text className="text-lg font-bold text-content-primary">재료</Text>
 
-      {/* 보유 재료 */}
+      {/* 필요한 재료 */}
       <View className="mt-3">
         <Text className="text-sm font-semibold text-status-fresh">
-          ✓ 보유 재료 ({owned.length})
+          ✓ 필요한 재료 ({owned.length})
         </Text>
         <View className="mt-2 flex-row flex-wrap gap-2">
           {owned.map((ing) => (
             <View
               key={`${ing.name}-${ing.amount ?? ""}`}
-              className="rounded-tag border border-status-fresh-border bg-status-fresh-bg px-3 py-1"
+              className="rounded-tag bg-status-fresh-bg px-3 py-1"
             >
               <Text className="text-xs text-status-fresh">
                 {ing.name}

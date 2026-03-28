@@ -16,14 +16,15 @@ export function getVisibleMissingIngredients(
   recipe: RecipeCardData,
   limit = BASE_INGREDIENT_LIMIT,
 ) {
-  const visibleIngredients = recipe.missingIngredients.slice(0, limit);
-  const overflowCount = Math.max(recipe.missingIngredients.length - limit, 0);
+  const uniqueIngredients = [...new Set(recipe.allIngredients ?? [])];
+  const visibleIngredients = uniqueIngredients.slice(0, limit);
+  const overflowCount = Math.max(uniqueIngredients.length - limit, 0);
 
   return { visibleIngredients, overflowCount };
 }
 
 function getEstimatedChipWidth(label: string) {
-  const textWidth = label.length * 10;
+  const textWidth = label.length * 14; // 한글 기준 약 14px/글자 (text-sm)
   return textWidth + CHIP_HORIZONTAL_PADDING;
 }
 

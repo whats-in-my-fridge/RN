@@ -1,4 +1,5 @@
 // Shared metadata row for recipe cards (time and difficulty with icons).
+// Hidden entirely when both cookTime and difficulty are absent.
 import { Text, View } from "react-native";
 
 import { tokens } from "@/shared/config/tokens";
