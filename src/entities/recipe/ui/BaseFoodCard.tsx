@@ -78,7 +78,7 @@ export function BaseFoodCard({ recipe, variant, onPress, likeButton }: BaseFoodC
   return (
     <Pressable className="overflow-hidden rounded-hero bg-surface-card shadow-sm" onPress={onPress}>
       <View className={imageHeightClassName} onLayout={handleLayout}>
-        <Image source={{ uri: recipe.thumbnail }} className="h-full w-full" resizeMode="cover" />
+        <Image source={{ uri: recipe.mainImage }} className="h-full w-full" resizeMode="cover" />
         {bannerOverlay}
 
         {recipe.matchRate !== undefined && recipe.matchRate > 0 && (

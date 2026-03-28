@@ -16,7 +16,7 @@ function getMatchRateStyle(rate: number): string {
 }
 
 export function MatchRateBadge({ matchRate }: MatchRateBadgeProps) {
-  if (matchRate === 0) return null;
+  if (!matchRate) return null;
 
   return (
     <View className={`rounded-full ${getMatchRateStyle(matchRate)} px-2.5 py-1`}>

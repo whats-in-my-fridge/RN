@@ -15,8 +15,6 @@ const DEFAULT_COOK_TIME = "60분 이내";
 const DEFAULT_DIFFICULTY = "아무나";
 
 export function RecipeMetaRow({ cookTime, difficulty, variant }: RecipeMetaRowProps) {
-  if (!cookTime && !difficulty) return null;
-
   const isBanner = variant === "banner";
   const iconColor = isBanner ? tokens.color.white : tokens.color["content-secondary"];
   const textClassName = isBanner ? "text-white" : "text-content-secondary";
@@ -24,20 +22,15 @@ export function RecipeMetaRow({ cookTime, difficulty, variant }: RecipeMetaRowPr
   const safeDifficulty = difficulty || DEFAULT_DIFFICULTY;
 
   return (
-    <View className="mt-1 flex-row items-center gap-1">
-      {cookTime ? (
-        <View className="flex-row items-center gap-1">
-          <IconSymbol name="clock" size={14} color={iconColor} />
-          <Text className={`text-sm font-medium ${textClassName}`}>{cookTime}</Text>
-        </View>
-      ) : null}
-      {cookTime && difficulty ? <Text className={`text-sm ${textClassName}`}> · </Text> : null}
-      {difficulty ? (
-        <View className="flex-row items-center gap-1">
-          <IconSymbol name="flame" size={14} color={iconColor} />
-          <Text className={`text-sm font-medium ${textClassName}`}>{difficulty}</Text>
-        </View>
-      ) : null}
+    <View className="mt-1 flex-row items-center gap-3">
+      <View className="flex-row items-center gap-1">
+        <IconSymbol name="clock" size={14} color={iconColor} />
+        <Text className={`text-sm font-medium ${textClassName}`}>{safeCookTime}</Text>
+      </View>
+      <View className="flex-row items-center gap-1">
+        <IconSymbol name="person.2" size={14} color={iconColor} />
+        <Text className={`text-sm font-medium ${textClassName}`}>{safeDifficulty}</Text>
+      </View>
     </View>
   );
 }
