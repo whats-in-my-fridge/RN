@@ -36,12 +36,19 @@ function toDifficulty(val: string): "쉬움" | "보통" | "어려움" {
 }
 
 export function toRecipe(dto: RecipeInfoDTO): Recipe {
-  const ingredients: Ingredient[] = dto.ingredients.map((ing) => ({
-    name: ing.name,
-    // TODO: 냉장고 재료와 대조해 owned 구분 — 현재는 API에서 제공하지 않아 일괄 true 처리
-    owned: true,
-    amount: ing.amount ?? undefined,
-  }));
+  const seen = new Set<string>();
+  const ingredients: Ingredient[] = dto.ingredients
+    .filter((ing) => {
+      if (seen.has(ing.name)) return false;
+      seen.add(ing.name);
+      return true;
+    })
+    .map((ing) => ({
+      name: ing.name,
+      // TODO: 냉장고 재료와 대조해 owned 구분 — 현재는 API에서 제공하지 않아 일괄 true 처리
+      owned: true,
+      amount: ing.amount ?? undefined,
+    }));
 
   const steps: CookingStep[] = dto.steps.map((step) => ({
     step: step.order,
