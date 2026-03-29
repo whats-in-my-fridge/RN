@@ -7,10 +7,9 @@ import { updateUserPreferences } from "./update-preferences";
 // ─── useAddAllergy ────────────────────────────────────────────────────────────
 
 export function useAddAllergy() {
-  const { allergies, setAllergies, dislikedIngredients } = usePreferencesStore();
-
   return useMutation({
     mutationFn: async (newAllergy: string) => {
+      const { allergies, dislikedIngredients } = usePreferencesStore.getState();
       const trimmed = newAllergy.trim().slice(0, 30);
       if (!trimmed) throw new Error("알레르기명을 입력해주세요");
       if (allergies.includes(trimmed)) throw new Error("이미 등록된 알레르기입니다");
@@ -23,7 +22,7 @@ export function useAddAllergy() {
       return result;
     },
     onSuccess: (result) => {
-      setAllergies(result.allergies);
+      usePreferencesStore.getState().setAllergies(result.allergies);
     },
   });
 }
@@ -31,10 +30,9 @@ export function useAddAllergy() {
 // ─── useRemoveAllergy ─────────────────────────────────────────────────────────
 
 export function useRemoveAllergy() {
-  const { allergies, setAllergies, dislikedIngredients } = usePreferencesStore();
-
   return useMutation({
     mutationFn: async (allergyToRemove: string) => {
+      const { allergies, dislikedIngredients } = usePreferencesStore.getState();
       const updated = allergies.filter((a) => a !== allergyToRemove);
       const result = await updateUserPreferences({
         allergies: updated,
@@ -43,7 +41,7 @@ export function useRemoveAllergy() {
       return result;
     },
     onSuccess: (result) => {
-      setAllergies(result.allergies);
+      usePreferencesStore.getState().setAllergies(result.allergies);
     },
   });
 }
