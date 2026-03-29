@@ -19,9 +19,9 @@ export function RecipeIngredients({ owned, missing }: RecipeIngredientsProps) {
           ✓ 필요한 재료 ({owned.length})
         </Text>
         <View className="mt-2 flex-row flex-wrap gap-2">
-          {owned.map((ing) => (
+          {owned.map((ing, index) => (
             <View
-              key={`${ing.name}-${ing.amount ?? ""}`}
+              key={`${index}-${ing.name}`}
               className="rounded-tag bg-status-fresh-bg px-3 py-1"
             >
               <Text className="text-xs text-status-fresh">
@@ -40,9 +40,9 @@ export function RecipeIngredients({ owned, missing }: RecipeIngredientsProps) {
             ✕ 부족한 재료 ({missing.length})
           </Text>
           <View className="mt-2 flex-row flex-wrap gap-2">
-            {missing.map((ing) => (
+            {missing.map((ing, index) => (
               <View
-                key={`${ing.name}-${ing.amount ?? ""}`}
+                key={`${index}-${ing.name}`}
                 className="rounded-tag border border-status-expiring-border bg-status-expiring-bg px-3 py-1"
               >
                 <Text className="text-xs text-status-expiring">

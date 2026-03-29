@@ -18,8 +18,8 @@ export function IngredientChipsRow({ labels, overflowCount, variant }: Ingredien
 
   return (
     <>
-      {labels.map((label) => (
-        <View key={label} className={chipContainerClassName}>
+      {labels.map((label, index) => (
+        <View key={`${index}-${label}`} className={chipContainerClassName}>
           <Text className="text-sm font-semibold text-content-dark" numberOfLines={1}>
             {label}
           </Text>
