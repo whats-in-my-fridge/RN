@@ -22,10 +22,8 @@ interface IngredientTagInputProps {
 }
 
 const INCLUDE_BG = tokens.color["tag-bg"];
-const INCLUDE_BORDER = tokens.color["tag-border"];
 const INCLUDE_TEXT = tokens.color["tag-text"];
 const EXCLUDE_BG = tokens.color["status-expiring-bg"];
-const EXCLUDE_BORDER = tokens.color["status-expiring-border"];
 const EXCLUDE_TEXT = tokens.color["status-expiring"];
 
 export function IngredientTagInput({
@@ -62,17 +60,12 @@ export function IngredientTagInput({
         {tags.map((tag) => {
           const isExclude = tag.type === "exclude";
           const bg = isExclude ? EXCLUDE_BG : INCLUDE_BG;
-          const border = isExclude ? EXCLUDE_BORDER : INCLUDE_BORDER;
           const color = isExclude ? EXCLUDE_TEXT : INCLUDE_TEXT;
           return (
             <View
               key={tag.id}
               className="flex-row items-center gap-1 rounded-full px-3 py-1"
-              style={
-                isExclude
-                  ? { backgroundColor: bg, borderWidth: 1, borderColor: border }
-                  : { backgroundColor: bg }
-              }
+              style={{ backgroundColor: bg }}
             >
               {isExclude && <Text style={{ fontSize: 12, fontWeight: "700", color }}>−</Text>}
               <Text style={{ fontSize: 13, fontWeight: "500", color }}>{tag.label}</Text>

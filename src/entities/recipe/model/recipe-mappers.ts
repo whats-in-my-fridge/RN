@@ -6,7 +6,8 @@ import type { RecipeCardData } from "./types";
 
 export function toRecipeCardData(dto: RecipeDTO): RecipeCardData {
   const missingSet = new Set(dto.missingIngredients);
-  const _matched = dto.ingredients.map((i) => i.name).filter((name) => !missingSet.has(name));
+  const allNames = dto.ingredients.map((i) => i.name);
+  const matched = allNames.filter((name) => !missingSet.has(name));
 
   return {
     recipeId: dto.recipeId,
@@ -21,6 +22,7 @@ export function toRecipeCardData(dto: RecipeDTO): RecipeCardData {
               100,
           )
         : 0,
+    allIngredients: matched.length > 0 ? matched : allNames,
     missingIngredients: dto.missingIngredients,
     cookTime: dto.cookTime,
     difficulty: dto.difficulty,

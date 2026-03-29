@@ -26,7 +26,6 @@ export function DefaultCardContent({
         <IngredientChipsRow
           labels={safeLabels}
           overflowCount={safeOverflowCount}
-          showEnoughChip={safeLabels.length === 0}
           variant="default"
         />
       </View>

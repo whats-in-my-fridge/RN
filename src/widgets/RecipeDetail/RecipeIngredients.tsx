@@ -20,10 +20,7 @@ export function RecipeIngredients({ owned, missing }: RecipeIngredientsProps) {
         </Text>
         <View className="mt-2 flex-row flex-wrap gap-2">
           {owned.map((ing) => (
-            <View
-              key={`${ing.name}-${ing.amount ?? ""}`}
-              className="rounded-tag bg-status-fresh-bg px-3 py-1"
-            >
+            <View key={ing.name} className="rounded-tag bg-status-fresh-bg px-3 py-1">
               <Text className="text-xs text-status-fresh">
                 {ing.name}
                 {ing.amount ? ` ${ing.amount}` : ""}
@@ -42,7 +39,7 @@ export function RecipeIngredients({ owned, missing }: RecipeIngredientsProps) {
           <View className="mt-2 flex-row flex-wrap gap-2">
             {missing.map((ing) => (
               <View
-                key={`${ing.name}-${ing.amount ?? ""}`}
+                key={ing.name}
                 className="rounded-tag border border-status-expiring-border bg-status-expiring-bg px-3 py-1"
               >
                 <Text className="text-xs text-status-expiring">

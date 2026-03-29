@@ -30,10 +30,15 @@ interface FridgeRecipesRes {
 
 // Mapper: RecipeDTO → RecipeCardData
 export function toRecipeCardData(dto: RecipeDTO): RecipeCardData {
+  const missingSet = new Set(dto.missingIngredients);
+  const allNames = dto.ingredients.map((i) => i.name);
+  const matched = allNames.filter((name) => !missingSet.has(name));
+
   return {
     recipeId: dto.recipeId,
     title: dto.title,
     mainImage: dto.mainImage,
+    allIngredients: matched.length > 0 ? matched : allNames,
     missingIngredients: dto.missingIngredients,
     cookTime: dto.cookTime,
     difficulty: dto.difficulty,
