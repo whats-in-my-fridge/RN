@@ -68,11 +68,7 @@ export function IngredientTagInput({
             <View
               key={tag.id}
               className="flex-row items-center gap-1 rounded-full px-3 py-1"
-              style={
-                isExclude
-                  ? { backgroundColor: bg, borderWidth: 1, borderColor: border }
-                  : { backgroundColor: bg }
-              }
+              style={{ backgroundColor: bg }}
             >
               {isExclude && <Text style={{ fontSize: 12, fontWeight: "700", color }}>−</Text>}
               <Text style={{ fontSize: 13, fontWeight: "500", color }}>{tag.label}</Text>
