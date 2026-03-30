@@ -1,7 +1,9 @@
 // Scrap-based recommended recipes section — displays remaining 4 recipes as recipe list.
 
+import { router } from "expo-router";
 import { Text, View } from "react-native";
 
+import type { RecipeCardData } from "@/entities/recipe";
 import { RecipeList } from "@/widgets/RecipeList";
 import { useScrapRecommendedRecipes } from "../model/use-scrap-recommended-recipes";
 
@@ -19,5 +21,9 @@ export function ScrapRecommendedSection() {
   // 나머지 4개 (첫 번째 제외)
   const remainingRecipes = recipes.slice(1, 5);
 
-  return <RecipeList recipes={remainingRecipes} />;
+  const handlePressRecipe = (recipe: RecipeCardData) => {
+    router.push(`/(protected)/recipe/${recipe.recipeId}`);
+  };
+
+  return <RecipeList recipes={remainingRecipes} onPressRecipe={handlePressRecipe} />;
 }

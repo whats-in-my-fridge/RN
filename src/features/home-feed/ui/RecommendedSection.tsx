@@ -1,5 +1,7 @@
 // Recommended recipes section with direct data fetching (Suspense-ready).
+import { router } from "expo-router";
 import { Text, View } from "react-native";
+import type { RecipeCardData } from "@/entities/recipe";
 import { RecipeList } from "@/widgets/RecipeList";
 import { useRecommendedRecipes } from "../model/use-recommended-recipes";
 
@@ -14,5 +16,9 @@ export function RecommendedSection() {
     );
   }
 
-  return <RecipeList recipes={recommendedRecipes} />;
+  const handlePressRecipe = (recipe: RecipeCardData) => {
+    router.push(`/(protected)/recipe/${recipe.recipeId}`);
+  };
+
+  return <RecipeList recipes={recommendedRecipes} onPressRecipe={handlePressRecipe} />;
 }

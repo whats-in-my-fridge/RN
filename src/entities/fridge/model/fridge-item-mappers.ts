@@ -46,23 +46,24 @@ const SHELF_ORDER: ShelfType[] = [
 /**
  * FridgeItem 배열을 ShelfType 기준으로 그룹핑한 Record.
  * 항상 5개 ShelfType 키를 모두 포함하며, 아이템 없는 섹션은 items: []
+ * 같은 이름의 재료는 중복 제거하여 첫 번째 항목만 표시한다.
  */
 export function groupItemsToSections(items: FridgeItem[]): Record<ShelfType, FridgeSection> {
-  const grouped = new Map<ShelfType, FridgeItem[]>();
+  const grouped = new Map<ShelfType, Map<string, FridgeItem>>();
 
   for (const item of items) {
-    const existing = grouped.get(item.shelfType);
-    if (existing) {
-      existing.push(item);
-    } else {
-      grouped.set(item.shelfType, [item]);
+    const section = grouped.get(item.shelfType) || new Map<string, FridgeItem>();
+    // name 기준으로 중복 체크 — 첫 번째만 유지
+    if (!section.has(item.name)) {
+      section.set(item.name, item);
     }
+    grouped.set(item.shelfType, section);
   }
 
   return Object.fromEntries(
     SHELF_ORDER.map((type) => [
       type,
-      { type, ...SHELF_METADATA[type], items: grouped.get(type) ?? [] },
+      { type, ...SHELF_METADATA[type], items: Array.from(grouped.get(type)?.values() ?? []) },
     ]),
   ) as Record<ShelfType, FridgeSection>;
 }
