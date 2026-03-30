@@ -4,6 +4,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import type { RecipeCardData } from "@/entities/recipe";
 import { toRecipeCardData } from "@/entities/recipe";
 import type { IngredientTag } from "@/shared/ui/IngredientTagInput";
 import { getFridgeIngredients } from "../api/get-fridge-ingredients";
@@ -17,7 +18,22 @@ export const MISSING_RECIPES_QUERY_KEY = ["recipes", "fridge", "missing"] as con
 export const SEARCH_RECIPES_QUERY_KEY = (keyword: string, excludeIngredients: string[]) =>
   ["recipes", "search", keyword, excludeIngredients] as const;
 
-export function useRecipeSearch() {
+// 제외 재료 목록을 기준으로 부분 문자열 매칭 필터링 (백엔드 exact match 보완)
+// allIngredients(보유)와 missingIngredients(미보유) 전체 대상으로 체크
+// TODO: 백엔드 excludeIngredients가 부분 문자열 매칭을 지원하면 이 함수와 호출부 제거
+function filterByExcluded(recipes: RecipeCardData[], excludeList: string[]): RecipeCardData[] {
+  if (excludeList.length === 0) return recipes;
+  return recipes.filter((recipe) => {
+    const all = [...(recipe.allIngredients ?? []), ...(recipe.missingIngredients ?? [])];
+    return !excludeList.some((excl) => all.some((ing) => ing.includes(excl)));
+  });
+}
+
+export function useRecipeSearch({
+  externalExcludeIngredients = [],
+}: {
+  externalExcludeIngredients?: string[];
+} = {}) {
   const [tags, setTags] = useState<IngredientTag[]>([]);
 
   const includeTags = tags.filter((t) => t.type === "include");
@@ -26,6 +42,7 @@ export function useRecipeSearch() {
 
   const keyword = includeTags.map((t) => t.label).join(",");
   const excludeIngredients = excludeTags.map((t) => t.label);
+  const allExcludeIngredients = [...excludeIngredients, ...externalExcludeIngredients];
 
   function addTag(tag: IngredientTag) {
     setTags((prev) =>
@@ -81,31 +98,19 @@ export function useRecipeSearch() {
     fridgeIngredients: fridgeIngredientsQuery.data ?? [],
     isFridgeIngredientsLoading: fridgeIngredientsQuery.isLoading,
     addFridgeIngredientTags,
-    fridgeRecipes: fridgeQuery.data ?? [],
-    missingRecipes: missingQuery.data ?? [],
-    searchResults: (searchQuery.data ?? [])
-      .filter((recipe) => {
-        if (excludeIngredients.length === 0) return true;
-        const allIngredients = recipe.allIngredients ?? [];
-        // 백엔드 exact match 보완: 제외 재료가 부분 문자열로 포함된 레시피 클라이언트 사이드 필터링
-        // allIngredients(보유 재료)와 missingIngredients(미보유 재료) 모두 체크해야 전체 재료 커버
-        const missingIngredients = recipe.missingIngredients ?? [];
-        const allRecipeIngredients = [...allIngredients, ...missingIngredients];
-        return !excludeIngredients.some((excl) =>
-          allRecipeIngredients.some((ing) => ing.includes(excl)),
-        );
-      })
-      .map((recipe) => {
-        const includeSet = new Set(includeTags.map((t) => t.label));
-        const allIngredients = recipe.allIngredients ?? [];
-        return {
-          ...recipe,
-          allIngredients: [
-            ...allIngredients.filter((i) => includeSet.has(i)),
-            ...allIngredients.filter((i) => !includeSet.has(i)),
-          ],
-        };
-      }),
+    fridgeRecipes: filterByExcluded(fridgeQuery.data ?? [], allExcludeIngredients),
+    missingRecipes: filterByExcluded(missingQuery.data ?? [], allExcludeIngredients),
+    searchResults: filterByExcluded(searchQuery.data ?? [], allExcludeIngredients).map((recipe) => {
+      const includeSet = new Set(includeTags.map((t) => t.label));
+      const allIngredients = recipe.allIngredients ?? [];
+      return {
+        ...recipe,
+        allIngredients: [
+          ...allIngredients.filter((i) => includeSet.has(i)),
+          ...allIngredients.filter((i) => !includeSet.has(i)),
+        ],
+      };
+    }),
     isLoading: hasActiveTags
       ? searchQuery.isLoading
       : fridgeQuery.isLoading || missingQuery.isLoading,
