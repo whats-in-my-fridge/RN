@@ -1,12 +1,11 @@
 // Best matching recipe section — displays first recipe from scrap recommendations as banner.
 
+import { router } from "expo-router";
 import { Text, View } from "react-native";
 
 import { BannerFoodCard } from "@/entities/recipe";
 import { RecipeLikedButton } from "@/features/recipe-liked-button";
 import { useScrapRecommendedRecipes } from "../model/use-scrap-recommended-recipes";
-
-const ALERT_STUB = () => alert("준비중입니다");
 
 export function BestMatchingSection() {
   const recipes = useScrapRecommendedRecipes();
@@ -23,7 +22,7 @@ export function BestMatchingSection() {
   return (
     <BannerFoodCard
       recipe={bestRecipe}
-      onPress={ALERT_STUB}
+      onPress={() => router.push(`/(protected)/recipe/${bestRecipe.recipeId}`)}
       likeButton={
         <RecipeLikedButton recipeId={bestRecipe.recipeId} initialLiked={bestRecipe.isLiked} />
       }
