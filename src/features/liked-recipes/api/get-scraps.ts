@@ -26,8 +26,8 @@ export async function getScraps(): Promise<RecipeCardData[]> {
     matchRate: 0,
     allIngredients: [],
     missingIngredients: [],
-    cookTime: "0분",
-    difficulty: "정보없음",
+    cookTime: undefined,
+    difficulty: undefined,
     isLiked: true,
   }));
 }
