@@ -7,6 +7,7 @@ import { useRouter } from "expo-router";
 import { ActivityIndicator, Pressable, ScrollView, Text, View } from "react-native";
 
 import { useRecipeSearch } from "@/features/search-recipe";
+import { usePreferencesStore } from "@/features/user-preferences";
 import { tokens } from "@/shared/config/tokens";
 import { IngredientTagInput } from "@/shared/ui/IngredientTagInput";
 import { IconSymbol } from "@/shared/ui/icon-symbol";
@@ -15,6 +16,7 @@ import { OthersSection, RecommendedSection } from "@/widgets/RecipeSearch";
 
 export function SearchPage() {
   const router = useRouter();
+  const { allergies } = usePreferencesStore();
   const {
     tags,
     addTag,
@@ -29,7 +31,7 @@ export function SearchPage() {
     searchResults,
     isLoading,
     isError,
-  } = useRecipeSearch();
+  } = useRecipeSearch({ externalExcludeIngredients: allergies });
 
   const handlePressRecipe = (recipe: { recipeId: number }) =>
     router.push(`/recipe/${recipe.recipeId}`);
