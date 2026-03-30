@@ -22,12 +22,12 @@ export async function getScraps(): Promise<RecipeCardData[]> {
     recipeId: scrap.recipeId,
     title: scrap.title,
     mainImage: scrap.thumbnailUrl,
-    category: "카테고리",
+    category: undefined,
     matchRate: 0,
     allIngredients: [],
     missingIngredients: [],
-    cookTime: "0분",
-    difficulty: "정보없음",
+    cookTime: undefined,
+    difficulty: undefined,
     isLiked: true,
   }));
 }
