@@ -95,7 +95,9 @@ export function useRecipeSearch({
     removeTag,
     clearTags,
     hasActiveTags,
-    fridgeIngredients: fridgeIngredientsQuery.data ?? [],
+    fridgeIngredients: [
+      ...new Map((fridgeIngredientsQuery.data ?? []).map((i) => [i.name, i])).values(),
+    ],
     isFridgeIngredientsLoading: fridgeIngredientsQuery.isLoading,
     addFridgeIngredientTags,
     fridgeRecipes: filterByExcluded(fridgeQuery.data ?? [], allExcludeIngredients),
