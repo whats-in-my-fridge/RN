@@ -63,9 +63,12 @@ export function useRecipeSearch({
     queryFn: getFridgeIngredients,
   });
 
+  const uniqueFridgeIngredients = [
+    ...new Map((fridgeIngredientsQuery.data ?? []).map((i) => [i.name, i])).values(),
+  ];
+
   function addFridgeIngredientTags() {
-    const items = fridgeIngredientsQuery.data ?? [];
-    for (const item of items) {
+    for (const item of uniqueFridgeIngredients) {
       addTag({ id: `fridge-${item.id}`, label: item.name, type: "include" });
     }
   }
@@ -95,9 +98,7 @@ export function useRecipeSearch({
     removeTag,
     clearTags,
     hasActiveTags,
-    fridgeIngredients: [
-      ...new Map((fridgeIngredientsQuery.data ?? []).map((i) => [i.name, i])).values(),
-    ],
+    fridgeIngredients: uniqueFridgeIngredients,
     isFridgeIngredientsLoading: fridgeIngredientsQuery.isLoading,
     addFridgeIngredientTags,
     fridgeRecipes: filterByExcluded(fridgeQuery.data ?? [], allExcludeIngredients),
