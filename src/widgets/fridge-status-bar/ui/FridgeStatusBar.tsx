@@ -13,6 +13,7 @@ export function FridgeStatusBar() {
 
   const scrapsCount = scraps.length;
   const allergiesCount = userProfile?.allergies.length ?? 0;
+  const uniqueItemsCount = new Set(items.map((i) => i.name)).size;
 
   const STATUS_ITEMS = [
     { label: "찜레시피", value: `${scrapsCount}개` },
@@ -20,7 +21,7 @@ export function FridgeStatusBar() {
   ];
 
   const STATUS_ITEMS_WITH_TOTAL = [
-    { label: "총 재료", value: `${items.length}개` },
+    { label: "총 재료", value: `${uniqueItemsCount}개` },
     ...STATUS_ITEMS,
   ];
 
