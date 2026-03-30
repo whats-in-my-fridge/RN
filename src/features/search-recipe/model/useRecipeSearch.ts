@@ -83,17 +83,29 @@ export function useRecipeSearch() {
     addFridgeIngredientTags,
     fridgeRecipes: fridgeQuery.data ?? [],
     missingRecipes: missingQuery.data ?? [],
-    searchResults: (searchQuery.data ?? []).map((recipe) => {
-      const includeSet = new Set(includeTags.map((t) => t.label));
-      const allIngredients = recipe.allIngredients ?? [];
-      return {
-        ...recipe,
-        allIngredients: [
-          ...allIngredients.filter((i) => includeSet.has(i)),
-          ...allIngredients.filter((i) => !includeSet.has(i)),
-        ],
-      };
-    }),
+    searchResults: (searchQuery.data ?? [])
+      .filter((recipe) => {
+        if (excludeIngredients.length === 0) return true;
+        const allIngredients = recipe.allIngredients ?? [];
+        // 백엔드 exact match 보완: 제외 재료가 부분 문자열로 포함된 레시피 클라이언트 사이드 필터링
+        // allIngredients(보유 재료)와 missingIngredients(미보유 재료) 모두 체크해야 전체 재료 커버
+        const missingIngredients = recipe.missingIngredients ?? [];
+        const allRecipeIngredients = [...allIngredients, ...missingIngredients];
+        return !excludeIngredients.some((excl) =>
+          allRecipeIngredients.some((ing) => ing.includes(excl)),
+        );
+      })
+      .map((recipe) => {
+        const includeSet = new Set(includeTags.map((t) => t.label));
+        const allIngredients = recipe.allIngredients ?? [];
+        return {
+          ...recipe,
+          allIngredients: [
+            ...allIngredients.filter((i) => includeSet.has(i)),
+            ...allIngredients.filter((i) => !includeSet.has(i)),
+          ],
+        };
+      }),
     isLoading: hasActiveTags
       ? searchQuery.isLoading
       : fridgeQuery.isLoading || missingQuery.isLoading,

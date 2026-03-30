@@ -7,6 +7,7 @@ import { useRouter } from "expo-router";
 import { ActivityIndicator, Pressable, ScrollView, Text, View } from "react-native";
 
 import { useRecipeSearch } from "@/features/search-recipe";
+import { usePreferencesStore } from "@/features/user-preferences";
 import { tokens } from "@/shared/config/tokens";
 import { IngredientTagInput } from "@/shared/ui/IngredientTagInput";
 import { IconSymbol } from "@/shared/ui/icon-symbol";
@@ -30,6 +31,14 @@ export function SearchPage() {
     isLoading,
     isError,
   } = useRecipeSearch();
+  const { allergies } = usePreferencesStore();
+
+  // 알레르기 등록 재료를 부분 문자열로 포함한 레시피 자동 제외
+  const allergyFilteredResults = searchResults.filter((recipe) => {
+    if (allergies.length === 0) return true;
+    const all = [...(recipe.allIngredients ?? []), ...recipe.missingIngredients];
+    return !allergies.some((allergy) => all.some((ing) => ing.includes(allergy)));
+  });
 
   const handlePressRecipe = (recipe: { recipeId: number }) =>
     router.push(`/recipe/${recipe.recipeId}`);
@@ -94,12 +103,12 @@ export function SearchPage() {
           {/* 태그 검색 중: 결과 카운트 */}
           {hasActiveTags && (
             <Text className="mb-2 mt-4 text-xs text-content-secondary">
-              검색 결과 {searchResults.length}개
+              검색 결과 {allergyFilteredResults.length}개
             </Text>
           )}
 
           {/* 검색 결과 없음 */}
-          {hasActiveTags && searchResults.length === 0 && (
+          {hasActiveTags && allergyFilteredResults.length === 0 && (
             <View className="mt-20 items-center gap-3">
               <View className="h-14 w-14 items-center justify-center rounded-2xl bg-surface-section">
                 <IconSymbol
@@ -113,9 +122,9 @@ export function SearchPage() {
           )}
 
           {/* 태그 검색 결과 */}
-          {hasActiveTags && searchResults.length > 0 && (
+          {hasActiveTags && allergyFilteredResults.length > 0 && (
             <View className="mt-4">
-              <RecipeList recipes={searchResults} onPressRecipe={handlePressRecipe} />
+              <RecipeList recipes={allergyFilteredResults} onPressRecipe={handlePressRecipe} />
             </View>
           )}
 
